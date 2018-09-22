@@ -1,0 +1,287 @@
+body {
+    background-color:#121929;
+    color:#8597b9;
+}
+a {
+    color:#8597b9;
+}
+a:hover, body a:focus {
+    color: #62748F;
+}
+h1, h2, h3, h4, h5, h6 {
+    color:#8597b9;
+}
+#page-wrapper {
+  background-color:#121929;
+}
+
+/*-------Common Style--------*/
+h3.text-themecolor {
+    color:#2ca01c;
+}
+li.breadcrumb-item a {
+    color:#2ca01c;
+}
+.sidebar-nav.navbar-collapse .nav > li > a:hover i.fa, .sidebar-nav.navbar-collapse .nav > li > a:focus i.fa {
+    color:#2ca01c !important;
+}
+.table-wrapper .pagination li.active a, .table-wrapper .pagination li.active a.page-link {
+    background: #03A9F4;
+}
+button.btn.btn-primary.nextBtn.btn-lg.pull-right {
+    background: #2ca01c;
+    border-color: #2ca01c;
+}
+.stepwizard a.btn.circle-button.active-wizard {
+    background: #2ca01c;
+    border-color: #2ca01c;
+}
+.stepwizard .circle-button:hover, .stepwizard .circle-button:focus {
+    background: #2ca01c;
+    border-color: #2ca01c;
+}
+button.theme-btn, a.theme-btn, button.theme-btn:hover, button.theme-btn:focus, a.theme-btn:hover, a.theme-btn:focus{
+    background: #2ca01c;
+    border-color: #2ca01c;
+	color:#ffffff;
+}
+/*-------------Default Color Option--------------*/
+body .theme-bg{
+	background:#2ca01c !important;
+}
+body .theme-color{
+	color:#2ca01c !important;
+}
+body .hover-theme-bg:hover, body .theme-bg:focus{
+	background:#2ca01c !important;
+}
+body .hover-theme-color:hover, body .theme-color:focus{
+	color:#2ca01c !important;
+}
+body .navbar-default.sidebar.left-side-bg{
+	background:#ffffff;
+}
+body .card-bg{
+	background:#ffffff;
+	border-color:#e8eef1;
+}
+
+body .sidebar-nav.navbar-collapse .nav > li.active > a {
+    background:#1b2538;
+    border-left: 3px solid #2ca01c;
+    color: #2ca01c;
+}
+body .sidebar-nav.navbar-collapse .nav > li > a:hover, body .sidebar-nav.navbar-collapse .nav > li > a:focus {
+    background:#1b2538;
+    border-left: 3px solid #2ca01c;
+    color: #2ca01c;
+}
+
+body .navbar-top-links li ul li.external {
+    background:#121929;
+}
+body .dropdown-menu>li>a {
+    color:#8597b9;
+    border-bottom: 1px solid #293750;
+}
+
+body .open>.dropdown-toggle.btn-default {
+    color:#99abb4;
+}
+body .navbar-top-links a.dropdown-toggle, body .navbar-top-links a.dropdown-toggle:hover, body .navbar-top-links a.dropdown-toggle:focus {
+    color:#61869c;
+}
+body .sidebar-nav.navbar-collapse .nav > li > a {
+    background:#1e293d;
+    border-left: 3px solid #2c3552;
+    color:#61869c;
+}
+
+body .dropdown-menu>li>a:focus, body .dropdown-menu>li>a:hover {
+    color:#8597b9;
+    background-color:#293750;
+}
+body .footer-bg{
+	background: #ffffff;
+	border-top: 1px solid #e8eef1;
+}
+body .footer-cl{
+	color:#2ca01c;
+}
+.navbar-header {
+    background:#2ca01c;
+	border-bottom:1px solid #2ca01c;
+}
+.navbar-default .navbar-brand {
+    color: #ffffff;
+}
+
+/*-----services------*/
+.service-box:after{
+    border-bottom: 1px solid #2ca01c;
+    border-top: 1px solid #2ca01c;
+}
+.service-box:before{
+    border-left: 1px solid #2ca01c;
+    border-right: 1px solid #2ca01c;
+}
+.service-box .service-content h3 a:hover{
+    color:#636363;
+}
+.service-box .read a:hover,
+.service-box:hover .service-icon i{
+    color:#2ca01c;
+    border-color: #181818;
+}
+.service-box:hover .service-icon i, .service-box:hover .service-content h3 a {
+color:#2ca01c;
+}
+/*------Team Style-------*/
+.my-team .team-prof a:hover{
+    color:#2ca01c;
+}
+.my-team .team-prof small{
+    color:#2ca01c;
+}
+.my-team .social-link li a{
+    background:#2ca01c;
+}
+.my-team .social-link li a:hover{
+    background:#455a64;
+}
+/*---------Tab color--------*/
+.tab .nav-tabs li.active a,
+.tab .nav-tabs li.active a:hover{
+    border-top: 3px solid #2ca01c;
+}
+.bread-tab .nav-tabs li.active a:before{
+    border-left: 17px solid #2ca01c;
+}
+.bread-tab .nav-tabs li.active > a,
+.bread-tab .nav-tabs > li.active > a:focus,
+.bread-tab .nav-tabs > li.active > a:hover {
+    background:#2ca01c;
+}
+.simple-tab li.active{
+    border-top: 3px solid #2ca01c;
+}
+.simple-tab li.active a, .simple-tab li.active a:hover, .simple-tab li.active a:focus {
+    background: #2ca01c;
+}
+.simple-tab li a:hover{
+    background:#2ca01c;
+	border-right:1px solid #2ca01c;
+}
+.advance-tab .nav-tabs > li.active > a,
+.advance-tab .nav-tabs > li.active > a:focus,
+.advance-tab .nav-tabs > li.active > a:hover{
+    background:#2ca01c;
+}
+.advance-tab .nav-tabs li.active:after {
+    border-top-color:#2ca01c ;
+}
+.advance-tab .tab-content{
+    border: 1px solid #e8edef;
+    border-top:3px solid #2ca01c;
+}
+/*-------Accordion-------*/
+#accordion .panel-title a{
+    color:#2ca01c;
+    border-left: 3px solid #2ca01c;
+}
+#accordion .panel-title a.collapsed{
+    color:#2ca01c;
+}
+#accordion .panel-title a:before,
+#accordion .panel-title a.collapsed:before{
+    color:#2ca01c;
+}
+#accordion .panel-title a:hover,
+#accordion .panel-title a.collapsed:hover,
+#accordion .panel-title a:before,
+#accordion .panel-title a:hover:before{
+    color:#2ca01c;
+}
+#simple-accordion .panel-heading > .panel-title > a{
+    background:#2ca01c;
+}
+#simple-accordion .panel-title > a.collapsed:hover{
+    color:#2ca01c;
+}
+#advance-accordion .panel-title a:before,
+#advance-accordion .panel-title a.collapsed:before{
+    background:#2ca01c;
+}
+#advance-accordion .panel-title a.collapsed:before {
+    background: #fff;
+}
+#simple-accordion .panel-title > a.collapsed {
+    background: transparent;
+    color: #3b4556;
+}
+#excellent-accordion .panel-title a{
+    background:#2ca01c;
+}
+
+/*---ecommerce---*/
+.card.hover-product .btn.btn-pro {
+    border: 1px solid #2ca01c;
+    color:#2ca01c;
+}
+.card.hover-product .btn.btn-pro:hover, .card.hover-product .btn.btn-pro:focus{
+background:#2ca01c;
+}
+
+/*----Price Table------*/
+.first-style.price-table:hover .price-value {
+    background: #2ca01c;
+}
+.first-style.price-table:hover .price-value{
+    background:#2ca01c;
+}
+.first-style.price-table:hover .price-value:before{
+    border-color: transparent #229212 #229212 transparent;
+}
+.first-style.price-table:hover .price-value:after{
+    border-color: transparent transparent #229212 #229212;
+}
+.first-style.price-table:hover .price-table-signup{
+    background:#2ca01c;
+}
+.advance-pr-table.pricing-table .pricing-table-signup:hover{
+    border:1px solid #2ca01c;
+	background:#2ca01c;
+}
+.active-pr-table.advance-pr-table.pricing-table .heading:after{
+    border-color:#2ca01c rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+.active-pr-table.advance-pr-table.pricing-table .pricing-table-header{
+    background:#2ca01c;
+}
+.active-pr-table.advance-pr-table.pricing-table .pricing-table-header:before{
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #2ca01c;
+}
+.active-pr-table.advance-pr-table.pricing-table .pricing-table-header:after{
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #2ca01c;
+}
+.active-pr.style-two.pricing-table .pricing-table-header > .price-value{
+background:#2ca01c;
+box-shadow: 0 0 0 2px #2ca01c;
+}
+.style-two.pricing-table .pricing-table-sign-up > .btn-block:hover{
+    background:#2ca01c;
+	border-color:#2ca01c;
+}
+.active-pr.style-two.pricing-table .pricing-table-sign-up > .btn-block{
+    border:1px solid #2ca01c;
+	background:#2ca01c;
+}
+
+
+
+@media (min-width: 768px){
+nav.navbar.navbar-default.navbar-static-top {
+    background:#1e293d;
+    border-color:#1e293d;
+}
+}
