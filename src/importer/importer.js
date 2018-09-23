@@ -5,7 +5,7 @@ import '../vendor/assets/plugins/metisMenu/metisMenu.min.css'
 
 import '../vendor/css/kavach.min.css'
 import '../vendor/css/animate.css'
-import '../vendor/css/skin/default-skin.css'
+import '../vendor/css/skin/green-skin.css'
 import 'jquery/src/jquery'
 import '../../node_modules/bootstrap/dist/js/bootstrap.min'
 import '../vendor/assets/plugins/metisMenu/metisMenu.min'
