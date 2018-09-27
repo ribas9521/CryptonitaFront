@@ -1,0 +1,16 @@
+.login-panel {
+    background: #1e293d;
+}
+
+.panel-default {
+    border-color: #78898d;
+}
+
+.btn.btn-login:hover,
+.btn.btn-login:focus {
+    background: #55de05;
+}
+
+.btn.btn-login {
+    background: #2ca01c;
+}

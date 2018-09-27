@@ -15,7 +15,7 @@ export function login(values) {
                     }
                 })
                 .catch(e => {
-                    console.log(e.response.data.message)
+                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
                 })
         }
         if (values) {
@@ -29,7 +29,7 @@ export function login(values) {
                     ])
                 })
                 .catch(e => {
-                    console.log(e.response.data.message)
+                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
                 })
         }
     }
@@ -43,7 +43,7 @@ export function signup(values) {
                 ])
             })
             .catch(e => {
-                console.log(e.response.data.message)
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
             })
     }
 }
@@ -55,7 +55,7 @@ export function confirmEmail(values) {
                 dispatch({ type: 'EMAIL_VERIFIED', payload: resp.data })
             })
             .catch(e => {
-                console.log(e.response.data.message)
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
             })
     }
 }
@@ -64,5 +64,30 @@ export function logout() {
     return dispatch => {
         dispatch([removeState('identity'),
         { type: 'USER_AUTHENTICATED', payload: false }])
+    }
+}
+
+export function forgot(values) {
+    return dispatch => {
+        axios.get(`${consts.API_URL}/username/password-recovery?email=${values.email}`)
+            .then(resp => {
+                dispatch({ type: 'FORGOT_PASSWORD_SENT', payload: true })
+            })
+            .catch(e => {
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+            })
+    }
+}
+export function resetPassword(values) {
+    return dispatch => {
+        axios.post(`${consts.API_URL}/username/password-recovery`, values)
+            .then(resp => {
+                dispatch({
+                    type: 'RESET_PASSWORD_DONE', payload: resp.data
+                })
+            })
+            .catch(e => {
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+            })
     }
 }

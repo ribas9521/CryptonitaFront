@@ -3,21 +3,34 @@ import qs from 'query-string'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { confirmEmail } from '../authActions'
+import SweetAlert from 'sweetalert2-react';
 
 
 export class ConfirmEmail extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { show: true }
+    }
     componentDidMount() {
         const { search } = this.props.location
         const parsed = qs.parse(search)
         this.props.confirmEmail(parsed)
-
     }
+    
 
     render() {
-        const { emailVerified, history } = this.props
-        emailVerified ? history.push("/mirror") : null
+        const { emailVerified, history } = this.props       
         return (
-            <h1>Error in email confirmation</h1>
+            <div>
+                <SweetAlert
+                    show={this.state.show}
+                    title={emailVerified ? "Email validated!": "Something wrong happened"}
+                    text={emailVerified ?"Next stop, Moon!": "Please, try again, or contact the mothership: cryptonita@cryptonita.org"}
+                    onConfirm={() => { this.setState({ show: false }); history.push("/login") }}
+                    type={emailVerified? "success": "error"}
+                />
+            </div>
+
         )
     }
 }

@@ -3,29 +3,36 @@ import { login } from '../authActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
+import ErrorHandler from "../errorHandler";
+import { Link } from "react-router-dom";
+import './loginStyle.css'
 
 class Login extends Component {
     constructor(props) {
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
+        this.state = { authError: false }
     }
     onSubmit(values) {
         const { login } = this.props
         login(values)
     }
-    
-    componentWillReceiveProps(nextProps){
-        const {userAuthenticated, history} = nextProps
+
+    componentWillReceiveProps(nextProps) {
+        const { userAuthenticated, history, authError } = nextProps
+        this.setState({ authError })
         userAuthenticated ?
             history.push("/mirror") :
             null
     }
-    componentWillMount(){
+    componentWillMount() {
         this.props.login()
     }
-    
+
+
     render() {
         const { handleSubmit } = this.props
+        const { authError } = this.state
         return (
             <div className="col-md-6 col-md-offset-3">
                 <div className="login-panel panel panel-default">
@@ -33,7 +40,8 @@ class Login extends Component {
                         <h3 className="panel-title">Please Sign In</h3>
                     </div>
                     <div className="panel-body">
-                        <img src="assets/img/logo.png" className="img-responsive" alt="" />
+                        <img src={require('../../vendor/assets/img/head-logo.png')} className="img-responsive" alt="" />
+                        <ErrorHandler error={authError} />
                         <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
                             <fieldset>
                                 <div className="form-group">
@@ -42,13 +50,15 @@ class Login extends Component {
                                 <div className="form-group">
                                     <Field type="password" name="password" component="input" className="form-control" placeholder="Password" />
                                 </div>
-                                <div className="checkboxs">
+                                {/* <div className="checkboxs">
                                     <span className="custom-checkbox">
                                         <input type="checkbox" id="checkbox1" name="options[]" />
                                         <label htmlFor="checkbox1"></label>Remember Me
-										</span>
+                                    </span>
+                                </div> */}
+                                <div className="form-group">
+                                    <Link to="/forgotPassword">Forgot password</Link>
                                 </div>
-
                                 <button type="submit" className="btn btn-login">Login</button>
 
                             </fieldset>
@@ -64,7 +74,7 @@ Login = reduxForm({
 })(Login)
 
 const mapStateToProps = state => {
-    return { userAuthenticated: state.auth.userAuthenticated }
+    return { userAuthenticated: state.auth.userAuthenticated, authError: state.auth.authError }
 }
 
 const mapDispatchToProps = dispatch => {
