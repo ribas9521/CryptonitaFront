@@ -47,7 +47,7 @@ class Forgot extends Component {
                 <div className="col-md-6 col-md-offset-3">
                     <div className="login-panel panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">Please Sign In</h3>
+                            <h3 className="panel-title">Forgot Password</h3>
                         </div>
                         <div className="panel-body">
                             <img src={require('../../vendor/assets/img/head-logo.png')} className="img-responsive" alt="" />

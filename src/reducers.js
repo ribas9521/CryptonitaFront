@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import MirrorReducer from './mirror/mirrorReducer'
+import TraderListReducer from './traderList/traderListReducer'
 import {reducer as formReducer} from 'redux-form'
 import AuthReducer from './auth/authReducer'
 
 const rootReducer = combineReducers({
-    mirror: MirrorReducer,
+    traderList: TraderListReducer,
     form: formReducer,
     auth: AuthReducer
 })

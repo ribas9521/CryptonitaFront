@@ -22,7 +22,7 @@ class Login extends Component {
         const { userAuthenticated, history, authError } = nextProps
         this.setState({ authError })
         userAuthenticated ?
-            history.push("/mirror") :
+            history.push("/traderList") :
             null
     }
     componentWillMount() {

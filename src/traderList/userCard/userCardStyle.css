@@ -1,0 +1,36 @@
+.left-follow {
+    border-radius: 50px 0 0 50px !important;
+    margin-right: 5px;
+}
+
+.right-follow {
+    min-width: auto !important;
+    border-radius: 0 50px 50px 0 !important;
+}
+
+.user-card {
+    border: none !important;
+}
+
+.user-simple-card {
+    height: 420px;
+}
+
+.card.simple-card ul.social-detail li {
+    line-height: inherit !important;
+}
+
+.footer {
+    border: none !important;
+}
+
+.stats-container {
+    margin-top: 20px !important;
+    border-top: 1px solid #293750;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(41, 55, 80);
+   
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
