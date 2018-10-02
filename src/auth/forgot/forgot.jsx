@@ -24,7 +24,12 @@ class Forgot extends Component {
         this.setState({ authError })
         if (forgotSent)
             this.setState({ show: true })
+        else
+            this.setState({ show: false })
 
+
+    }
+    componentWillUnmount(){
 
     }
     componentWillMount() {

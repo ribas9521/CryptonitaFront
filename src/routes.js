@@ -7,6 +7,7 @@ import Register from './auth/register/register';
 import Forgot from './auth/forgot/forgot';
 import ConfirmEmail from './auth/confirmEmail/confirmEmail';
 import Reset from './auth/reset/reset';
+import Profile from './profile/profile'
 
 export default props=>(
     <Switch>
@@ -17,5 +18,6 @@ export default props=>(
         <Route exact path='/forgotpassword' component={Forgot} />
         <Route exact path='/confirmemail' component={ConfirmEmail} />
         <Route exact path='/resetpassword' component={Reset} />
+        <Route exact path='/profile/:id' component={Profile} />
     </Switch>
 ) 

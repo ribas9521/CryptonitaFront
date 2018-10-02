@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { signup } from '../authActions'
+import { signup, resetError, resetUserCreated } from '../authActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
@@ -15,6 +15,13 @@ class Register extends Component {
         this.state = { show: false, authError: false }
         this.onSubmit = this.onSubmit.bind(this)
     }
+
+    componentWillUnmount(){
+        const { resetError } = this.props
+        resetError()
+        this.setState({ show: false })
+        resetUserCreated()
+    }
     onSubmit(values) {
         const { signup } = this.props
         signup(values)
@@ -22,10 +29,10 @@ class Register extends Component {
     componentWillReceiveProps(nextProps){
         const { userCreated, authError } = nextProps
         this.setState({authError})
-        userCreated ? this.setState({ show: true }) : null
+        userCreated ? this.setState({ show: true }) : this.setState({ show: false })
     }
     render() {
-        const { handleSubmit, history } = this.props
+        const { handleSubmit, history, resetUserCreated } = this.props
         const { authError } = this.state
         return (
             <div>
@@ -33,7 +40,7 @@ class Register extends Component {
                     show={this.state.show}
                     title="User created!"
                     text="Please verify your email"
-                    onConfirm={() => {this.setState({ show: false }); history.push("/login")}}                
+                    onConfirm={() => {this.setState({ show: false }); resetUserCreated(); history.push("/login")}}                
                     type="success"
                 />                
             
@@ -51,19 +58,19 @@ class Register extends Component {
                                     <div className="form-group">
                                         <Field type="text" name="name" component="input" className="form-control" placeholder='Your name' />
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <Field type="password" name="apiKey" component="input" className="form-control" placeholder="Api Key" />
                                     </div>
                                     <div className="form-group">
                                         <Field type="password" name="secretKey" component="input" className="form-control" placeholder="Api secret Key" />
-                                    </div>
+                                    </div> */}
                                     <div className="form-group">
                                         <Field type="email" name="email" component="input" className="form-control" placeholder='name@email.com' />
                                     </div>
                                     <div className="form-group">
                                         <Field type="password" name="password" component="input" className="form-control" placeholder="Password" />
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <div className="radio">
                                             <label>
                                                 <Field type="radio" id="clientType" name="profileType" className="flat-red" component="input" value={"0"} />
@@ -76,7 +83,7 @@ class Register extends Component {
                                                 Trader
                                         </label>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <button type="submit" className="btn btn-login">Register</button>
 
@@ -96,7 +103,7 @@ Register = reduxForm({
 })(Register)
 
 const mapDispatchToProps = dispatch => {
-    return (bindActionCreators({ signup }, dispatch))
+    return (bindActionCreators({ signup, resetError, resetUserCreated }, dispatch))
 }
 const mapStateToProps = state => {
     return { userCreated: state.auth.userCreated, authError: state.auth.authError }

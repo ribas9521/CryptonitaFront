@@ -47,7 +47,7 @@ export default class UserCard extends Component {
                                             e.preventDefault();
                                             this.rotate(this.turnButton)
                                         }}>
-                                        <i className="glyphicon glyphicon-hand-right"></i>
+                                        <i className="ti-back-right"></i>
                                     </a>
 
                                 </div>

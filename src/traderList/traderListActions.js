@@ -2,7 +2,7 @@ const traders = [
     {
         picture: 'http://live.themezhub.com/live-preview-kavach/kavach/dark/dist/img/avater-1.jpg',
         cover: 'https://www.50-best.com/images/badass_facebook_covers/ace_of_spade_badass_cover.jpg',
-        name: 'Guilherme Ribas',
+        name: 'Vô Epa',
         change24h: 1,
         change7d: 12,
         change30d: 32,
@@ -18,8 +18,8 @@ const traders = [
 
     },
     {
-        picture: 'http://live.themezhub.com/live-preview-kavach/kavach/dark/dist/img/avater-1.jpg',
-        cover: 'https://www.50-best.com/images/badass_facebook_covers/ace_of_spade_badass_cover.jpg',
+        picture: 'https://lh3.googleusercontent.com/-TLqKvsqNUCU/WzKdDgWBQsI/AAAAAAAACOU/A9N7wW2jqOcHKyoXlp4DSH80ekchQ0YgwCEwYBhgL/w140-h140-p/31694828_206221469984077_2366797807848783872_n.jpg',
+        cover: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
         name: 'Guilherme Ribas',
         change24h: 1,
         change7d: 12,

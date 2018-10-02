@@ -29,6 +29,7 @@ export function login(values) {
                     ])
                 })
                 .catch(e => {
+                    console.log(e)
                     dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
                 })
         }
@@ -39,7 +40,7 @@ export function signup(values) {
         axios.post(`${consts.API_URL}/username/register`, values)
             .then(resp => {
                 dispatch([
-                    { type: 'USER_CREATED', payload: resp.data }
+                    { type: 'USER_CREATED', payload: true }
                 ])
             })
             .catch(e => {
@@ -52,7 +53,7 @@ export function confirmEmail(values) {
     return dispatch => {
         axios.post(`${consts.API_URL}/username/email-validation`, values)
             .then(resp => {
-                dispatch({ type: 'EMAIL_VERIFIED', payload: resp.data })
+                dispatch({ type: 'EMAIL_VERIFIED', payload: true })
             })
             .catch(e => {
                 dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
@@ -89,5 +90,17 @@ export function resetPassword(values) {
             .catch(e => {
                 dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
             })
+    }
+}
+
+export function resetError(){
+    return dispatch=>{
+        dispatch({type:'AUTH_ERROR', payload: null})
+    }
+}
+
+export function resetUserCreated(){
+    return dispatch => {
+        dispatch({ type: 'USER_CREATED', payload: false })
     }
 }

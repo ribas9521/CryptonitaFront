@@ -10,9 +10,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'USER_CREATED':
-            return { ...state, userCreated: true }
+            return { ...state, userCreated: action.payload }
         case 'EMAIL_VERIFIED':
-            return { ...state, emailVerified: true }
+            return { ...state, emailVerified: action.payload }
         case 'USER_AUTHENTICATED':
             return { ...state, userAuthenticated: action.payload }
         case 'USER_IDENTITY_FETCHED':

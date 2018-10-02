@@ -2,6 +2,8 @@ import '../vendor/assets/plugins/bootstrap/css/bootstrap.min.css'
 import '../vendor/css/all_icons.css'
 import '../vendor/css/loader.css'
 import '../vendor/assets/plugins/metisMenu/metisMenu.min.css'
+import 'material-icons/iconfont/material-icons.css'
+
 
 import '../vendor/css/kavach.min.css'
 import '../vendor/css/animate.css'
