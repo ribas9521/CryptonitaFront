@@ -2,10 +2,12 @@ const INITIAL_STATE = {
     userCreated: false,
     emailVerified: false,
     userAuthenticated: false,
-    identity: null,
-    authError: null,
+    passwordChanged: false,
     forgotSent: false,
+    identity: null,
+    authError: null,    
     resetDone: false
+    
 }
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -22,7 +24,9 @@ export default (state = INITIAL_STATE, action) => {
         case 'FORGOT_PASSWORD_SENT':
             return { ...state, forgotSent: action.payload}
         case 'RESET_PASSWORD_DONE':
-            return { ...state, resetDone: true}
+            return { ...state, resetDone: action.payload}
+        case 'PASSWORD_CHANGED':
+            return { ...state, passwordChanged: action.payload}
         default:
             return state
     }

@@ -79,12 +79,31 @@ export function forgot(values) {
             })
     }
 }
+
+export function changePassword(values) {
+    return dispatch => {
+        const identity = loadState('identity')
+        if (identity) {
+            axios.post(`${consts.API_URL}/username/change-password`, values, { headers: { session: identity.sessionId } })
+                .then(resp => {
+                    dispatch({ type: 'PASSWORD_CHANGED', payload: true })
+                })
+                .catch(e => {
+                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                })
+        }
+        else {
+            dispatch({ type: 'AUTH_ERROR', payload: "User must be logged" })
+        }
+    }
+}
+
 export function resetPassword(values) {
     return dispatch => {
         axios.post(`${consts.API_URL}/username/password-recovery`, values)
             .then(resp => {
                 dispatch({
-                    type: 'RESET_PASSWORD_DONE', payload: resp.data
+                    type: 'RESET_PASSWORD_DONE', payload: true
                 })
             })
             .catch(e => {
@@ -93,14 +112,31 @@ export function resetPassword(values) {
     }
 }
 
-export function resetError(){
-    return dispatch=>{
-        dispatch({type:'AUTH_ERROR', payload: null})
+export function resetError() {
+    return dispatch => {
+        dispatch({ type: 'AUTH_ERROR', payload: null })
     }
 }
 
-export function resetUserCreated(){
+export function resetUserCreated() {
     return dispatch => {
         dispatch({ type: 'USER_CREATED', payload: false })
+    }
+}
+
+export function resetForgot() {
+    return dispatch => {
+        dispatch({ type: 'FORGOT_PASSWORD_SENT', payload: false })
+    }
+}
+export function resetResetPassword() {
+    return dispatch => {
+        dispatch({ type: 'RESET_PASSWORD_DONE', payload: false })
+    }
+}
+
+export function resetChangePassword() {
+    return dispatch => {
+        dispatch({ type: 'PASSWORD_CHANGED', payload: false })
     }
 }

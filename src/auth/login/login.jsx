@@ -58,13 +58,7 @@ class Login extends Component {
                                     </div>
                                     <div className="form-group">
                                         <Field type="password" name="password" component="input" className="form-control" placeholder="Password" />
-                                    </div>
-                                    {/* <div className="checkboxs">
-                                    <span className="custom-checkbox">
-                                        <input type="checkbox" id="checkbox1" name="options[]" />
-                                        <label htmlFor="checkbox1"></label>Remember Me
-                                    </span>
-                                </div> */}
+                                    </div>                                   
                                     <div className="form-group">
                                         <Link to="/forgotPassword">Forgot password</Link>
                                     </div>

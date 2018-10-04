@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { forgot } from '../authActions'
+import { forgot, resetForgot, resetError } from '../authActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
@@ -12,7 +12,7 @@ class Forgot extends Component {
     constructor(props) {
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
-        this.state = { authError: false }
+        this.state = { authError: false, show: false }
     }
     onSubmit(values) {
         const { forgot } = this.props
@@ -30,12 +30,10 @@ class Forgot extends Component {
 
     }
     componentWillUnmount(){
-
-    }
-    componentWillMount() {
-
-    }
-
+        const { resetForgot, resetError } = this.props
+        resetForgot()
+        resetError()
+    }    
 
     render() {
         const { handleSubmit, history } = this.props
@@ -83,7 +81,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return (bindActionCreators({ forgot }, dispatch))
+    return (bindActionCreators({ forgot, resetForgot, resetError }, dispatch))
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forgot)

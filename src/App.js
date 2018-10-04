@@ -24,7 +24,7 @@ class App extends Component {
               </div>
             </div>
           </div>
-          <RightBar />
+          {/* <RightBar /> */}
           <Footer />
         </div>
       </HashRouter>

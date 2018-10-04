@@ -6,6 +6,7 @@ import { reduxForm, Field } from 'redux-form'
 import ErrorHandler from "../errorHandler";
 import SweetAlert from 'sweetalert2-react';
 import './registerStyle.css'
+import { email, password, required, renderField, passwordsMatch } from "../../common/validators/validators";
 
 
 
@@ -56,34 +57,17 @@ class Register extends Component {
                             <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
                                 <fieldset>
                                     <div className="form-group">
-                                        <Field type="text" name="name" component="input" className="form-control" placeholder='Your name' />
-                                    </div>
-                                    {/* <div className="form-group">
-                                        <Field type="password" name="apiKey" component="input" className="form-control" placeholder="Api Key" />
+                                        <Field type="text" name="name" component="input" className="form-control" placeholder='Your name' component={renderField} validate={required}/>
+                                    </div>                                   
+                                    <div className="form-group">
+                                        <Field type="email" name="email" component="input" className="form-control" placeholder='name@email.com' component={renderField} validate={[required, email]} />
                                     </div>
                                     <div className="form-group">
-                                        <Field type="password" name="secretKey" component="input" className="form-control" placeholder="Api secret Key" />
-                                    </div> */}
+                                        <Field type="password" name="password" component="input" className="form-control" placeholder="Password" component={renderField} validate={[required, password]}/>
+                                    </div> 
                                     <div className="form-group">
-                                        <Field type="email" name="email" component="input" className="form-control" placeholder='name@email.com' />
-                                    </div>
-                                    <div className="form-group">
-                                        <Field type="password" name="password" component="input" className="form-control" placeholder="Password" />
-                                    </div>
-                                    {/* <div className="form-group">
-                                        <div className="radio">
-                                            <label>
-                                                <Field type="radio" id="clientType" name="profileType" className="flat-red" component="input" value={"0"} />
-                                                Investor
-                                        </label>
-                                        </div>
-                                        <div className="radio">
-                                            <label>
-                                                <Field type="radio" id="traderType" name="profileType" className="flat-red" component="input" value={"1"} selected />
-                                                Trader
-                                        </label>
-                                        </div>
-                                    </div> */}
+                                        <Field type="password" name="rPassword" component="input" className="form-control" placeholder="Repeat Password" component={renderField} validate={[required, passwordsMatch]}/>
+                                    </div> 
 
                                     <button type="submit" className="btn btn-login">Register</button>
 
