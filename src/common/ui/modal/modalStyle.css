@@ -1,0 +1,15 @@
+.modal-body input {
+    background-color: #fff !important;
+}
+
+.modal-body {
+    background-color: #28364e !important;
+}
+
+.modal-body form {
+    border: 1px solid #78898d;
+}
+
+.modal-body button {
+    background-color: #0fb76b !important;
+}

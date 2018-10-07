@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    profile: {
+    dashboard: {
         profileType: 0,
         balance: {
             startAmount: 8,
@@ -78,8 +78,8 @@ const INITIAL_STATE = {
 }
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'PROFILE_FETCHED':
-            return { ...state, profile: action.payload }
+        case 'DASHBOARD_FETCHED':
+            return { ...state, dashboard: action.payload }
         default:
             return state
     }

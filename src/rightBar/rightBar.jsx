@@ -6,12 +6,12 @@ export default props =>(
             Setting Pannel <i className="ti-close"></i></a>
         <div className="right-sidebar" id="side-scroll">
             <div className="user-box">
-                <div className="profile-img">
+                <div className="dashboard-img">
                     <img src="http://via.placeholder.com/400x400" alt="user" />
 
                     <div className="notify setpos"> <span className="heartbit"></span> <span className="point"></span> </div>
                 </div>
-                <div className="profile-text">
+                <div className="dashboard-text">
                     <h4>Daniel Dax</h4>
                     <a href="#" className="user-setting"><i className="ti-settings"></i></a>
                     <a href="#" className="user-mail"><i className="ti-email"></i></a>

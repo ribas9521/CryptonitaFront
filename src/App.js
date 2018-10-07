@@ -17,8 +17,8 @@ class App extends Component {
         <div id="wrapper" className="">
           <div id="page-wrapper">
             <Header />
-            <PageTitle />
-            <div className="container-fluid">
+            {/* <PageTitle /> */}
+            <div className="container-fluid" style={{marginTop:"80px"}}>
               <div className="row">
                 <Routes/>
               </div>

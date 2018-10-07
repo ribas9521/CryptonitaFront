@@ -17,7 +17,7 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         const { resetError } = this.props
         resetError()
         this.setState({ show: false })
@@ -27,9 +27,9 @@ class Register extends Component {
         const { signup } = this.props
         signup(values)
     }
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         const { userCreated, authError } = nextProps
-        this.setState({authError})
+        this.setState({ authError })
         userCreated ? this.setState({ show: true }) : this.setState({ show: false })
     }
     render() {
@@ -41,10 +41,10 @@ class Register extends Component {
                     show={this.state.show}
                     title="User created!"
                     text="Please verify your email"
-                    onConfirm={() => {this.setState({ show: false }); resetUserCreated(); history.push("/login")}}                
+                    onConfirm={() => { this.setState({ show: false }); resetUserCreated(); history.push("/login") }}
                     type="success"
-                />                
-            
+                />
+
                 <div className="col-md-6 col-md-offset-3">
 
                     <div className="login-panel panel panel-default">
@@ -57,17 +57,30 @@ class Register extends Component {
                             <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
                                 <fieldset>
                                     <div className="form-group">
-                                        <Field type="text" name="name" component="input" className="form-control" placeholder='Your name' component={renderField} validate={required}/>
-                                    </div>                                   
+                                        <Field type="text" name="name" component="input" className="form-control" placeholder='Your name' component={renderField} validate={required} />
+                                    </div>
                                     <div className="form-group">
                                         <Field type="email" name="email" component="input" className="form-control" placeholder='name@email.com' component={renderField} validate={[required, email]} />
                                     </div>
                                     <div className="form-group">
-                                        <Field type="password" name="password" component="input" className="form-control" placeholder="Password" component={renderField} validate={[required, password]}/>
-                                    </div> 
+                                        <Field type="password" name="password" component="input" className="form-control" placeholder="Password" component={renderField} validate={[required, password]} />
+                                    </div>
                                     <div className="form-group">
-                                        <Field type="password" name="rPassword" component="input" className="form-control" placeholder="Repeat Password" component={renderField} validate={[required, passwordsMatch]}/>
-                                    </div> 
+                                        <Field type="password" name="rPassword" component="input" className="form-control" placeholder="Repeat Password" component={renderField} validate={[required, passwordsMatch]} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Trader</label>
+                                        <div>
+                                            <Field name="isTrader" component="input" type="radio" value={true} label="I want to be copied(Trader)" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Investor</label>
+                                        <div>
+                                            <Field name="isTrader" component="input" type="radio" value={false} label="I want to copy people(Investor)" />
+                                        </div>
+                                    </div>
+
 
                                     <button type="submit" className="btn btn-login">Register</button>
 

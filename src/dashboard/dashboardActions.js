@@ -1,4 +1,4 @@
-const profile =
+const dashboard =
 {
     profileType: 0,
     balance: {
@@ -77,8 +77,8 @@ const profile =
 }
 
 
-export const getProfile = (id) => {
+export const getDashboard = (id) => {
     return dispatch => {
-        dispatch({ type: 'PROFILE_FETCHED', payload: profile })
+        dispatch({ type: 'DASHBOARD_FETCHED', payload: dashboard })
     }
 }

@@ -21,9 +21,16 @@ export default class UserCard extends Component {
 
     render() {
         const { trader } = this.props
-        const options = {
-            maintainAspectRatio: false
-        }
+        trader.picture = "https://lh3.googleusercontent.com/-TLqKvsqNUCU/WzKdDgWBQsI/AAAAAAAACOU/A9N7wW2jqOcHKyoXlp4DSH80ekchQ0YgwCEwYBhgL/w140-h140-p/31694828_206221469984077_2366797807848783872_n.jpg"
+        trader.change24h = 32
+        trader.change7d = 25
+        trader.change30d=12
+        trader.followers = 1200
+        trader.totalReturn=90
+        trader.size = 79
+        trader.description="teste"
+        trader.data24h= [10, 29, 13, 35, 65]
+        trader.cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
         return (
             <div className="col-md-4 col-sm-12">
                 <div className="card-container manual-flip">
@@ -68,7 +75,7 @@ export default class UserCard extends Component {
 
                                     <div className="stats-container">
                                         <h5 className="text-center">24h Chart</h5>
-                                        <Sparklines data={trader.data.data24h}>
+                                        <Sparklines data={trader.data24h}>
                                         
                                             <SparklinesLine />
                                         </Sparklines>

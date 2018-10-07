@@ -976,7 +976,7 @@ background:#07b107;
 .external b, strong {
     font-weight: 600;
 }
-.user-img span.profile-status {
+.user-img span.dashboard-status {
     position: absolute;
     bottom: 3px;
     right: 4px;
@@ -984,16 +984,16 @@ background:#07b107;
     height: 7px;
     border-radius: 50%;
 }
-.user-img span.profile-status.online{
+.user-img span.dashboard-status.online{
 	background:#07b107;
 }
-.user-img span.profile-status.offline{
+.user-img span.dashboard-status.offline{
 	background:#2196f3;
 }
-.user-img span.profile-status.busy{
+.user-img span.dashboard-status.busy{
 	background:#e80552;
 }
-.user-img span.profile-status.warning{
+.user-img span.dashboard-status.warning{
 	background:#ff9800;
 }
 .message-apt .message-body {
@@ -1164,12 +1164,12 @@ Right Sidebar Settings
 .user-box {
     padding:50px 0 50px 0;
 }
-.profile-img img {
+.dashboard-img img {
     max-width: 100px;
 	margin: 5px;
     border-radius: 50%;
 }
-.profile-img {
+.dashboard-img {
     padding: 5px;
     border: 1px solid #3c4d6d;
     width: 120px;
@@ -1177,14 +1177,14 @@ Right Sidebar Settings
     display: table;
     margin: 0 auto;
 }
-.profile-text {
+.dashboard-text {
     text-align: center;
     color: #74839e;
 }
-.profile-text h4 {
+.dashboard-text h4 {
     margin: 10px 0;
 }
-.profile-text a {
+.dashboard-text a {
     width: 35px;
     height: 35px;
 	margin:5px;
@@ -1192,19 +1192,19 @@ Right Sidebar Settings
     line-height: 39px;
     border-radius: 50px;
 }
-.profile-text a.user-setting {
+.dashboard-text a.user-setting {
     color: #ff9800;
     background: #ffe3ba;
 }
-.profile-text a.user-mail {
+.dashboard-text a.user-mail {
     color: #03a9f4;
     background: rgba(3, 169, 244,0.2);
 }
-.profile-text a.user-logout {
+.dashboard-text a.user-logout {
     color: #ee3d51;
     background: rgba(238, 61, 81,0.2);
 }
-.profile-text a.user-call {
+.dashboard-text a.user-call {
     color: #1cc100;
     background: rgba(28, 193, 0,0.2);
 }
@@ -4160,14 +4160,14 @@ button.btn.sweet-small-box {
     color: #01b2ac;
 }
 /*-------UI Element: Card Style----------*/
-.panel-profile .panel-heading {
+.panel-dashboard .panel-heading {
     height: 150px;
     background-size: cover;
 }
 .panel-default>.panel-heading {
     border-color: #506386;
 }
-.user-card .panel-profile-img {
+.user-card .panel-dashboard-img {
     max-width: 100px;
     margin-top: -70px;
     margin-bottom: 5px;
@@ -6920,7 +6920,7 @@ top:5px;
     outline: 0px none;
     box-shadow: 0px 0px 1px rgba(69, 90, 100,0.1);
 }
-/*-------- Advance Pages: Profile Page ----------*/
+/*-------- Advance Pages: Dashboard Page ----------*/
 .box {
     position: relative;
     border-radius: 3px;
@@ -7056,18 +7056,18 @@ top:5px;
 .timeline-inverse > li > .timeline-item > .timeline-header {
   border-bottom-color: #ddd;
 }
-.box-profile {
+.box-dashboard {
     padding-top: 3em;
 }
-img.profile-user-img {
+img.dashboard-user-img {
     max-width: 110px;
     margin: 5px auto;
 }
-.box-profile .profile-username {
+.box-dashboard .dashboard-username {
     margin-bottom: 0;
 	font-size: 20px;
 }
-ul.profile-group {
+ul.dashboard-group {
     padding: 30px 0 12px 0;
 }
 a.btn.btn-primary.btn-block {
@@ -7075,12 +7075,12 @@ a.btn.btn-primary.btn-block {
     max-width: 180px;
     margin: 0 auto;
 }
-ul.profile-group li {
+ul.dashboard-group li {
     width: 32%;
     text-align: center;
     display: inline-block;
 }
-ul.profile-group li b {
+ul.dashboard-group li b {
     font-size: 22px;
     font-weight:400;
     display: block;

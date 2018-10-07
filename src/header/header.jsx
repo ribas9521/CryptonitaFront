@@ -3,6 +3,7 @@ import './headerStyle.css'
 import { logout, login } from '../auth/authActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import PerfilHeader from './perfilHeader/perfilHeader'
 
@@ -50,38 +51,12 @@ class Header extends Component {
                     <div className="sidebar-nav navbar-collapse">
                         <ul className="nav" id="side-menu">
                             <li>
-                                <a href="javascript:void(0)"><i className="fa fa-bullseye"></i>Dashboard <span className="fa arrow"></span></a>
-                                <ul className="nav nav-second-level">
-                                    <li>
-                                        <a href="index.html">Dashboard 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="index2.html">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="index3.html">Dashboard 3</a>
-                                    </li>
-                                </ul>
+                                <Link to="/dashboard/12"><i className="fa fa-bullseye"></i>Dashboard</Link>
+
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><i className="ti ti-desktop"></i>Advance Apps <span className="fa arrow"></span></a>
-                                <ul className="nav nav-second-level">
-                                    <li>
-                                        <a href="calender.html">calender</a>
-                                    </li>
-                                    <li>
-                                        <a href="contact.html">Contact List</a>
-                                    </li>
-                                    <li>
-                                        <a href="employee.html">Employee</a>
-                                    </li>
-                                    <li>
-                                        <a href="contact-grid.html">Contact Grid</a>
-                                    </li>
-                                    <li>
-                                        <a href="chat.html">Chat</a>
-                                    </li>
-                                </ul>
+                                <Link to="/profile/12"><i className="fa fa-user"></i>Profile </Link>                               
+                                
                             </li>
 
                         </ul>

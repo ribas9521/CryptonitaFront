@@ -10,7 +10,7 @@ const logged = (logout, identity) => (
                 <img src="https://s2.coinmarketcap.com/static/img/coins/200x200/1321.png" className="img-responsive img-circle" alt="user" />
             </a>
             <ul className="dropdown-menu dropdown-user right-swip">
-                <li><a href="#"><i className="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="#"><i className="fa fa-user fa-fw"></i> User Dashboard</a>
                 </li>
                 <li><a href="#"><i className="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
