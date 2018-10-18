@@ -6,10 +6,16 @@ const fs = require("fs");
 const args = process.argv;
 
 let plugins = [
-	new webpack.BannerPlugin(fs.readFileSync('./dev/banner.txt', 'utf8'), { raw: true, entryOnly: true })
+	new webpack.BannerPlugin(fs.readFileSync('./dev/banner.txt', 'utf8'), { raw: true, entryOnly: true }),
+	new webpack.ProvidePlugin({
+		$: "jquery",
+		jquery: "jquery",
+		"window.jQuery": "jquery",
+		jQuery: "jquery"
+	})
 	
 ];
-let externals = [];
+let externals = {jquery: 'jQuery'};
 let filename = "raphael";
 
 
@@ -40,7 +46,9 @@ module.exports = {
 		library: "Raphael"
 	},
 
-	externals: externals,
+	externals: {
+		
+	},
 
 	plugins: plugins,
 

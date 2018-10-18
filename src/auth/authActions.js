@@ -1,6 +1,7 @@
 import axios from 'axios'
 import consts from '../common/helpers/consts'
 import { loadState, saveState, removeState } from "../common/helpers/localStorage";
+import { toastr } from "react-redux-toastr";
 
 export function login(values) {
     return dispatch => {
@@ -15,7 +16,8 @@ export function login(values) {
                     }
                 })
                 .catch(e => {
-                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                    toastr.error("Error", e.response.data.message)
+                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
                 })
         }
         if (values) {
@@ -29,8 +31,8 @@ export function login(values) {
                     ])
                 })
                 .catch(e => {
-                    console.log(e)
-                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                    toastr.error("Error", e.response.data.message)
+                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
                 })
         }
     }
@@ -44,7 +46,8 @@ export function signup(values) {
                 ])
             })
             .catch(e => {
-                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                toastr.error("Error", e.response.data.message)
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
             })
     }
 }
@@ -56,7 +59,8 @@ export function confirmEmail(values) {
                 dispatch({ type: 'EMAIL_VERIFIED', payload: true })
             })
             .catch(e => {
-                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                toastr.error("Error", e.response.data.message)
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
             })
     }
 }
@@ -75,7 +79,8 @@ export function forgot(values) {
                 dispatch({ type: 'FORGOT_PASSWORD_SENT', payload: true })
             })
             .catch(e => {
-                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                toastr.error("Error", e.response.data.message)
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
             })
     }
 }
@@ -89,7 +94,8 @@ export function changePassword(values) {
                     dispatch({ type: 'PASSWORD_CHANGED', payload: true })
                 })
                 .catch(e => {
-                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                    toastr.error("Error", e.response.data.message)
+                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
                 })
         }
         else {
@@ -107,7 +113,8 @@ export function resetPassword(values) {
                 })
             })
             .catch(e => {
-                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message })
+                toastr.error("Error", e.response.data.message)
+                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
             })
     }
 }

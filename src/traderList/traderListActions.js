@@ -1,73 +1,83 @@
 import axios from 'axios'
 import consts from '../common/helpers/consts'
 import { loadState, saveState, removeState } from "../common/helpers/localStorage";
-
-const traders = [
-    {
-        picture: 'https://media.licdn.com/dms/image/C5103AQHkkjTpls2Cvw/profile-displayphoto-shrink_800_800/0?e=1544054400&v=beta&t=MeTC9CkxTYZAW5WXagqUnfED2bNy5lupt353iPAw53c',
-        cover: 'https://www.50-best.com/images/badass_facebook_covers/ace_of_spade_badass_cover.jpg',
-        name: 'Vô Epa',
-        change24h: 1,
-        change7d: 12,
-        change30d: 32,
-        totalReturn: 112,
-        followers: 23,
-        size: 12,
-        data: {
-            data24h: [1, -5, 3, 5, 22, 25, 32, 22],
-            data7d: [1, -5, 3, 5, 22, 25, 32, 22],
-            data30d: [1, -5, 3, 5, 22, 25, 32, 22]
-        },
-        description: 'Sergey from Latvia is a Popular Investor who keeps his risk score low. He has been with eToro since late 2017 and says he has 8 years of trading experience. He rotates his portfolio by the end of each quarter, and uses short positions as a diversification tool. He recommends copying him with $1,000.'
-
-    },
-    {
-        picture: 'https://lh3.googleusercontent.com/-TLqKvsqNUCU/WzKdDgWBQsI/AAAAAAAACOU/A9N7wW2jqOcHKyoXlp4DSH80ekchQ0YgwCEwYBhgL/w140-h140-p/31694828_206221469984077_2366797807848783872_n.jpg',
-        cover: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-        name: 'Guilherme Ribas',
-        change24h: 1,
-        change7d: 12,
-        change30d: 32,
-        totalReturn: 112,
-        followers: 23,
-        size: 12,
-        data: {
-            data24h: [1, -5, 3, 5, 22, 25, 32, 22],
-            data7d: [1, -5, 3, 5, 22, 25, 32, 22],
-            data30d: [1, -5, 3, 5, 22, 25, 32, 22]
-        },
-        description: 'Sergey from Latvia is a Popular Investor who keeps his risk score low. He has been with eToro since late 2017 and says he has 8 years of trading experience. He rotates his portfolio by the end of each quarter, and uses short positions as a diversification tool. He recommends copying him with $1,000.'
-
-    },
-    {
-        picture: 'https://scontent.fsdu17-1.fna.fbcdn.net/v/t1.0-9/15665866_102441916926717_5383972772627463347_n.jpg?_nc_cat=111&oh=e26d79eda189dd890c2e06c0f7841f90&oe=5C527A22',
-        cover: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-        name: 'Guilherme Ribas',
-        change24h: 1,
-        change7d: 12,
-        change30d: 32,
-        totalReturn: 112,
-        followers: 23,
-        size: 12,
-        data: {
-            data24h: [1, -5, 3, 5, 22, 25, 32, 22],
-            data7d: [1, -5, 3, 5, 22, 25, 32, 22],
-            data30d: [1, -5, 3, 5, 22, 25, 32, 22]
-        },
-        description: 'Sergey from Latvia is a Popular Investor who keeps his risk score low. He has been with eToro since late 2017 and says he has 8 years of trading experience. He rotates his portfolio by the end of each quarter, and uses short positions as a diversification tool. He recommends copying him with $1,000.'
-
-    }
-]
+import { toastr } from "react-redux-toastr";
 
 
 export function getTraders(values) {
     return dispatch => {
         axios.get(`${consts.API_URL}/username/trader-list`)
             .then(resp => {
-                dispatch({ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result })
+                dispatch([{ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result }, getFollow()])
             })
             .catch(e => {
-                dispatch({ type: 'TRADERS_LIST_ERROR', payload: e.response.data.message })
+                dispatch({ type: 'TRADERS_LIST_ERROR', payload: e })
             })
+    }
+}
+
+export function setFollow(values){
+    return dispatch => {
+        const identity = loadState('identity')
+        if (identity) {
+            axios.post(`${consts.API_URL}/username/follow`, values, { headers: { session: identity.sessionId } })
+                .then(resp => {
+                    toastr.success('Done', 'Following the master!')
+                    dispatch([
+                        { type: 'USER_FOLLOWING', payload: true }
+                        , getFollow()])
+                })
+                .catch(e => {
+                    toastr.error('Error', e.response.data.message)
+                    dispatch({ type: 'USER_FOLLOWING_ERROR', payload: e.response.data.message })
+                })
+        }
+        else {
+            toastr.warning("Please Register", "You must be authenticated")
+            dispatch({ type: 'USER_FOLLOWING_ERROR', payload: 'invalid identity' })
+        }
+    }
+}
+
+export function setUnfollow(values) {
+    return dispatch => {
+        const identity = loadState('identity')
+        if (identity) {
+            axios.delete(`${consts.API_URL}/username/follow`, { headers: { session: identity.sessionId } })
+                .then(resp => {
+                    toastr.success('Done', 'Unfollowed')
+                    dispatch([
+                        { type: 'USER_UNFOLLOWING', payload: true }
+                        , getFollow()])
+                })
+                .catch(e => {
+                    toastr.error('Done', e.response.data.message)
+                    dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: e.response.data.message })
+                })
+        }
+        else {
+            dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: 'invalid identity' })
+        }
+    }
+}
+
+
+export function getFollow(){
+    return dispatch => {
+        const identity = loadState('identity')
+        if (identity) {
+            axios.get(`${consts.API_URL}/username/following`,{ headers: { session: identity.sessionId } })
+                .then(resp => {
+                    dispatch([
+                        { type: 'FOLLOWING_LIST_FETCHED', payload: resp.data.result.following }
+                    ])
+                })
+                .catch(e => {
+                    dispatch({ type: 'FOLLOWING_LIST_ERROR', payload: e })
+                })
+        }
+        else {
+            dispatch({ type: 'FOLLOWING_LIST_ERROR', payload: 'invalid identity' })
+        }
     }
 }

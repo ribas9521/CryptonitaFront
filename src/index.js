@@ -1,5 +1,6 @@
 
 /* eslint-disable import/first */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore } from 'redux'
@@ -10,6 +11,7 @@ import multi from 'redux-multi'
 import thunk from 'redux-thunk'
 
 import App from './App';
+
 import registerServiceWorker from './registerServiceWorker';
 
 import reducers from './reducers'

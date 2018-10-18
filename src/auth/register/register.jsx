@@ -25,6 +25,8 @@ class Register extends Component {
     }
     onSubmit(values) {
         const { signup } = this.props
+        const {isTrader} = this.state
+        values.isTrader = isTrader
         signup(values)
     }
     componentWillReceiveProps(nextProps) {
@@ -68,16 +70,20 @@ class Register extends Component {
                                     <div className="form-group">
                                         <Field type="password" name="rPassword" component="input" className="form-control" placeholder="Repeat Password" component={renderField} validate={[required, passwordsMatch]} />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Trader</label>
-                                        <div>
-                                            <Field name="isTrader" component="input" type="radio" value={true} label="I want to be copied(Trader)" />
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input id={'isTrader'} name="isTrader" type="radio" value={true}
+                                                    onChange={(e) => this.setState({ isTrader: e.target.value })} />
+                                                Trader
+                                                </label>
                                         </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Investor</label>
-                                        <div>
-                                            <Field name="isTrader" component="input" type="radio" value={false} label="I want to copy people(Investor)" />
+                                        <div class="radio">
+                                            <label>
+                                                <input id={'isTrader'} name="isTrader" type="radio" value={false}
+                                                    onChange={(e) => this.setState({ isTrader: e.target.value })} />
+                                                Investor
+                                                </label>
                                         </div>
                                     </div>
 

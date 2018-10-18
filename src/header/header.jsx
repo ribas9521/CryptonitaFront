@@ -1,27 +1,37 @@
+
 import React, { Component } from 'react'
 import './headerStyle.css'
 import { logout, login } from '../auth/authActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import createHistory from 'history/createHashHistory'
 import PerfilHeader from './perfilHeader/perfilHeader'
+
+
 
 class Header extends Component {
     componentDidMount() {
-        $('#side-menu').metisMenu();
+        //$('#side-menu').metisMenu();
         this.handleLogout = this.handleLogout.bind(this)
     }
     handleLogout() {
         const { logout } = this.props
+        const history = createHistory()
         logout();
+        history.push('/login')
     }
     componentWillMount() {
         const { userAuthenticated, login } = this.props
-        !userAuthenticated ? login() : null
+        !userAuthenticated || userAuthenticated ==='initial' ? login() : null
     }
     render() {
         const { userAuthenticated, logout, identity } = this.props
+        const initialIdentity= {
+            username:{
+                name: ''
+            }
+        }
         return (
             <nav className="navbar navbar-default navbar-static-top" style={{ "marginBottom": "0" }}>
                 <div className="navbar-header">
@@ -44,18 +54,22 @@ class Header extends Component {
                 </ul>
                 <ul className="nav navbar-top-links navbar-right">
 
-                    <PerfilHeader userAuthenticated={userAuthenticated} logout={logout} identity={identity} />
+                    <PerfilHeader userAuthenticated={userAuthenticated} logout={this.handleLogout} identity={identity || initialIdentity} />
 
                 </ul>
                 <div className="navbar-default sidebar" role="navigation">
                     <div className="sidebar-nav navbar-collapse">
                         <ul className="nav" id="side-menu">
                             <li>
-                                <Link to="/dashboard/12"><i className="fa fa-bullseye"></i>Dashboard</Link>
+                                <Link to="/dashboard"><i className="fa fa-bullseye"></i>Dashboard</Link>
 
                             </li>
                             <li>
-                                <Link to="/profile/12"><i className="fa fa-user"></i>Profile </Link>                               
+                                <Link to="/profile"><i className="fa fa-user"></i>Profile </Link>                               
+                                
+                            </li>
+                            <li>
+                                <Link to="/traderList"><i className="fa fa-users"></i>Traders List </Link>                               
                                 
                             </li>
 

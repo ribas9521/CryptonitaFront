@@ -12,12 +12,10 @@
     border: none !important;
 }
 
-.user-simple-card {
-    height: 420px;
-}
+
 
 .card.simple-card ul.social-detail li {
-    line-height: inherit !important;
+    width: 50%;
 }
 
 .footer {
@@ -30,7 +28,18 @@
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: rgb(41, 55, 80);
-   
     padding-top: 10px !important;
     padding-bottom: 10px !important;
+}
+
+.front .card , back .card{
+    margin-bottom: 0px!important;
+}
+
+.front, .back{
+    height: auto!important;
+}
+
+.social-detail li{
+    font-size: 20px!important;
 }

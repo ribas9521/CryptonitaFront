@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import './importer/importer'
 
@@ -8,13 +9,15 @@ import RightBar from './rightBar/rightBar'
 import Footer from './footer/footer'
 import PageTitle from './pageTitle/pageTitle'
 import Routes from './routes'
+import ReduxToastr from 'react-redux-toastr'
 
 class App extends Component {
 
   render() {
     return (
-      <HashRouter>
+      <HashRouter>        
         <div id="wrapper" className="">
+          <ReduxToastr />
           <div id="page-wrapper">
             <Header />
             {/* <PageTitle /> */}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import qs from 'query-string'
+import qs from 'qs'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { confirmEmail } from '../authActions'
@@ -13,7 +13,7 @@ export class ConfirmEmail extends Component {
     }
     componentDidMount() {
         const { search } = this.props.location
-        const parsed = qs.parse(search)
+        const parsed = qs.parse(search.substr(1, search.length -1))
         this.props.confirmEmail(parsed)
     }
     

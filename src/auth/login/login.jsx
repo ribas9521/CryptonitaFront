@@ -27,8 +27,8 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
         const { userAuthenticated, history, authError } = nextProps
         this.setState({ authError })
-        userAuthenticated ?
-            history.push("/traderList") :
+        userAuthenticated===true ?
+            history.push("/profile") :
             null
     }
     componentWillMount() {
@@ -41,7 +41,7 @@ class Login extends Component {
         const { authError } = this.state
         return (
             <div>
-               <Particles/>
+              
           
                 <div className="col-md-6 col-md-offset-3">                    
                     <div className="login-panel panel panel-default">

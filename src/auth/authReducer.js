@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
     userCreated: false,
     emailVerified: false,
-    userAuthenticated: false,
+    userAuthenticated: 'initial',
     passwordChanged: false,
     forgotSent: false,
     identity: null,

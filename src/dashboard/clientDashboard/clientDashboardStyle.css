@@ -1,0 +1,8 @@
+.todo.todo-default {
+    padding: 0px 10px !important;
+    align-items: flex-end;
+}
+
+.sm-avater.list-avater{
+    max-width: 32px!important;
+}

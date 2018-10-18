@@ -21,7 +21,7 @@ export default props=>(
         <Route exact path='/confirmemail' component={ConfirmEmail} />
         <Route exact path='/resetpassword' component={Reset} />
         <Route exact path='/changepassword' component={ChangePassword} />
-        <Route exact path='/dashboard/:id' component={Dashboard} />
-        <Route exact path='/profile/:id' component={Profile} />
+        <Route exact path='/dashboard/' component={Dashboard} />
+        <Route exact path='/profile/' component={Profile} />
     </Switch>
 ) 

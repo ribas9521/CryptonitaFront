@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import ErrorHandler from "../errorHandler";
-import qs from 'query-string'
+import qs from 'qs'
 import SweetAlert from 'sweetalert2-react';
 import { password, required, renderField, passwordsMatch } from "../../common/validators/validators";
 
@@ -18,7 +18,7 @@ class Reset extends Component {
     }
     componentDidMount() {
         const { search } = this.props.location
-        const parsed = qs.parse(search)
+        const parsed = qs.parse(search.substr(1, search.length-1))
         this.validationCode = parsed.validationCode
 
 

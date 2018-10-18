@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { getProfile, setApi } from "./profileActions";
+import { getProfile, setApi, deleteApi } from "./profileActions";
 import SimpleUserCard from "../common/ui/simpleUserCard/simpleUserCard";
 import Card from '../common/ui/card/card'
 import googleAuthImg from '../vendor/assets/img/google-authenticator.png'
 import Modal from '../common/ui/modal/modal'
 import ContentEditable from 'react-contenteditable'
 import { reduxForm, Field } from 'redux-form'
+import genericProfile from '../vendor/assets/img/generic-profile.png'
+import './profileStyle.css'
+import { toastr } from "react-redux-toastr";
+
 
 class Profile extends Component {
     constructor(props) {
@@ -21,21 +25,31 @@ class Profile extends Component {
         this.handleBigDescChange = this.handleBigDescChange.bind(this)
     }
     componentDidMount() {
-        const { getProfile } = this.props
+        const { getProfile, apiKeyRegistered, apiKeyError, apiKeyDeleted } = this.props
         const { editBig } = this.state
 
         getProfile();
         const { bigDesc, smallDesc } = this.props.profile
         this.setState({ bigDesc, smallDesc })
+      
+
+
 
     }
 
     componentWillReceiveProps(nextProps) {
         const { bigDesc, smallDesc } = nextProps.profile
         this.setState({ bigDesc, smallDesc })
+       
     }
     componentWillMount() {
-
+        const { userAuthenticated, history } = this.props
+        if (userAuthenticated === 'initial' || userAuthenticated){
+            null
+        }
+        else
+            history.push("/login")
+       
     }
     editContent() {
         this.setState({ editBig: true })
@@ -53,11 +67,20 @@ class Profile extends Component {
         const { setApi } = this.props
         setApi(values)
     }
+    closeModal(){
+        const { apiKeyRegistered } = this.props
+        if (apiKeyRegistered)
+            window.$("#modal-keys").modal('hide')
+    }
 
     render() {
-        const { handleSubmit } = this.props
-        const { picture, cover, name } = this.props.profile
+        const { handleSubmit, apiKeyList, deleteApi, apiKeyRegistered, apiKeyDeleted, apiKeyError} = this.props
+        const { name, email } = this.props.profile
         const { bigDesc, smallDesc } = this.state
+        const picture = genericProfile
+        const cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
+        this.closeModal()
+        
 
         const { editBig } = this.state
         return (
@@ -66,18 +89,39 @@ class Profile extends Component {
                     <SimpleUserCard
                         picture={picture}
                         cover={cover}
-                        smallDesc={smallDesc}
+                        smallDesc={email}
                         onChange={this.handleBigDescChange}
                         name={name} />
                 </div>
                 <div className="col-md-4 col-sm-12">
                     <Card title="Configure API Key">
-                        <div style={{ textAlign: 'center' }}>
-                            <button data-toggle="modal" data-target="#modal-keys" type="button" className="btn btn-success btn-lg">Configure</button>
+                        {
+                            apiKeyList.name ?
+                                <div>
+                                    <div className="todo-list todo-browser todo-list-divided">
+                                        <a className="todo todo-default">
+                                            <span className="ct-title api-span">
+                                                <i
+                                                    className={apiKeyList.active ? 'fa fa-check' : 'fa fa-times'}></i>
+                                                <strong>{apiKeyList.name}</strong>
+                                            </span>
+                                            <span className="badge bg-danger">
+                                                <i className='fa fa-trash'
+                                                    onClick={() => deleteApi()}></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div> : null}
+                        <div className="btn-api">
+                            <button data-toggle="modal"
+                                data-target="#modal-keys"
+                                type="button" className="btn btn-success ">
+                                Add or Replace
+                                </button>
                         </div>
                     </Card>
                 </div>
-                <div className="col-md-4 col-sm-12">
+                {/* <div className="col-md-4 col-sm-12">
                     <Card title="Description" opt={[{ label: 'Edit', func: this.editContent }]} >
                         <ContentEditable
                             ref={(r) => this.bigDescDiv = r}
@@ -105,23 +149,21 @@ class Profile extends Component {
                             </button>
                         </div>
                     </Card>
-                </div>
+                </div> */}
 
                 <div className="col-md-4 col-sm-12">
-                    <Card title="2 FA">
-                        <h3>Soon</h3>
+                    <Card title="2 FA - Soon">                  
                         <div style={{ textAlign: 'center' }}>
                             <img src={googleAuthImg} style={{ textAlign: 'center', width: '300px' }} />
                         </div>
                     </Card>
                 </div>
                 <div className="col-md-4 col-sm-12">
-                    <Card title="Deposit">
-                        <h3>Soon</h3>
+                    <Card title="Deposit - Soon">                   
                         <div style={{ textAlign: 'center' }}>
                             <button data-toggle="modal"
                                 data-target="#modal-keys"
-                                type="button" className="btn btn-info btn-lg"
+                                type="button" className="btn btn-info"
                                 disabled>Deposit</button>
                         </div>
                     </Card>
@@ -130,21 +172,21 @@ class Profile extends Component {
                     <h3>Exchange API KEY</h3>
                     <form className="contactForm" onSubmit={handleSubmit(v => this.onSubmit(v))}>
                         <div className="row">
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <Field type="text" name="name" component="input" className="form-control" placeholder="Connection Alias" />
-                                    </div>
-                                    <div className="form-group">
-                                        <Field type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
-                                    </div>
-                                    <div className="form-group">
-                                        <Field type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
-                                    </div>
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <Field type="text" name="name" component="input" className="form-control" placeholder="Connection Alias" />
                                 </div>
-                                <div className="clearfix"></div>
-                                <div className="col-lg-12 text-center">
-                                    <button type="submit" className="btn modal-btn btn-success">Save</button>
+                                <div className="form-group">
+                                    <Field type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
                                 </div>
+                                <div className="form-group">
+                                    <Field type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
+                                </div>
+                            </div>
+                            <div className="clearfix"></div>
+                            <div className="col-lg-12 text-center">
+                                <button type="submit" className="btn modal-btn btn-success" >Save</button>
+                            </div>
                         </div>
                     </form>
                 </Modal>
@@ -159,11 +201,19 @@ Profile = reduxForm({
 })(Profile)
 
 const mapStateToProps = state => (
-    { profile: state.profile.profile }
+    {
+        profile: state.profile.profile,
+        apiKeyList: state.profile.apiKeyList,
+        apiKeyRegistered: state.profile.apiKeyRegistered,
+        userAuthenticated: state.auth.userAuthenticated,
+        apiKeyError: state.profile.apiKeyError,
+        apiKeyDeleted: state.profile.apiKeyDeleted,
+        
+    }
 )
 
 const mapDispatchToProps = dispatch => (
-    (bindActionCreators({ getProfile, setApi }, dispatch))
+    (bindActionCreators({ getProfile, setApi, deleteApi }, dispatch))
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

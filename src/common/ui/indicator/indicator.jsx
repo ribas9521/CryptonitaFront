@@ -12,7 +12,7 @@ export default props => {
                         </div>
                         <div className="col-xs-8 no-pad">
                             <div className="widget-detail">
-                                <h3 className={`cl-${type}`}>{value} <i className={`fa fa-${currency}`}></i></h3>
+                                <h4 className={`cl-${type}`}>{value} <i className={`fa fa-${currency}`}></i></h4>
                                 
                                 <span>{text}</span>
                             </div>
