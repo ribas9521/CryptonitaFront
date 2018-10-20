@@ -24,7 +24,7 @@ export default class ClientDashboard extends Component {
         const data = portfolio.map(coin => ({
             value: coin.amountConvertedToBTC,
             name: coin.asset
-        }))
+        })).sort((a,b)=>a.value - b.value)
         return ({
             tooltip: {
                 trigger: 'item',
@@ -124,14 +124,6 @@ export default class ClientDashboard extends Component {
         return (
             <div>
                 <Indicator
-                    text="Return"
-                    icon='fa fa-line-chart'
-                    value={dashboard.totalReturnBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })}
-                    type={dashboard.totalReturnBTC > 0 ? "success" : "danger"}
-                    percentage={0}
-                    currency="btc" />
-
-                <Indicator
                     text="Available"
                     icon='fa fa-check'
                     value={dashboard.totalAvailableBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })}
@@ -152,10 +144,17 @@ export default class ClientDashboard extends Component {
                     type={"success"}
                     percentage={0}
                     currency="btc" />
+                <Indicator
+                    text="Return"
+                    icon='fa fa-line-chart'
+                    value={dashboard.totalReturnBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })}
+                    type={dashboard.totalReturnBTC > 0 ? "success" : "danger"}
+                    percentage={0}
+                    currency="btc" />
 
                 <div className="col-md-12 col-sm-12">
                     <Card title="Fund evolution">
-                        <ReactEcharts option={evolutionOptions} style={{ margin: " -30px" }} />
+                        <ReactEcharts option={evolutionOptions} style={{ margin: " -20px" }} />
                     </Card>
                 </div>
                 <div className="col-md-6 col-sm-12">

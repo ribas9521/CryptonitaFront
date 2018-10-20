@@ -3,7 +3,7 @@ import React from 'react'
 export default props => {
     const { icon, value, text, percentage, type, currency} = props
     return (
-        <div className="col-md-3 col-sm-6 col-xs-6">
+        <div className="col-md-3 col-sm-6 col-xs-12">
             <div className="widget smart-standard-widget">
                 <div className="row">
                     <div className={`widget-caption ${type}`}>
