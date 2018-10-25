@@ -1,3 +1,3 @@
 export default {
-    API_URL: 'http://api.cryptonita.org:5000/api',
+    API_URL: 'https://api.cryptonita.org/api',
 }

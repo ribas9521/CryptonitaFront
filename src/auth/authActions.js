@@ -17,7 +17,8 @@ export function login(values) {
                 })
                 .catch(e => {
                     toastr.error("Error", e.response.data.message)
-                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
+                    dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
+                { type: 'USER_AUTHENTICATED', payload: false }])
                 })
         }
         if (values) {
@@ -32,8 +33,13 @@ export function login(values) {
                 })
                 .catch(e => {
                     toastr.error("Error", e.response.data.message)
-                    dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
+                    dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
+                        { type: 'USER_AUTHENTICATED', payload: false }])
                 })
+        }
+        if(!identity && !values){
+            dispatch([
+            { type: 'USER_AUTHENTICATED', payload: false }])
         }
     }
 }
