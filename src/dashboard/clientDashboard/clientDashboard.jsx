@@ -4,10 +4,8 @@ import Card from '../../common/ui/card/card'
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts'
 import { roma } from '../../common/ui/echarts/roma'
-
+import moment from 'moment'
 import './clientDashboardStyle.css'
-
-
 
 export default class ClientDashboard extends Component {
     constructor(props) {
@@ -15,16 +13,15 @@ export default class ClientDashboard extends Component {
         this.getEvolutionOptions = this.getEvolutionOptions.bind(this)
         this.getPortfolioOptions = this.getPortfolioOptions.bind(this)
         this.getOrderListOptions = this.getOrderListOptions.bind(this)
-        echarts.registerTheme('roma',roma)
-
-
+        echarts.registerTheme('roma', roma)
     }
+
     getPortfolioOptions() {
         const { portfolio } = this.props
         const data = portfolio.map(coin => ({
             value: coin.amountConvertedToBTC,
             name: coin.asset
-        })).sort((a,b)=>a.value - b.value)
+        }))
         return ({
             tooltip: {
                 trigger: 'item',
@@ -51,7 +48,15 @@ export default class ClientDashboard extends Component {
     }
 
     getEvolutionOptions() {
-        const { balanceEvolution } = this.props.dashboard
+        let { balanceEvolution } = this.props.dashboard
+        let newBalance = [{}]
+        balanceEvolution.forEach(balance => {
+            balanceEvolution.forEach(element => {
+                if (moment(element.date).isSame(moment(balance.date), 'day'))
+                    newBalance.push()
+                //console.log(moment(element.date).isSame(moment(balance.date), 'day'))
+            })
+        })
         const xAxisData = balanceEvolution.map(period => new Date(period.date).toLocaleTimeString([], { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }))
         const seriesData = balanceEvolution.map(period => period.amountBTC)
         return (
@@ -107,20 +112,21 @@ export default class ClientDashboard extends Component {
     getOrderListOptions() {
         const { orderList } = this.props
         const finalOptions = []
-        orderList.forEach((orderO) => {
-            let sameOrder = orderList.filter((orderI) => orderO.exchangeOrderId === orderI.exchangeOrderId)
-                .sort((a, b) => b.usernameExchangeOrderId - a.usernameExchangeOrderId)[0]
+        // orderList.forEach((orderO) => {
+        //     let sameOrder = orderList.filter((orderI) => orderO.exchangeOrderId === orderI.exchangeOrderId)
+        //         .sort((a, b) => b.usernameExchangeOrderId - a.usernameExchangeOrderId)[0]
 
-            finalOptions.push(sameOrder)
-        })
-        return (finalOptions.filter((item, pos) => finalOptions.indexOf(item) == pos))
+        //     finalOptions.push(sameOrder)
+        // })
+        //return (finalOptions.filter((item, pos) => finalOptions.indexOf(item) == pos))
+        return (orderList.filter((order) => order.currentExecutionType !== 'NEW'))
     }
 
     render() {
         const { dashboard } = this.props
         const evolutionOptions = this.getEvolutionOptions()
         const portfolioOptions = this.getPortfolioOptions()
-        const orderList = this.getOrderListOptions().filter((obj, i)=>i<10)
+        const orderList = this.getOrderListOptions()
         return (
             <div>
                 <Indicator
@@ -163,26 +169,31 @@ export default class ClientDashboard extends Component {
 
                     </Card>
                 </div>
-                <div className="col-md-6 col-sm-12">
+                <div className="col-md-6 col-sm-12" id="tutorial">
                     <Card title="Last Orders">
-                    {
-                        orderList.map((order,i) =>
+                        {
+                            orderList.map((order, i) =>
                                 <div className="row mrg-0" key={"row" + i}>
                                     <div className="todo-list todo-list-hover todo-list-divided">
                                         <div className="todo todo-default">
                                             <div className="sm-avater list-avater">
-                                                <img src={`https://github.com/atomiclabs/cryptocurrency-icons/blob/master/32/color/${order.symbol.substr(0,(order.symbol.length - 3)).toLowerCase()}.png?raw=true`} className="img-responsive img-circle" alt="" />
-
+                                                <img src={`https://github.com/atomiclabs/cryptocurrency-icons/blob/master/32/color/${order.symbol.substr(0, (order.symbol.length - 3)).toLowerCase()}.png?raw=true`} className="img-responsive img-circle" alt="" />
                                             </div>
                                             <h6 className="ct-title">{order.symbol}<span className="ct-designation">{order.side}</span></h6>
                                             <div className="badge badge-action">
                                                 <h6 className="ct-title">Price: <span className="ct-designation">{order.lastExecutedPrice.toLocaleString(undefined, { minimumFractionDigits: 8 })}</span></h6>
                                             </div>
+                                            <div className="badge badge-action">
+                                                <h6 className="ct-title">Quantity: <span className="ct-designation">{order.orderQuantity}</span></h6>
+                                            </div>
+                                            <div className="badge badge-action">
+                                                <h6 className="ct-title">Date: <span className="ct-designation">{new Date(order.createdAt).toLocaleTimeString([], { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</span></h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>)
-                    }
-                        
+                        }
+
                     </Card>
                 </div>
             </div>

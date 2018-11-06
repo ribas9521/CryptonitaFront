@@ -31,3 +31,6 @@ export const removeState = key => {
     }
 
 }
+
+export const isFirstTime=()=>typeof(loadState('firstTime'))==="undefined"
+export const setFirstTime=value=>{saveState('firstTime', value)}

@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     forgotSent: false,
     identity: null,
     authError: null,    
-    resetDone: false
+    resetDone: false,
+    isFirstTime:false
     
 }
 export default (state = INITIAL_STATE, action) => {
@@ -27,6 +28,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, resetDone: action.payload}
         case 'PASSWORD_CHANGED':
             return { ...state, passwordChanged: action.payload}
+        case 'IS_FIRST_TIME':
+            return { ...state, isFirstTime: action.payload}
         default:
             return state
     }

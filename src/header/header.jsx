@@ -14,6 +14,7 @@ class Header extends Component {
     componentDidMount() {
         //$('#side-menu').metisMenu();
         this.handleLogout = this.handleLogout.bind(this)
+        this.handleActive = this.handleActive.bind(this)
     }
     handleLogout() {
         const { logout } = this.props
@@ -24,6 +25,12 @@ class Header extends Component {
     componentWillMount() {
         const { userAuthenticated, login } = this.props
         !userAuthenticated || userAuthenticated ==='initial' ? login() : null
+    }
+    handleActive(path){       
+        if (path === createHistory().location.pathname)
+            return 'tab-active'
+        return ''
+        
     }
     render() {
         const { userAuthenticated, logout, identity } = this.props
@@ -60,16 +67,16 @@ class Header extends Component {
                 <div className="navbar-default sidebar" role="navigation">
                     <div className="sidebar-nav navbar-collapse">
                         <ul className="nav" id="side-menu">
-                            <li>
-                                <Link to="/dashboard"><i className="fa fa-bullseye"></i>Dashboard</Link>
+                            <li onClick={()=>this.forceUpdate()}> 
+                                <Link to="/dashboard" className={this.handleActive('/dashboard')}><i className="fa fa-bullseye"></i>Dashboard</Link>
 
                             </li>
-                            <li>
-                                <Link to="/profile"><i className="fa fa-user"></i>Profile </Link>                               
+                            <li onClick={()=>this.forceUpdate()}>
+                                <Link to="/profile" className={this.handleActive('/profile')}><i className="fa fa-user"></i>Profile </Link>                               
                                 
                             </li>
-                            <li>
-                                <Link to="/traderList"><i className="fa fa-users"></i>Traders List </Link>                               
+                            <li onClick={() => this.forceUpdate()}>
+                                <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-users"></i>Traders List </Link>                               
                                 
                             </li>
 

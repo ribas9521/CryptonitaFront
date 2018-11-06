@@ -1,7 +1,21 @@
 import axios from 'axios'
 import consts from '../common/helpers/consts'
-import { loadState, saveState, removeState } from "../common/helpers/localStorage";
+import { loadState, saveState, removeState, setFirstTime, isFirstTime } from "../common/helpers/localStorage";
 import { toastr } from "react-redux-toastr";
+
+function handleFirstTime(){
+    return dispatch=>{
+        if (isFirstTime()){
+            setFirstTime(false)
+            dispatch({ type: 'IS_FIRST_TIME', payload: true })
+        }
+        else{
+            dispatch({ type: 'IS_FIRST_TIME', payload: false})
+        }
+            
+    }
+   
+}
 
 export function login(values) {
     return dispatch => {
@@ -10,8 +24,10 @@ export function login(values) {
             axios.get(`${consts.API_URL}/username/verify`, { headers: { session: identity.sessionId } })
                 .then(resp => {
                     if (resp.data.status === "ok") {
-                        dispatch([{ type: 'USER_IDENTITY_FETCHED', payload: identity },
-                        { type: 'USER_AUTHENTICATED', payload: true }
+                        dispatch([
+                            { type: 'USER_IDENTITY_FETCHED', payload: identity },
+                            { type: 'USER_AUTHENTICATED', payload: true }, 
+                            handleFirstTime()
                         ])
                     }
                 })
@@ -27,7 +43,8 @@ export function login(values) {
                     dispatch([
                         [saveState('identity', resp.data.result),
                         { type: 'USER_IDENTITY_FETCHED', payload: resp.data.result },
-                        { type: 'USER_AUTHENTICATED', payload: true }
+                        { type: 'USER_AUTHENTICATED', payload: true },
+                        handleFirstTime()
                         ]
                     ])
                 })

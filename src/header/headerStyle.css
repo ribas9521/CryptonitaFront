@@ -2,3 +2,9 @@
     background: #121929;
     border-bottom: 1px solid #344361;
 }
+
+.tab-active {
+    background: #1b2538 !important;
+    border-left: 3px solid #2ca01c !important;
+    color: #2ca01c !important;
+}

@@ -2,7 +2,19 @@
     padding: 5px;
 }
 
-.btn-api{
+.btn-api {
     text-align: center;
     margin-top: 10px;
+}
+
+.tutorial-div {
+    text-align: center;
+}
+
+.tutorial-div button {
+    margin: 5px;
+}
+
+.image-viewer{
+    z-index: 10000000!important;
 }

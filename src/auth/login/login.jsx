@@ -7,8 +7,6 @@ import ErrorHandler from "../errorHandler";
 import { Link } from "react-router-dom";
 import './loginStyle.css'
 
-import Particles from '../../common/effects/particles'
-
 class Login extends Component {
     constructor(props) {
         super(props)

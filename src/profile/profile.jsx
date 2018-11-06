@@ -9,38 +9,42 @@ import Modal from '../common/ui/modal/modal'
 import ContentEditable from 'react-contenteditable'
 import { reduxForm, Field } from 'redux-form'
 import genericProfile from '../vendor/assets/img/generic-profile.png'
+
 import './profileStyle.css'
-import { toastr } from "react-redux-toastr";
+
+import Tutorial from "../common/ui/tutorial/tutorial";
 
 
 class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            editBig: false
+            editBig: false,
+            isTourOpen: false,
+            imageViewer:false,       
+            
         }
         this.editContent = this.editContent.bind(this)
         this.saveBigDesc = this.saveBigDesc.bind(this)
         this.resetBigDesc = this.resetBigDesc.bind(this)
         this.handleBigDescChange = this.handleBigDescChange.bind(this)
-    }
+        
+       }
+   
+       
     componentDidMount() {
         const { getProfile, apiKeyRegistered, apiKeyError, apiKeyDeleted } = this.props
         const { editBig } = this.state
-
         getProfile();
         const { bigDesc, smallDesc } = this.props.profile
         this.setState({ bigDesc, smallDesc })
-      
-
-
-
+        
+        
     }
 
     componentWillReceiveProps(nextProps) {
         const { bigDesc, smallDesc } = nextProps.profile
         this.setState({ bigDesc, smallDesc })
-       
     }
     componentWillMount() {
         const { userAuthenticated, history } = this.props
@@ -49,6 +53,7 @@ class Profile extends Component {
         }
         else
             history.push("/login")
+        
        
     }
     editContent() {
@@ -64,27 +69,26 @@ class Profile extends Component {
         this.setState({ bigDesc: e.target.value })
     }
     onSubmit(values) {
-        const { setApi } = this.props
+        const { setApi } = this.props        
         setApi(values)
+        this.closeModal()
     }
     closeModal(){
         const { apiKeyRegistered } = this.props
         if (apiKeyRegistered)
             window.$("#modal-keys").modal('hide')
     }
-
+  
     render() {
         const { handleSubmit, apiKeyList, deleteApi, apiKeyRegistered, apiKeyDeleted, apiKeyError} = this.props
         const { name, email } = this.props.profile
         const { bigDesc, smallDesc } = this.state
         const picture = genericProfile
         const cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
-        this.closeModal()
-        
-
         const { editBig } = this.state
         return (
             <div>
+                <Tutorial steps={'addApi'} isTourOpen={this.state.isTourOpen}/>
                 <div className="col-md-12 col-sm-12">
                     <SimpleUserCard
                         picture={picture}
@@ -114,9 +118,13 @@ class Profile extends Component {
                                 </div> : null}
                         <div className="btn-api">
                             <button data-toggle="modal"
+                                data-tut="reactour_addApi"
                                 data-target="#modal-keys"
-                                type="button" className="btn btn-success ">
+                                type="button" className="btn btn-success "
+                                onClick={()=>this.setState({isTourOpen: true})}
+                                >
                                 Add or Replace
+                                
                                 </button>
                         </div>
                     </Card>
@@ -158,8 +166,8 @@ class Profile extends Component {
                         </div>
                     </Card>
                 </div>
-                <div className="col-md-4 col-sm-12">
-                    <Card title="Deposit - Soon">                   
+                {/* <div className="col-md-4 col-sm-12">
+                    <Card id="deposit" title="Deposit - Soon">                   
                         <div style={{ textAlign: 'center' }}>
                             <button data-toggle="modal"
                                 data-target="#modal-keys"
@@ -167,25 +175,25 @@ class Profile extends Component {
                                 disabled>Deposit</button>
                         </div>
                     </Card>
-                </div>
+                </div> */}
                 <Modal id="modal-keys">
                     <h3>Exchange API KEY</h3>
                     <form className="contactForm" onSubmit={handleSubmit(v => this.onSubmit(v))}>
                         <div className="row">
                             <div className="col-md-12">
-                                <div className="form-group">
-                                    <Field type="text" name="name" component="input" className="form-control" placeholder="Connection Alias" />
+                                <div className="form-group" >
+                                    <Field data-tut="reactour_addAlias" id="alias" type="text" name="name" component="input" className="form-control" placeholder="Ex: Connection-1" />
                                 </div>
                                 <div className="form-group">
-                                    <Field type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
+                                    <Field data-tut="reactour_addApiKey" type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
                                 </div>
                                 <div className="form-group">
-                                    <Field type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
+                                    <Field data-tut="reactour_addApiSecret" type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
                                 </div>
                             </div>
                             <div className="clearfix"></div>
                             <div className="col-lg-12 text-center">
-                                <button type="submit" className="btn modal-btn btn-success" >Save</button>
+                                <button data-tut="reactour_submit" type="submit" className="btn modal-btn btn-success" >Save</button>
                             </div>
                         </div>
                     </form>
