@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'PROFILE_ERROR':
             return { ...state, profile: action.payload }
         case 'API_KEY_REGISTERED':
-            return { ...state, apiKeyRegistered: action.payload }
+            return { ...state, apiKeyRegistered: !state.apiKeyRegistered }
         case 'API_KEY_ERROR':
             return { ...state, apiKeyError: action.payload }
         case 'API_KEY_FETCHED':

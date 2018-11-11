@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { getProfile, setApi, deleteApi } from "./profileActions";
+import { getProfile, setApi, deleteApi, resetApiRegisterdState } from "./profileActions";
 import SimpleUserCard from "../common/ui/simpleUserCard/simpleUserCard";
 import Card from '../common/ui/card/card'
 import googleAuthImg from '../vendor/assets/img/google-authenticator.png'
 import Modal from '../common/ui/modal/modal'
 import ContentEditable from 'react-contenteditable'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import genericProfile from '../vendor/assets/img/generic-profile.png'
+import { isFirstTime, showTutorial, openTutorial } from "../common/helpers/localStorage";
+import ApiKeyModalBody from './apiKeyModalBody'
+
 
 import './profileStyle.css'
 
 import Tutorial from "../common/ui/tutorial/tutorial";
-
 
 class Profile extends Component {
     constructor(props) {
@@ -21,13 +23,19 @@ class Profile extends Component {
         this.state = {
             editBig: false,
             isTourOpen: false,
-            imageViewer:false,       
+            imageViewer:false,
+            isModalOpen: false      
             
         }
         this.editContent = this.editContent.bind(this)
         this.saveBigDesc = this.saveBigDesc.bind(this)
         this.resetBigDesc = this.resetBigDesc.bind(this)
         this.handleBigDescChange = this.handleBigDescChange.bind(this)
+        this.handleHideModal = this.handleHideModal.bind(this)
+        this.handleCloseTutorial = this.handleCloseTutorial.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+        this.handleOpenTutorial = this.handleOpenTutorial.bind(this)
+        this.openTutorial =this.openTutorial.bind(this)
         
        }
    
@@ -37,14 +45,14 @@ class Profile extends Component {
         const { editBig } = this.state
         getProfile();
         const { bigDesc, smallDesc } = this.props.profile
-        this.setState({ bigDesc, smallDesc })
+        this.setState({ bigDesc, smallDesc, apiKeyRegistered })
         
         
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { bigDesc, smallDesc } = nextProps.profile
-        this.setState({ bigDesc, smallDesc })
+    componentWillReceiveProps(nextProps) {        
+    
+        
     }
     componentWillMount() {
         const { userAuthenticated, history } = this.props
@@ -71,24 +79,44 @@ class Profile extends Component {
     onSubmit(values) {
         const { setApi } = this.props        
         setApi(values)
-        this.closeModal()
     }
     closeModal(){
-        const { apiKeyRegistered } = this.props
-        if (apiKeyRegistered)
-            window.$("#modal-keys").modal('hide')
+        const { reset } = this.props
+        const {apiKeyRegistered, resetApiRegisterdState} = this.props
+        if (apiKeyRegistered){
+            reset()
+            this.handleHideModal()
+            resetApiRegisterdState()
+        }
+            
     }
-  
+    handleHideModal(){
+        this.setState({isModalOpen: false})
+    }
+    handleCloseTutorial(){
+        this.setState({isTourOpen: false})
+    }
+    handleOpenTutorial(){
+        this.setState({
+            isTourOpen: showTutorial() ? true : false
+        }, ()=>console.log(this.state.isTourOpen))
+    }
+
+    openTutorial(){
+        openTutorial()
+        this.handleOpenTutorial()
+    }
     render() {
         const { handleSubmit, apiKeyList, deleteApi, apiKeyRegistered, apiKeyDeleted, apiKeyError} = this.props
         const { name, email } = this.props.profile
-        const { bigDesc, smallDesc } = this.state
+        const { bigDesc, smallDesc, isModalOpen, isTourOpen } = this.state
         const picture = genericProfile
         const cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
         const { editBig } = this.state
+        this.closeModal()
         return (
             <div>
-                <Tutorial steps={'addApi'} isTourOpen={this.state.isTourOpen}/>
+                <Tutorial startAt={0}  steps={'addApi'} isTourOpen={isTourOpen} onHide={this.handleCloseTutorial}/>
                 <div className="col-md-12 col-sm-12">
                     <SimpleUserCard
                         picture={picture}
@@ -116,93 +144,46 @@ class Profile extends Component {
                                         </a>
                                     </div>
                                 </div> : null}
-                        <div className="btn-api">
+                        <div className={`btn-api ${isFirstTime() ? `animated infinite pulse` : null}` }>
                             <button data-toggle="modal"
-                                data-tut="reactour_addApi"
-                                data-target="#modal-keys"
+                                data-tut="reactour_addApi"                                
                                 type="button" className="btn btn-success "
-                                onClick={()=>this.setState({isTourOpen: true})}
+                                onClick={()=>{
+                                    this.handleOpenTutorial()
+                                    this.setState({isModalOpen: true})
+                                }}
                                 >
                                 Add or Replace
                                 
                                 </button>
                         </div>
                     </Card>
-                </div>
-                {/* <div className="col-md-4 col-sm-12">
-                    <Card title="Description" opt={[{ label: 'Edit', func: this.editContent }]} >
-                        <ContentEditable
-                            ref={(r) => this.bigDescDiv = r}
-                            disabled={!editBig}
-                            html={bigDesc}
-                            onChange={this.handleBigDescChange} />
-                        <div>
-                            <button type="button"
-                                className="btn btn-outline btn-success"
-                                style={{
-                                    float: 'right', marginTop: '20px',
-                                    margin: '5px',
-                                    display: editBig ? 'block' : 'none'
-                                }}
-                                onClick={() => this.saveBigDesc()}>Save
-                            </button>
-                            <button type="button"
-                                className="btn btn-outline btn-danger"
-                                style={{
-                                    float: 'right', marginTop: '20px',
-                                    margin: '5px',
-                                    display: editBig ? 'block' : 'none'
-                                }}
-                                onClick={() => this.resetBigDesc()}>Cancel
-                            </button>
-                        </div>
-                    </Card>
-                </div> */}
+                </div>           
 
                 <div className="col-md-4 col-sm-12">
                     <Card title="2 FA - Soon">                  
                         <div style={{ textAlign: 'center' }}>
-                            <img src={googleAuthImg} style={{ textAlign: 'center', width: '300px' }} />
+                            <img src={googleAuthImg} style={{ textAlign: 'center', width: '150px' }} />
                         </div>
                     </Card>
                 </div>
-                {/* <div className="col-md-4 col-sm-12">
-                    <Card id="deposit" title="Deposit - Soon">                   
-                        <div style={{ textAlign: 'center' }}>
-                            <button data-toggle="modal"
-                                data-target="#modal-keys"
-                                type="button" className="btn btn-info"
-                                disabled>Deposit</button>
-                        </div>
-                    </Card>
-                </div> */}
-                <Modal id="modal-keys">
-                    <h3>Exchange API KEY</h3>
-                    <form className="contactForm" onSubmit={handleSubmit(v => this.onSubmit(v))}>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="form-group" >
-                                    <Field data-tut="reactour_addAlias" id="alias" type="text" name="name" component="input" className="form-control" placeholder="Ex: Connection-1" />
-                                </div>
-                                <div className="form-group">
-                                    <Field data-tut="reactour_addApiKey" type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
-                                </div>
-                                <div className="form-group">
-                                    <Field data-tut="reactour_addApiSecret" type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
-                                </div>
-                            </div>
-                            <div className="clearfix"></div>
-                            <div className="col-lg-12 text-center">
-                                <button data-tut="reactour_submit" type="submit" className="btn modal-btn btn-success" >Save</button>
-                            </div>
-                        </div>
-                    </form>
+               
+                <Modal show={isModalOpen} 
+                    keyboard={!isTourOpen} 
+                    backdrop={!isTourOpen} 
+                    onHide={this.handleHideModal}
+                   >
+                    <ApiKeyModalBody
+                        handleSubmit={handleSubmit}
+                        onSubmit={this.onSubmit}
+                        openTutorial={this.openTutorial}
+                    />
                 </Modal>
-            </div>
-
+            </div>        
         )
     }
 }
+
 
 Profile = reduxForm({
     form: 'profile'
@@ -221,7 +202,7 @@ const mapStateToProps = state => (
 )
 
 const mapDispatchToProps = dispatch => (
-    (bindActionCreators({ getProfile, setApi, deleteApi }, dispatch))
+    (bindActionCreators({ getProfile, setApi, deleteApi, resetApiRegisterdState }, dispatch))
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

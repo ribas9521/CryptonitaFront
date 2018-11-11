@@ -4,7 +4,7 @@ export const email = value =>
     value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
         'Invalid email address' : undefined
 export const password = value =>
-    value && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/g.test(value) ?
+    value && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*<>,.:()@%&]).{8,}$/g.test(value) ?
         'Password must contain at least 8 characters one number, \n one lowercase letter, one capital letter and at least one especial symbol' : undefined
 export const passwordsMatch = (value, allValues) => value !== allValues.password ? 'Passwords do not match' : undefined
 

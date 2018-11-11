@@ -26,7 +26,7 @@ export function setApi(values) {
                     toastr.success('success','API successfully registered')
                     dispatch([
                         { type: 'API_KEY_REGISTERED', payload: true }, getApi()
-                    ])
+                    ] )
                 })
 
                 .catch(e => {
@@ -38,6 +38,9 @@ export function setApi(values) {
             dispatch([{ type: 'API_KEY_ERROR', payload: 'invalid identity' }])
         }
     }
+}
+export function resetApiRegisterdState(){
+    return dispatch => dispatch({ type: 'API_KEY_REGISTERED', payload: false })
 }
 
 export function getApi() {

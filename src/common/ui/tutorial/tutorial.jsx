@@ -8,7 +8,7 @@ import fa2 from '../../../vendor/assets/img/tutorial/2FA.PNG'
 import binanceEmail from '../../../vendor/assets/img/tutorial/binanceEmail.png'
 import apikeyImg from '../../../vendor/assets/img/tutorial/apiKey.png'
 import apiSecretImg from '../../../vendor/assets/img/tutorial/apiSecret.png'
-import { loadState, saveState, removeState, isFirstTime } from "../../helpers/localStorage";
+import { loadState, saveState, showTutorial, removeState, isFirstTime } from "../../helpers/localStorage";
 
 export default class Tutorial extends Component{
     constructor(props){
@@ -24,12 +24,13 @@ export default class Tutorial extends Component{
             return this.addApiSteps()
     }
     componentWillReceiveProps(nextProps){
-        this.setState({isTourOpen: nextProps.isTourOpen})
+        if(nextProps.isTourOpen !== this.props.isTourOpen)
+            this.setState({isTourOpen: nextProps.isTourOpen})
     }
-    dontShowAgain=()=>{
-        saveState('showTutorial', false)
+    toggleTutorial=show=>{
+        saveState('showTutorial', show)
     }
-    openTutorial = () => (typeof loadState('showTutorial') === 'undefined' || loadState('showTutorial') === true ? true : false)
+    openTutorial = () => showTutorial()
 
     addApiSteps=()=>(
         [
@@ -37,7 +38,7 @@ export default class Tutorial extends Component{
                 selector: '',
                 content: () => <div>
                     <span>Bem vindo a bordo! Vamos começar configurando as chaves de sua API.</span><br /><br /><br />
-                    <label><input type="checkbox" value={false} onClick={()=>this.dontShowAgain()}/> Não mostrar novamente</label>
+                    <label><input type="checkbox" value={false} onClick={()=>this.toggleTutorial(false)}/> Não mostrar novamente</label>
                 </div>,
             },
             {
@@ -189,7 +190,9 @@ export default class Tutorial extends Component{
                 selector: '[data-tut="reactour_submit"]',
                 content: ({ goTo }) =>
                     <div className="tutorial-div">
-                        <span> Agora clique no botão indicado e pronto. Você configurou sua chave de API!
+                        <span> Clique no botão indicado e pronto. Você configurou sua chave de API!
+                            Agora é hora de escolher um trader para seguir. No menu a esquerda escolha a opção
+                            <strong> Trader List </strong> <br/>
                             Bons lucros para você, nos encontramos na Lua!
                     </span>
                         <br />
@@ -201,7 +204,6 @@ export default class Tutorial extends Component{
     )
 
     render(){
-        console.log(typeof loadState('showTutorial') === 'undefined')
         return(
             <div>
                 <Viewer
@@ -218,11 +220,13 @@ export default class Tutorial extends Component{
                     scalable={false}
                 />
                 <Tour
+                    startAt={this.props.startAt}
                     steps={this.getSteps(this.props.steps)}
                     isOpen={this.state.isTourOpen &&
                          this.openTutorial()}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
                     disableKeyboardNavigation={true}
+                    onBeforeClose={this.props.onHide}
                 />
             </div>
         )

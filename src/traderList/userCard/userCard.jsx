@@ -25,11 +25,11 @@ export default class UserCard extends Component {
         const { trader, setFollow, setUnfollow, following } = this.props
         const { usernameId, followers, totalReturnBTC } = trader        
         trader.picture = genericProfile
-       
-     
+        const nameArray = trader.name.split(' ')
         trader.description = "teste"
         trader.data24h = [10, 29, 13, 35, 65]
         trader.cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
+        
         return (
             <div className="col-md-4 col-sm-12">
                 <div className="card-container manual-flip">
@@ -43,7 +43,7 @@ export default class UserCard extends Component {
                                 </div>
                                 <div className="info">
                                     <div className="title">
-                                        <h3>{trader.name}</h3>
+                                        <h3>{nameArray.length >2? `${nameArray[0]} ${nameArray[1]}`: trader.name}</h3>
                                     </div>
                                     <p className="desc"></p>
                                     {/* PARA COLOCAR O BOTAO PARTIDO COLOCAR A CLASSE  left-follow NA TAG <A> ABAIXO */}

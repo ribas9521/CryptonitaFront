@@ -93,14 +93,14 @@ export default class ClientDashboard extends Component {
                     areaStyle: {
                         color: '#0fb76b'
                     },
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'top',
-                            color: '#6a7985'
-                        },
+                    // label: {
+                    //     normal: {
+                    //         show: true,
+                    //         position: 'top',
+                    //         color: '#6a7985'
+                    //     },
 
-                    },
+                    // },
                     color: '#0fb76b'
                 }],
 
@@ -112,14 +112,14 @@ export default class ClientDashboard extends Component {
     getOrderListOptions() {
         const { orderList } = this.props
         const finalOptions = []
-        // orderList.forEach((orderO) => {
-        //     let sameOrder = orderList.filter((orderI) => orderO.exchangeOrderId === orderI.exchangeOrderId)
-        //         .sort((a, b) => b.usernameExchangeOrderId - a.usernameExchangeOrderId)[0]
+        orderList.forEach((orderO) => {
+            let sameOrder = orderList.filter((orderI) => orderO.exchangeOrderId === orderI.exchangeOrderId)
+                .sort((a, b) => b.usernameExchangeOrderId - a.usernameExchangeOrderId)[0]
 
-        //     finalOptions.push(sameOrder)
-        // })
-        //return (finalOptions.filter((item, pos) => finalOptions.indexOf(item) == pos))
-        return (orderList.filter((order) => order.currentExecutionType !== 'NEW'))
+            finalOptions.push(sameOrder)
+        })
+        return (finalOptions.filter((item, pos) => finalOptions.indexOf(item) == pos))
+       // return (orderList.filter((order) => order.currentExecutionType !== 'NEW'))
     }
 
     render() {
