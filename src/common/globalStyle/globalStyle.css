@@ -24,3 +24,8 @@
     background-color: #8597b9;
     width: 5px;
 }
+
+.btn-post-card{
+    float: right;
+    margin: 20px 5px 5px 5px;
+}
