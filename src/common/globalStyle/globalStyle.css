@@ -1,0 +1,26 @@
+/*
+ *  STYLE 2
+ */
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    background-color: #121929;
+    width: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #121929;
+    border-radius: 5px;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+    background-color: #8597b9;
+    width: 5px;
+}
