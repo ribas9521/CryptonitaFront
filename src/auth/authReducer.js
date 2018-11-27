@@ -7,7 +7,9 @@ const INITIAL_STATE = {
     identity: null,
     authError: null,    
     resetDone: false,
-    isFirstTime:false
+    isFirstTime:false,
+    authLoading: false,
+    registerLoading: false
     
 }
 export default (state = INITIAL_STATE, action) => {
@@ -30,6 +32,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, passwordChanged: action.payload}
         case 'IS_FIRST_TIME':
             return { ...state, isFirstTime: action.payload}
+        case 'USER_AUTHENTICATION_LOADING':
+            return { ...state, authLoading: action.payload}
+        case 'USER_REGISTER_LOADING':
+            return { ...state, registerLoading: action.payload}
         default:
             return state
     }

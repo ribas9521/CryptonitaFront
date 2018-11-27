@@ -14,7 +14,7 @@ import PublicProfile from './publicProfile/publicProfile'
 
 export default props=>(
     <Switch>
-        <Route exact path ='/' component={Login}/>
+        <Route exact path='/' component={PublicProfile}/>
         <Route exact path ='/login' component={Login}/>
         <Route exact path='/traderlist' component={TraderList} />
         <Route exact path='/register' component={Register} />
@@ -24,6 +24,6 @@ export default props=>(
         <Route exact path='/changepassword' component={ChangePassword} />
         <Route exact path='/dashboard/' component={Dashboard} />
         <Route exact path='/profile/' component={Profile} />
-        <Route exact path='/publicProfile/' component={PublicProfile} />
+        <Route exact path='/publicProfile/:id' component={PublicProfile} />
     </Switch>
 ) 

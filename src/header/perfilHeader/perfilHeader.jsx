@@ -4,17 +4,17 @@ import './perfilHeaderStyle.css'
 import genericProfile from '../../vendor/assets/img/generic-profile.png'
 
 const logged = (logout, identity) => (
-    <div>
-        <span>{identity.username.name}</span>
+    <div>        
+        <Link to={"/publicProfile/" + identity.username.usernameId}>{identity.username.name}</Link>
         <li className="dropdown">
             <a className="dropdown-toggle" data-toggle="dropdown" href="#">
                 <img src={genericProfile} className="img-responsive img-circle" alt="user" />
             </a>
             <ul className="dropdown-menu dropdown-user right-swip">
-                <li> <Link to={"/dashboard"}><i className="fa fa-user fa-fw"></i> User Dashboard</Link>
+                <li> <Link to={"/publicProfile/"+ identity.username.usernameId}><i className="fa fa-user fa-fw"></i> My Profile</Link>
                 </li>
-                <li><Link to={"/profile"}><i className="fa fa-gear fa-fw"></i> User Profile</Link>
-                </li>
+                {/* <li><Link to={"/profile"}><i className="fa fa-gear fa-fw"></i> User Profile</Link>
+                </li> */}
                 <li><a href="#" onClick={(e) => { e.preventDefault(); logout() }}><i className="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>

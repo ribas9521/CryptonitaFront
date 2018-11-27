@@ -21,12 +21,14 @@ export function login(values) {
     return dispatch => {
         const identity = loadState('identity')
         if (identity) {
+            dispatch({type:'USER_AUTHENTICATION_LOADING', payload: true})
             axios.get(`${consts.API_URL}/username/verify`, { headers: { session: identity.sessionId } })
                 .then(resp => {
                     if (resp.data.status === "ok") {
                         dispatch([
                             { type: 'USER_IDENTITY_FETCHED', payload: identity },
-                            { type: 'USER_AUTHENTICATED', payload: true }, 
+                            { type: 'USER_AUTHENTICATED', payload: true },
+                            { type: 'USER_AUTHENTICATION_LOADING', payload: false },
                             handleFirstTime()
                         ])
                     }
@@ -34,16 +36,19 @@ export function login(values) {
                 .catch(e => {
                     toastr.error("Error", e.response.data.message)
                     dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
-                { type: 'USER_AUTHENTICATED', payload: false }])
+                { type: 'USER_AUTHENTICATED', payload: false },
+                { type: 'USER_AUTHENTICATION_LOADING', payload: false }])
                 })
         }
-        if (values) {
+        else if (values) {
+            dispatch({ type: 'USER_AUTHENTICATION_LOADING', payload: true })
             axios.post(`${consts.API_URL}/username/auth`, values)
                 .then(resp => {
                     dispatch([
                         [saveState('identity', resp.data.result),
                         { type: 'USER_IDENTITY_FETCHED', payload: resp.data.result },
                         { type: 'USER_AUTHENTICATED', payload: true },
+                        { type: 'USER_AUTHENTICATION_LOADING', payload: false },
                         handleFirstTime()
                         ]
                     ])
@@ -51,26 +56,33 @@ export function login(values) {
                 .catch(e => {
                     toastr.error("Error", e.response.data.message)
                     dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
-                        { type: 'USER_AUTHENTICATED', payload: false }])
+                        { type: 'USER_AUTHENTICATED', payload: false },
+                        { type: 'USER_AUTHENTICATION_LOADING', payload: false }])
                 })
         }
-        if(!identity && !values){
+        else{
             dispatch([
-            { type: 'USER_AUTHENTICATED', payload: false }])
+            { type: 'USER_AUTHENTICATED', payload: false },
+            { type: 'USER_AUTHENTICATION_LOADING', payload: false },
+           ])
         }
     }
 }
 export function signup(values) {
     return dispatch => {
+        dispatch({ type: 'USER_REGISTER_LOADING', payload: true })
         axios.post(`${consts.API_URL}/username/register`, values)
             .then(resp => {
                 dispatch([
-                    { type: 'USER_CREATED', payload: true }
+                    { type: 'USER_CREATED', payload: true },
+                    dispatch({ type: 'USER_REGISTER_LOADING', payload: false })
                 ])
             })
             .catch(e => {
                 toastr.error("Error", e.response.data.message)
-                dispatch({ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" })
+                dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
+                    { type: 'USER_REGISTER_LOADING', payload: false }                
+                ])
             })
     }
 }

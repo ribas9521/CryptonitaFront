@@ -18,7 +18,7 @@ export default props => {
                                             <li key={`opt${i}`}>
                                                 <a href="#"
                                                     onClick={
-                                                        (e) => { e.preventDefault(); o.func(o.param? o.param : null) }}>
+                                                        (e) => { e.preventDefault(); o.func(o.param ? o.param : null, o.param2 ? o.param2 : null) }}>
                                                     {o.label}
                                                 </a>
                                             </li>

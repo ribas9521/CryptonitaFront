@@ -6,7 +6,8 @@ export default props => {
         <div className="user-box" style={{ padding: "0px" }}>
             <ul className="nav nav-tabs" style={{ margin: "0px" }}>
                 {options.map((o, i) =>
-                    <li key={`tab${i}`} className={o.active ? "active" : ''}>
+                    <li key={`tab${i}`} className={o.active ? "active" : ''}
+                    style={{width: 100 / options.length + '%'}}>
                         <a href="#options"
                             data-toggle="tab"
                             aria-expanded="false"

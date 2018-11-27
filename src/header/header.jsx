@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import createHistory from 'history/createHashHistory'
 import PerfilHeader from './perfilHeader/perfilHeader'
+import {loadState} from '../common/helpers/localStorage'
 
 
 
@@ -32,7 +33,15 @@ class Header extends Component {
         return ''
         
     }
+    getUserId(){
+        const id = loadState("identity")
+        if(id)
+            return loadState("identity").username.usernameId
+        else
+            return 0
+    }
     render() {
+        const userId = this.getUserId();
         const { userAuthenticated, logout, identity } = this.props
         const initialIdentity= {
             username:{
@@ -68,13 +77,13 @@ class Header extends Component {
                     <div className="sidebar-nav navbar-collapse">
                         <ul className="nav" id="side-menu">
                             <li onClick={()=>this.forceUpdate()}> 
-                                <Link to="/dashboard" className={this.handleActive('/dashboard')}><i className="fa fa-bullseye"></i>Dashboard</Link>
+                                <Link to={this.getUserId() !== 0? `/publicProfile/${this.getUserId()}`: `/login`} replace className={this.handleActive('/publicProfile')}><i className="fa fa-bullseye"></i>Dashboard</Link>
 
                             </li>
-                            <li onClick={()=>this.forceUpdate()}>
+                            {/* <li onClick={()=>this.forceUpdate()}>
                                 <Link to="/profile" className={this.handleActive('/profile')}><i className="fa fa-user"></i>Profile </Link>                               
                                 
-                            </li>
+                            </li> */}
                             <li onClick={() => this.forceUpdate()}>
                                 <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-users"></i>Traders List </Link>                               
                                 

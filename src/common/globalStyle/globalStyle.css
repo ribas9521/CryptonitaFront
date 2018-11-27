@@ -25,7 +25,13 @@
     width: 5px;
 }
 
-.btn-post-card{
+.btn-post-card {
     float: right;
     margin: 20px 5px 5px 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    .hidden-mobile {
+        display: none;
+    }
 }

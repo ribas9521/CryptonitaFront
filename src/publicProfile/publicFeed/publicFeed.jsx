@@ -36,7 +36,10 @@ export default class PublicFeed extends Component {
         const { editDescription, descriptionContent } = this.state
         return (
             <div>
-                <div className="col-md-4 col-sm-12" style={{ float: 'right' }}>
+                <div className="col-md-4 col-sm-12">
+                    <Card>Comming Soon</Card>
+                </div>
+                {/* <div className="col-md-4 col-sm-12" style={{ float: 'right' }}>
                     <PostCard
                         title="Description"
                         isEditable={editDescription}
@@ -63,7 +66,7 @@ export default class PublicFeed extends Component {
                     <PostCard
                         content={"POST TEST POST TEST POST TEST"}
                     />
-                </div>
+                </div> */}
                
             </div>
         )

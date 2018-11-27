@@ -5,14 +5,17 @@ import AuthReducer from './auth/authReducer'
 import DashboardReducer from './dashboard/dashboardReducer'
 import ProfileReducer from './profile/profileReducer'
 import { reducer as toastrReducer } from 'react-redux-toastr'
+import PublicDashboardReducer from "./publicProfile/publicDashboard/publicDashboardReducer";
+import PublicProfileReducer from "./publicProfile/publicProfileReducer";
 
 const rootReducer = combineReducers({
     traderList: TraderListReducer,
     form: formReducer,
     auth: AuthReducer,
-    dashboard: DashboardReducer,
     profile: ProfileReducer,
-    toastr: toastrReducer
+    toastr: toastrReducer,
+    publicDashboard: PublicDashboardReducer,
+    publicProfile: PublicProfileReducer
 })
 
 export default rootReducer

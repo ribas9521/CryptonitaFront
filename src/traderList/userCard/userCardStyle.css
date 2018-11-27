@@ -43,3 +43,7 @@
 .social-detail li{
     font-size: 20px!important;
 }
+
+.pointer-div{
+    cursor: pointer;
+}

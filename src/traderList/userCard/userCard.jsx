@@ -8,6 +8,7 @@ export default class UserCard extends Component {
     constructor(props) {
         super(props)
         this.rotate = this.rotate.bind(this)
+        this.gotoProfile = this.gotoProfile.bind(this)
     }
     componentDidMount() {
 
@@ -20,10 +21,14 @@ export default class UserCard extends Component {
             $card.addClass('hover');
         }
     }
+    gotoProfile(userId){
+        const {history} = this.props
+        history.push(`/publicProfile/${userId}`)
+    }
 
     render() {
         const { trader, setFollow, setUnfollow, following } = this.props
-        const { usernameId, followers, totalReturnBTC } = trader        
+        const { usernameId, followers, totalReturnPercent } = trader        
         trader.picture = genericProfile
         const nameArray = trader.name.split(' ')
         trader.description = "teste"
@@ -36,13 +41,13 @@ export default class UserCard extends Component {
                     <div className="card user-card">
                         <div className="front">
                             <div className="card simple-card user-simple-card">
-                                <div className="cardheader" style={{ "background": `url(${trader.cover})` }}>
+                                <div onClick={()=>this.gotoProfile(usernameId)} className="cardheader pointer-div" style={{ "background": `url(${trader.cover})` }}>
                                 </div>
-                                <div className="avatar">
+                                <div onClick={() => this.gotoProfile(usernameId)} className="avatar pointer-div">
                                     <img alt="" src={trader.picture} />
                                 </div>
                                 <div className="info">
-                                    <div className="title">
+                                    <div onClick={() => this.gotoProfile(usernameId)} className="title pointer-div">
                                         <h3>{nameArray.length >2? `${nameArray[0]} ${nameArray[1]}`: trader.name}</h3>
                                     </div>
                                     <p className="desc"></p>
@@ -70,7 +75,7 @@ export default class UserCard extends Component {
                                 <div className="bottom">
                                     <ul className="social-detail">
                                         <li>{followers}<span>Followers</span></li>
-                                        <li>{`${totalReturnBTC} `}<i className="fa fa-btc"/><span>Return</span></li>
+                                        <li>{`${totalReturnPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}<span>Total Return</span></li>
                                         {/* <li>{`${0}`}<span>Total in BTC</span></li> */}
                                     </ul>
                                 </div>
