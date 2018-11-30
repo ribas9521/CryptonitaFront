@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './perfilHeaderStyle.css'
 import genericProfile from '../../vendor/assets/img/generic-profile.png'
 
-const logged = (logout, identity) => (
+const logged = (logout, identity, handleGoToProfile) => (
     <div>        
         <Link to={"/publicProfile/" + identity.username.usernameId}>{identity.username.name}</Link>
         <li className="dropdown">
@@ -11,7 +11,7 @@ const logged = (logout, identity) => (
                 <img src={genericProfile} className="img-responsive img-circle" alt="user" />
             </a>
             <ul className="dropdown-menu dropdown-user right-swip">
-                <li> <Link to={"/publicProfile/"+ identity.username.usernameId}><i className="fa fa-user fa-fw"></i> My Profile</Link>
+                <li> <a href="#" onClick={(e) => { e.preventDefault(); handleGoToProfile(e)}}><i className="fa fa-user fa-fw"></i> My Profile</a>
                 </li>
                 {/* <li><Link to={"/profile"}><i className="fa fa-gear fa-fw"></i> User Profile</Link>
                 </li> */}
@@ -33,7 +33,7 @@ const notLogged = (
     </div>
 )
 export default props => {
-    const toRender = props.userAuthenticated === true ? logged(props.logout, props.identity) : notLogged
+    const toRender = props.userAuthenticated === true ? logged(props.logout, props.identity, props.handleGoToProfile) : notLogged
     return (
         toRender
     )

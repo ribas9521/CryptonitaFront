@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './importer/importer'
 
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import Header from './header/header'
 import RightBar from './rightBar/rightBar'
@@ -15,7 +15,7 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>        
+      <BrowserRouter>        
         <div id="wrapper" className="">
           <ReduxToastr />
           <div id="page-wrapper">
@@ -30,7 +30,7 @@ class App extends Component {
           {/* <RightBar /> */}
           <Footer />
         </div>
-      </HashRouter>
+      </BrowserRouter>
 
     );
   }

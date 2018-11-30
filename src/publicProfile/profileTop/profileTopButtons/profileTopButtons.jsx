@@ -9,7 +9,8 @@ export default props => {
                 <RoundButton 
                     text={following? 'Unfollow': 'Follow'} 
                     onClick = {following? setUnfollow : setFollow}
-                    param = {userId}/>
+                    param = {userId}
+                    btnClass={following? 'danger': 'success'}/>
             </div>
             {/* <div className="col-md-6 col-xs-6">
                 <RoundButton text="Follow" />

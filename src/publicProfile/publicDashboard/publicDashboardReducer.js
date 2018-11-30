@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
     balance: 'restrict',
+    balanceFetching: false,
     portfolio: {
         isPublic: false,
         assets:[]
@@ -8,6 +9,7 @@ const INITIAL_STATE = {
         isPublic: false,
         orderList: []
     } ,
+    ordersFetching:false,
     balanceError: null,
     performanceInfo:[
         {   
@@ -15,7 +17,8 @@ const INITIAL_STATE = {
             pairs:[]
         }
     ],
-    performanceLoading: false
+    performanceLoading: false,
+    portfolioFetching: false
 
 }
 export default (state = INITIAL_STATE, action) => {
@@ -23,15 +26,15 @@ export default (state = INITIAL_STATE, action) => {
         case 'BALANCE_FETCHED':
             return { ...state, balance: action.payload }
         case 'BALANCE_FETCHING':
-            return { ...state, balance: 'loading' }
+            return { ...state, balanceFetching: action.payload }
         case 'PORTFOLIO_FETCHED':
             return { ...state, portfolio: action.payload }
         case 'PORTFOLIO_FETCHING':
-            return { ...state, portfolio: 'loading' }
+            return { ...state, portfolioFetching: action.payload }
         case 'ORDERS_FETCHED':
             return { ...state, orderList: action.payload }
         case 'ORDERS_FETCHING':
-            return { ...state, orderList: 'loading' }
+            return { ...state, ordersFetching: action.payload }
         case 'BALANCE_ERROR':
             return { ...state, balanceError: action.payload }
         case 'PERFORMANCE_FETCHED':

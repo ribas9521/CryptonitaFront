@@ -5,10 +5,10 @@ import { logout, login } from '../auth/authActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import createHistory from 'history/createHashHistory'
+import createHistory from 'history/createBrowserHistory'
 import PerfilHeader from './perfilHeader/perfilHeader'
 import {loadState} from '../common/helpers/localStorage'
-
+import { withRouter } from "react-router-dom";
 
 
 class Header extends Component {
@@ -16,12 +16,19 @@ class Header extends Component {
         //$('#side-menu').metisMenu();
         this.handleLogout = this.handleLogout.bind(this)
         this.handleActive = this.handleActive.bind(this)
+        this.handleGoToProfile = this.handleGoToProfile.bind(this)
     }
     handleLogout() {
         const { logout } = this.props
-        const history = createHistory()
         logout();
-        history.push('/login')
+      
+    }
+    handleGoToProfile(e){
+        e.preventDefault()
+        const history = createHistory()
+        const route = this.getUserId() !== 0 ? `/publicProfile/${this.getUserId()}` : "/login"
+        this.props.history.push('/')
+        this.props.history.push(route)
     }
     componentWillMount() {
         const { userAuthenticated, login } = this.props
@@ -70,14 +77,14 @@ class Header extends Component {
                 </ul>
                 <ul className="nav navbar-top-links navbar-right">
 
-                    <PerfilHeader userAuthenticated={userAuthenticated} logout={this.handleLogout} identity={identity || initialIdentity} />
+                    <PerfilHeader handleGoToProfile={this.handleGoToProfile} userAuthenticated={userAuthenticated} logout={this.handleLogout} identity={identity || initialIdentity} />
 
                 </ul>
                 <div className="navbar-default sidebar" role="navigation">
                     <div className="sidebar-nav navbar-collapse">
                         <ul className="nav" id="side-menu">
                             <li onClick={()=>this.forceUpdate()}> 
-                                <Link to={this.getUserId() !== 0? `/publicProfile/${this.getUserId()}`: `/login`} replace className={this.handleActive('/publicProfile')}><i className="fa fa-bullseye"></i>Dashboard</Link>
+                                <a onClick={(e)=>this.handleGoToProfile(e)} href="#" className={this.handleActive('/publicProfile')}><i className="fa fa-bullseye"></i>Dashboard</a>
 
                             </li>
                             {/* <li onClick={()=>this.forceUpdate()}>
@@ -106,4 +113,4 @@ const mapDispatchToProps = dispatch => {
     return (bindActionCreators({ logout, login }, dispatch))
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
