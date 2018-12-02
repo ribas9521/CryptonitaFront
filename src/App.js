@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './importer/importer'
 
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import Header from './header/header'
 import RightBar from './rightBar/rightBar'
@@ -10,12 +10,15 @@ import Footer from './footer/footer'
 import PageTitle from './pageTitle/pageTitle'
 import Routes from './routes'
 import ReduxToastr from 'react-redux-toastr'
+import ReactGA from 'react-ga';
 
 class App extends Component {
 
   render() {
+    ReactGA.initialize('UA-130203247-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
     return (
-      <HashRouter>        
+      <BrowserRouter>        
         <div id="wrapper" className="">
           <ReduxToastr />
           <div id="page-wrapper">
@@ -30,7 +33,7 @@ class App extends Component {
           {/* <RightBar /> */}
           <Footer />
         </div>
-      </HashRouter>
+      </BrowserRouter>
 
     );
   }

@@ -22,3 +22,4 @@ import '../vendor/assets/plugins/metisMenu/metisMenu.min'
 import '../vendor/assets/plugins/slim-scroll/js/jquery.slimscroll'
 
 import '../vendor/js/kavach.min'
+import '../common/globalStyle/globalStyle.css'

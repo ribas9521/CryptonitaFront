@@ -63,7 +63,7 @@ class Reset extends Component {
                             <h3 className="panel-title">Reset Password</h3>
                         </div>
                         <div className="panel-body">
-                            <img src={require('../../vendor/assets/img/head-logo.png')} className="img-responsive" alt="" />
+                            <img src={require('../../vendor/assets/img/head-logo.png')} className="img-responsive login-logo" alt="" />
                             <ErrorHandler error={authError} />
                             <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
                                 <fieldset>

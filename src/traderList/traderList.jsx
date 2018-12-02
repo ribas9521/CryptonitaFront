@@ -11,32 +11,34 @@ export class TraderList extends Component {
     componentDidMount() {
         const { getTraders } = this.props
         getTraders()
-    }    
+    }
     render() {
-        const { traderList, setFollow, setUnfollow, followingList } = this.props
-        const userCards = traderList.traders.map((trader,i)=>{
-            return(<Usercard
-                 setFollow ={setFollow}
-                 setUnfollow={setUnfollow} 
-                 key={i} 
-                 trader={trader}
-                 following={followingList.filter((following)=>following.usernameId === trader.usernameId)
-                    .length > 0 ? true: false}/>)
+        const { traderList, setFollow, setUnfollow, followingList, history } = this.props
+        const userCards = traderList.traders.sort((a, b) => b.totalReturnPercent - a.totalReturnPercent)
+        .map((trader, i) => {
+            return (<Usercard
+                history={history}
+                setFollow={setFollow}
+                setUnfollow={setUnfollow}
+                key={i}
+                trader={trader}
+                following={followingList.filter((following) => following.usernameId === trader.usernameId)
+                    .length > 0 ? true : false} />)
         })
         return (
             <div>
                 {userCards}
             </div>
         )
-        
-        
+
+
     }
 
 }
 
 
 const mapStateToProps = state => (
-    { 
+    {
         traderList: state.traderList.traderList,
         userFollowing: state.traderList.userFollowing,
         followingList: state.traderList.followingList

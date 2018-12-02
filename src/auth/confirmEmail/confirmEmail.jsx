@@ -25,7 +25,7 @@ export class ConfirmEmail extends Component {
                 <SweetAlert
                     show={this.state.show}
                     title={emailVerified ? "Email validated!": "Something wrong happened"}
-                    text={emailVerified ?"Next stop, Moon!": "Please, try again, or contact the mothership: cryptonita@cryptonita.org"}
+                    text={emailVerified ?"Next stop, Moon!": "Please, try again, or contact the mothership: contact@cryptonita.org"}
                     onConfirm={() => { this.setState({ show: false }); history.push("/login") }}
                     type={emailVerified? "success": "error"}
                 />

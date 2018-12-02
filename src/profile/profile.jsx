@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { getProfile, setApi, deleteApi, resetApiRegisterdState } from "./profileActions";
-import SimpleUserCard from "../common/ui/simpleUserCard/simpleUserCard";
 import Card from '../common/ui/card/card'
 import googleAuthImg from '../vendor/assets/img/google-authenticator.png'
 import Modal from '../common/ui/modal/modal'
-import ContentEditable from 'react-contenteditable'
 import { reduxForm } from 'redux-form'
 import genericProfile from '../vendor/assets/img/generic-profile.png'
 import { isFirstTime, showTutorial, openTutorial } from "../common/helpers/localStorage";
@@ -21,16 +19,12 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            editBig: false,
             isTourOpen: false,
             imageViewer:false,
             isModalOpen: false      
             
         }
-        this.editContent = this.editContent.bind(this)
-        this.saveBigDesc = this.saveBigDesc.bind(this)
-        this.resetBigDesc = this.resetBigDesc.bind(this)
-        this.handleBigDescChange = this.handleBigDescChange.bind(this)
+     
         this.handleHideModal = this.handleHideModal.bind(this)
         this.handleCloseTutorial = this.handleCloseTutorial.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -41,19 +35,13 @@ class Profile extends Component {
    
        
     componentDidMount() {
-        const { getProfile, apiKeyRegistered, apiKeyError, apiKeyDeleted } = this.props
-        const { editBig } = this.state
+        const { getProfile, apiKeyRegistered } = this.props
         getProfile();
-        const { bigDesc, smallDesc } = this.props.profile
-        this.setState({ bigDesc, smallDesc, apiKeyRegistered })
+        this.setState({ apiKeyRegistered })
         
         
     }
 
-    componentWillReceiveProps(nextProps) {        
-    
-        
-    }
     componentWillMount() {
         const { userAuthenticated, history } = this.props
         if (userAuthenticated === 'initial' || userAuthenticated){
@@ -64,18 +52,7 @@ class Profile extends Component {
         
        
     }
-    editContent() {
-        this.setState({ editBig: true })
-    }
-    saveBigDesc() {
-        this.setState({ editBig: false })
-    }
-    resetBigDesc() {
-        this.setState({ editBig: false, bigDesc: this.props.profile.bigDesc })
-    }
-    handleBigDescChange(e) {
-        this.setState({ bigDesc: e.target.value })
-    }
+  
     onSubmit(values) {
         const { setApi } = this.props        
         setApi(values)
@@ -108,22 +85,14 @@ class Profile extends Component {
     }
     render() {
         const { handleSubmit, apiKeyList, deleteApi, apiKeyRegistered, apiKeyDeleted, apiKeyError} = this.props
-        const { name, email } = this.props.profile
-        const { bigDesc, smallDesc, isModalOpen, isTourOpen } = this.state
-        const picture = genericProfile
-        const cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
-        const { editBig } = this.state
+        const {  isModalOpen, isTourOpen } = this.state
+       
         this.closeModal()
         return (
             <div>
                 <Tutorial startAt={0}  steps={'addApi'} isTourOpen={isTourOpen} onHide={this.handleCloseTutorial}/>
                 <div className="col-md-12 col-sm-12">
-                    <SimpleUserCard
-                        picture={picture}
-                        cover={cover}
-                        smallDesc={email}
-                        onChange={this.handleBigDescChange}
-                        name={name} />
+                    
                 </div>
                 <div className="col-md-4 col-sm-12">
                     <Card title="Configure API Key">

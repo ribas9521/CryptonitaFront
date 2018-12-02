@@ -175,7 +175,7 @@ export default class ClientDashboard extends Component {
                             orderList.map((order, i) =>
                                 <div className="row mrg-0" key={"row" + i}>
                                     <div className="todo-list todo-list-hover todo-list-divided">
-                                        <div className="todo todo-default">
+                                        <div className="todo todo-default last-trades">
                                             <div className="sm-avater list-avater">
                                                 <img src={`https://github.com/atomiclabs/cryptocurrency-icons/blob/master/32/color/${order.symbol.substr(0, (order.symbol.length - 3)).toLowerCase()}.png?raw=true`} className="img-responsive img-circle" alt="" />
                                             </div>

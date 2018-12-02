@@ -1,6 +1,6 @@
-.todo.todo-default {
+.last-trades {
     padding: 0px 10px !important;
-    align-items: flex-end;
+    align-items: flex-end!important;
 }
 
 .sm-avater.list-avater{

@@ -7,6 +7,8 @@ import ErrorHandler from "../errorHandler";
 import SweetAlert from 'sweetalert2-react';
 import './registerStyle.css'
 import { email, password, required, renderField, passwordsMatch } from "../../common/validators/validators";
+import LoadingButton from '../../common/ui/buttons/loadingButton';
+
 
 
 
@@ -35,7 +37,7 @@ class Register extends Component {
         userCreated ? this.setState({ show: true }) : this.setState({ show: false })
     }
     render() {
-        const { handleSubmit, history, resetUserCreated } = this.props
+        const { handleSubmit, history, resetUserCreated, registerLoading } = this.props
         const { authError } = this.state
         return (
             <div>
@@ -54,7 +56,7 @@ class Register extends Component {
                             <h3 className="panel-title">Register</h3>
                         </div>
                         <div className="panel-body">
-                            <img src={require('../../vendor/assets/img/head-logo.png')} className="img-responsive" alt="" />
+                            <img src={require('../../vendor/assets/img/head-logo.png')} className="img-responsive login-logo" alt="" />
                             <ErrorHandler error={authError} />
                             <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
                                 <fieldset>
@@ -88,7 +90,11 @@ class Register extends Component {
                                     </div>
 
 
-                                    <button type="submit" className="btn btn-login">Register</button>
+                                    <LoadingButton
+                                        type="submit"
+                                        className="btn btn-login"
+                                        text="REGISTER"
+                                        isLoading={registerLoading} />
 
                                 </fieldset>
                             </form>
@@ -109,6 +115,6 @@ const mapDispatchToProps = dispatch => {
     return (bindActionCreators({ signup, resetError, resetUserCreated }, dispatch))
 }
 const mapStateToProps = state => {
-    return { userCreated: state.auth.userCreated, authError: state.auth.authError }
+    return { userCreated: state.auth.userCreated, authError: state.auth.authError, registerLoading:state.auth.registerLoading }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Register)

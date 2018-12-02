@@ -1,0 +1,52 @@
+.public-user-name {
+    margin-left: 20px !important;
+}
+
+.public-user-name h5 {
+    font-size: 20px !important;
+}
+
+.public-user-name .bottom {
+    margin-top: -10px !important;
+}
+
+.avatar-image {
+    width: 110px !important;
+    margin-top: 20px;
+    border-radius: 0% !important;
+}
+
+.social-detail .return {
+    font-size: 36px !important;
+    width: 70% !important;
+    text-align: left !important;
+}
+
+.day-return {
+    width: 30% !important;
+    margin-top: 23px;
+    text-align: left !important;
+    font-weight: 100 !important;
+}
+
+.social-detail span {
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .profile-top-buttons {
+        margin-top: 70px;
+    }
+}
+
+.public-profile {
+    white-space: nowrap;
+}
+
+.profile-body{
+    margin-top: 30px;
+}
+
+.performance-list{
+    margin: 0px 20px 0px 20px;
+}
