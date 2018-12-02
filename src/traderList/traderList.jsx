@@ -14,7 +14,8 @@ export class TraderList extends Component {
     }
     render() {
         const { traderList, setFollow, setUnfollow, followingList, history } = this.props
-        const userCards = traderList.traders.map((trader, i) => {
+        const userCards = traderList.traders.sort((a, b) => b.totalReturnPercent - a.totalReturnPercent)
+        .map((trader, i) => {
             return (<Usercard
                 history={history}
                 setFollow={setFollow}

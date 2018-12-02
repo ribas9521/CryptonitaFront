@@ -1,8 +1,8 @@
 {
   "main.css": "static/css/main.99ddc690.css",
   "main.css.map": "static/css/main.99ddc690.css.map",
-  "main.js": "static/js/main.b4a95a0a.js",
-  "main.js.map": "static/js/main.b4a95a0a.js.map",
+  "main.js": "static/js/main.bdd4cff1.js",
+  "main.js.map": "static/js/main.bdd4cff1.js.map",
   "static\\media\\2FA.PNG": "static/media/2FA.700db108.PNG",
   "static\\media\\MaterialIcons-Regular.eot": "static/media/MaterialIcons-Regular.e79bfd88.eot",
   "static\\media\\MaterialIcons-Regular.ttf": "static/media/MaterialIcons-Regular.a37b0c01.ttf",
@@ -26,6 +26,7 @@
   "static\\media\\glyphicons-halflings-regular.woff": "static/media/glyphicons-halflings-regular.fa277232.woff",
   "static\\media\\glyphicons-halflings-regular.woff2": "static/media/glyphicons-halflings-regular.448c34a5.woff2",
   "static\\media\\google-authenticator.png": "static/media/google-authenticator.a3b5a027.png",
+  "static\\media\\head-logo-beta.png": "static/media/head-logo-beta.7fecd65e.png",
   "static\\media\\head-logo.png": "static/media/head-logo.a8c63118.png",
   "static\\media\\logo.png": "static/media/logo.2d945ae3.png",
   "static\\media\\themify.eot": "static/media/themify.2c454669.eot",

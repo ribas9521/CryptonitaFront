@@ -15,8 +15,8 @@ export function getPublicProfile(userId) {
                 ])
             })
             .catch(e => {
-                toastr.error("Error", e.response.data.message)
-                dispatch([{ type: 'BALANCE_ERROR', payload: e.response.data.message || "Error" },
+                toastr.error("Error","Error in fetching profile")
+                dispatch([{ type: 'PUBLIC_PROFILE_ERROR', payload: "Error in fetching profile " },
                 { type: 'PUBLIC_PROFILE_FETCHING', payload: false }
                 ])
             })

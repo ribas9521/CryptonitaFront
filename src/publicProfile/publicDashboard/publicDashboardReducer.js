@@ -38,7 +38,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'BALANCE_ERROR':
             return { ...state, balanceError: action.payload }
         case 'PERFORMANCE_FETCHED':
-            return { ...state, performanceInfo: action.payload }
+            return { ...state, performanceInfo: action.payload !== []? action.payload : INITIAL_STATE.performanceInfo }
         case 'PERFORMANCE_FETCHING':
             return { ...state, performanceLoading: action.payload }
         default:

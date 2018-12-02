@@ -64,16 +64,16 @@ class Header extends Component {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="#"><img src={require("../vendor/assets/img/head-logo.png")} className="img-responsive" alt="Logo" /></a>
+                    <a className="navbar-brand" href="#"><img src={require("../vendor/assets/img/head-logo-beta.png")} className="img-responsive" alt="Logo" /></a>
                 </div>
                 <ul className="nav navbar-top-links navbar-left header-search-form hidden-xs">
                     <li><a className="menu-brand" id="menu-toggle"><span className="ti-view-grid"></span></a></li>
-                    <li className="hidden-sm hidden-xs">
+                    {/* <li className="hidden-sm hidden-xs">
                         <div className="header-search-form input-group">
                             <span className="input-group-addon"><span className="ti-search"></span></span>
                             <input type="text" className="form-control" placeholder="SearchEnter" />
                         </div>
-                    </li>
+                    </li> */}
                 </ul>
                 <ul className="nav navbar-top-links navbar-right">
 

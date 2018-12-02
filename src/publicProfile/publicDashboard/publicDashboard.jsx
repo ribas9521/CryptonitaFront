@@ -55,6 +55,15 @@ export default class PublicDashboard extends Component {
         const { period } = this.props
         const periodArraySize = this.getArrayPeriodSize()
         if (!performanceLoading) {
+            if(performanceInfo.length <=0 ){
+                performanceInfo =  ([
+                    {
+                        title: '',
+                        pairs: []
+                    }
+                ])
+            }
+                
             performanceInfo = performanceInfo
             .sort((a, b) => parseInt(b.title) - parseInt(a.title))
             .map(el => {
