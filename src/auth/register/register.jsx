@@ -72,19 +72,19 @@ class Register extends Component {
                                     <div className="form-group">
                                         <Field type="password" name="rPassword" component="input" className="form-control" placeholder="Repeat Password" component={renderField} validate={[required, passwordsMatch]} />
                                     </div>
-                                    <div class="form-group">
-                                        <div class="radio">
-                                            <label>
-                                                <input id={'isTrader'} name="isTrader" type="radio" value={true}
-                                                    onChange={(e) => this.setState({ isTrader: e.target.value })} />
-                                                Trader
-                                                </label>
-                                        </div>
+                                    <div class="form-group">                                        
                                         <div class="radio">
                                             <label>
                                                 <input id={'isTrader'} name="isTrader" type="radio" value={false}
                                                     onChange={(e) => this.setState({ isTrader: e.target.value })} />
-                                                Investor
+                                                User (I want to copy someone)
+                                                </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input id={'isTrader'} name="isTrader" type="radio" value={true}
+                                                    onChange={(e) => this.setState({ isTrader: e.target.value })} />
+                                                Trader (I want to trade)
                                                 </label>
                                         </div>
                                     </div>
