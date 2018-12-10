@@ -208,13 +208,13 @@ export default class PublicDashboard extends Component {
 
     mountBalanceChart(){
         let { balanceEvolution } = this.props.balance
-        let newBalance = [{}]
-        balanceEvolution.forEach(balance => {
-            balanceEvolution.forEach(element => {
-                if (moment(element.date).isSame(moment(balance.date), 'day'))
-                    newBalance.push()
-            })
-        })
+        // let newBalance = [{}]
+        // balanceEvolution.forEach(balance => {
+        //     balanceEvolution.forEach(element => {
+        //         if (moment(element.date).isSame(moment(balance.date), 'day'))
+        //             newBalance.push()
+        //     })
+        // })
         const xAxisData = balanceEvolution.map(period => new Date(period.date).toLocaleTimeString([], { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }))
         const seriesData = balanceEvolution.map(period => period.amountBTC)
         return (
@@ -239,10 +239,29 @@ export default class PublicDashboard extends Component {
                     axisLabel: {
                         color: '#6a7985'
                     }
+                    
                 },
                 yAxis: {
-                    show: false,
+                    show: true,
                     type: 'value',
+                    axisLabel: {
+                        color: '#6a7985'
+                    },
+                    axisTick:{
+                        lineStyle:{
+                            color: '#6a7985'
+                        }
+                    } ,                 
+                    axisLine:{
+                        lineStyle:{
+                            color: '#6a7985'
+                        }
+                    },
+                    splitLine:{
+                        lineStyle: {
+                            color: '#6a7985'
+                        }
+                    }                  
 
                 },
                 series: [{
