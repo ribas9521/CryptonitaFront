@@ -3,6 +3,8 @@ import PerformanceChart from './performanceChart/performanceChart'
 import PortfolioChart from './portfolioChart/portfolioChart';
 import OrderList from './orderList/orderList';
 import Indicators from './indicators/indicators';
+import BalanceChart from './balanceChart/balanceChart';
+import moment from 'moment'
 
 export default class PublicDashboard extends Component {
     constructor(props) {
@@ -24,6 +26,7 @@ export default class PublicDashboard extends Component {
         this.mountPortfolioChart = this.mountPortfolioChart.bind(this)
         this.getPortfolioList = this.getPortfolioList.bind(this)
         this.handlePeriodChange = this.handlePeriodChange.bind(this)
+        this.mountBalanceChart = this.mountBalanceChart.bind(this)
     }
     getCardOptions() {
         const { userId } = this.props
@@ -35,7 +38,7 @@ export default class PublicDashboard extends Component {
                 param2: userId
             }, {
                 func: this.handlePeriodChange,
-                label: 'Dayly',
+                label: 'Daily',
                 param: 'day',
                 param2: userId
             }]
@@ -114,9 +117,10 @@ export default class PublicDashboard extends Component {
         }
         else if (period === "day") {
             return ([
+                { value: 'Sun', desc: 'Sunday' },
                 { value: 'Mon', desc: 'Monday' }, { value: 'Tue', desc: 'Tuesday' }, { value: 'Wed', desc: 'Wednesday' },
                 { value: 'Thu', desc: 'Thursday' }, { value: 'Fry', desc: 'Friday' }, { value: 'Sat', desc: 'Saturday' },
-                { value: 'Sun', desc: 'Sunday' }
+                
             ])
         }
 
@@ -199,6 +203,65 @@ export default class PublicDashboard extends Component {
                 }
             ]
         }
+        )
+    }
+
+    mountBalanceChart(){
+        let { balanceEvolution } = this.props.balance
+        let newBalance = [{}]
+        balanceEvolution.forEach(balance => {
+            balanceEvolution.forEach(element => {
+                if (moment(element.date).isSame(moment(balance.date), 'day'))
+                    newBalance.push()
+            })
+        })
+        const xAxisData = balanceEvolution.map(period => new Date(period.date).toLocaleTimeString([], { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }))
+        const seriesData = balanceEvolution.map(period => period.amountBTC)
+        return (
+            {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    type: 'category',
+                    data: xAxisData,
+                    boundaryGap: false,
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        color: '#6a7985'
+                    }
+                },
+                yAxis: {
+                    show: false,
+                    type: 'value',
+
+                },
+                series: [{
+                    data: seriesData,
+                    type: 'line',
+                    areaStyle: {
+                        color: '#0fb76b'
+                    },
+                    // label: {
+                    //     normal: {
+                    //         show: true,
+                    //         position: 'top',
+                    //         color: '#6a7985'
+                    //     },
+
+                    // },
+                    color: '#0fb76b'
+                }],
+            }
         )
     }
 
@@ -290,6 +353,17 @@ export default class PublicDashboard extends Component {
                         <div className="col-md-12 col-xs-12">
                             <Indicators
                                 balance={balance}
+                            />
+                        </div> :
+                        null:
+                        null
+                }
+                {
+                    !balanceFetching? 
+                    balance !== 'restrict' ?
+                        <div className="col-md-12 col-xs-12">
+                            <BalanceChart
+                                mountBalanceChart={this.mountBalanceChart}
                             />
                         </div> :
                         null:

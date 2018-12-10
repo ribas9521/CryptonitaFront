@@ -7,10 +7,10 @@ export default props => {
         <h3>Exchange API KEY</h3>
         
         <div className="alert alert-danger" data-tut="reactour_disclaimer">
-            As chaves de sua API são armazenadas de forma criptografada
-            e ninguém pode acessá-las. Só é possível realizar saques com autorização
-            do proprietário da conta da corretora, mas a Cryptonita não requer esse tipo
-                        de autorização. Dúvidas e sugestões: <strong>contact@cryptonita.org</strong>
+                Your API key is stored in encrypted form
+                 and no one can access it. It's only possible to make withdrawals with authorization
+                 of the account owner, but Cryptonita will never ask this
+                authorization. Questions and suggestions: <strong>contact@cryptonita.org</strong>
         </div>
         <form className="contactForm" onSubmit={props.handleSubmit(v => props.onSubmit(v))}>
                 <div onClick={()=>props.openTutorial()} className="tutorial-opener">
