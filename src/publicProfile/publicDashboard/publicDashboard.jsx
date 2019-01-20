@@ -4,7 +4,10 @@ import PortfolioChart from './portfolioChart/portfolioChart';
 import OrderList from './orderList/orderList';
 import Indicators from './indicators/indicators';
 import BalanceChart from './balanceChart/balanceChart';
-import moment from 'moment'
+import { format2Digits, formatTime, format8Digits } from "../../common/helpers/formatValues";
+import Loading from '../../common/effects/loading/loading';
+import Card from '../../common/ui/card/card';
+import Empty from '../../common/effects/loading/empty';
 
 export default class PublicDashboard extends Component {
     constructor(props) {
@@ -51,13 +54,13 @@ export default class PublicDashboard extends Component {
     }
     componentWillMount(){
         const { getPerformanceByPeriod, period, userId} = this.props
-        getPerformanceByPeriod(period, userId)
+        //getPerformanceByPeriod(period, userId)
     }
     componentWillReceiveProps(nextProps) {
-        let { performanceInfo, performanceLoading } = nextProps
+        let { performanceInfo, performanceFetching } = nextProps
         const { period } = this.props
         const periodArraySize = this.getArrayPeriodSize()
-        if (!performanceLoading) {
+        if (!performanceFetching) {
             if(performanceInfo.length <=0 ){
                 performanceInfo =  ([
                     {
@@ -208,6 +211,7 @@ export default class PublicDashboard extends Component {
 
     mountBalanceChart(){
         let { balanceEvolution } = this.props.balance
+        const {baseCoin} = this.props
         // let newBalance = [{}]
         // balanceEvolution.forEach(balance => {
         //     balanceEvolution.forEach(element => {
@@ -215,8 +219,9 @@ export default class PublicDashboard extends Component {
         //             newBalance.push()
         //     })
         // })
-        const xAxisData = balanceEvolution.map(period => new Date(period.date).toLocaleTimeString([], { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }))
-        const seriesData = balanceEvolution.map(period => period.amountBTC)
+        const xAxisData = balanceEvolution.map(period => formatTime(new Date(period.date)))
+        const seriesData = baseCoin==='btc'? balanceEvolution.map(period =>format8Digits(period.amountBTC)) :
+            balanceEvolution.map(period=>format2Digits(period.amountUSDT))
         return (
             {
                 tooltip: {
@@ -307,15 +312,13 @@ export default class PublicDashboard extends Component {
                         null
                 }
                 {
-                    !isPublic ? <h5 className="ct-title">{`${((p.amountConvertedToBTC * 100) / total)
-                        .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}
+                    !isPublic ? <h5 className="ct-title">{`${format2Digits((p.amountConvertedToBTC * 100) / total)}%`}
                         <span className="ct-designation">
                             Of Total
                     </span>
                     </h5>
                         :
-                        <h5 className="ct-title">{`${(p.percent)
-                            .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}
+                        <h5 className="ct-title">{`${format2Digits(p.percent)}%`}
                             <span className="ct-designation">
                                 Of Total
                         </span>
@@ -362,8 +365,22 @@ export default class PublicDashboard extends Component {
         return (this.props.orderList)
     }
 
+    handleComponent(cardTitle, obj, fetching, component){
+        const loading = <Card title={cardTitle}>
+                            <Loading />
+                        </Card>
+        const empty = <Card title={cardTitle}><Empty/></Card>
+        if(fetching)
+            return loading
+        else if(obj.length <= 0)
+            return empty
+        else
+            return component
+    }
+
     render() {
-        const { orderList, balance, balanceFetching, performanceLoading, portfolioLoading } = this.props
+        const { orderList, balance, balanceFetching, performanceFetching, 
+            portfolioLoading, ordersFetching, performanceInfo, portfolio} = this.props
         return (
             <div>
                 {
@@ -391,34 +408,46 @@ export default class PublicDashboard extends Component {
 
                 <div className="col-md-12 col-xs-12" >
                     {
-                        performanceLoading ?
-                            'LOADING'
-                            :
+                        this.handleComponent(
+                            "Performance",
+                            performanceInfo,
+                            performanceFetching,
                             <PerformanceChart
                                 getCardOptions={this.getCardOptions}
                                 mountPerformanceChart={this.mountPerformanceChart}
                                 getPerformanceList={this.getPerformanceList}
                             />
+                        )                       
                     }
 
 
                 </div>
                 <div className="col-md-12 col-xs-12">
                     {
-                        portfolioLoading ?
-                            'LOADING'
-                            :
-                            <PortfolioChart
+                         this.handleComponent(
+                            "Portfolio",
+                            portfolio.assets,
+                            portfolioLoading,
+                             <PortfolioChart
                                 mountPortfolioChart={this.mountPortfolioChart}
                                 getPortfolioList={this.getPortfolioList}
                             />
+                        )
                     }
                 </div>
                 <div className="col-md-12 col-xs-12">
-                    <OrderList
-                        orderList={orderList.orderList}
-                        isPublic={orderList.isPublic}
-                    />
+                {
+                     this.handleComponent(
+                            "Orders",
+                            orderList.orderList,
+                            ordersFetching,
+                            <OrderList
+                                orderList={orderList.orderList}
+                                isPublic={orderList.isPublic}
+                            />
+                        )                      
+                }
+                   
                 </div>
             </div>
         )

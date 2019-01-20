@@ -2,10 +2,11 @@ import React from 'react'
 import ProfileTopAvatart from './profileTopAvatar/profileTopAvatar'
 import ProfileTopButtons from './profileTopButtons/profileTopButtons'
 import ProfileTopTabs from './profileTopTabs/profileTopTabs'
+import SwitchButton from '../../common/ui/buttons/switchButton';
 
 
 export default props => {
-    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId  } = props
+    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin } = props
     const { name, totalProfit, lastDayProfit } = profile
     return (
         <div className="mail-box">
@@ -20,17 +21,27 @@ export default props => {
                                     lastDayProfit={lastDayProfit}
                                 />
                             </div>
-                            {
-                                !isOwner ? <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
-                                    <ProfileTopButtons
-                                        isOwner={isOwner}
-                                        setFollow={setFollow}
-                                        setUnfollow={setUnfollow}
-                                        userId={userId}
-                                        following={following} />
-                                </div>:null
-                            }
-                            
+                            <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
+
+                            </div>
+
+                            <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
+                                {
+                                    isOwner ?
+                                        <SwitchButton
+                                            baseCoin={baseCoin}
+                                            onSwitch={onSwitch}
+                                            className="baseCoinSwitch" /> :
+                                        <ProfileTopButtons
+                                            isOwner={isOwner}
+                                            setFollow={setFollow}
+                                            setUnfollow={setUnfollow}
+                                            userId={userId}
+                                            following={following} />
+
+                                }
+
+                            </div>
                         </div>
                         <div className="row">
                             <ProfileTopTabs isOwner={isOwner} handleScreen={handleScreen} />

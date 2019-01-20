@@ -17,7 +17,7 @@ const INITIAL_STATE = {
             pairs:[]
         }
     ],
-    performanceLoading: false,
+    performanceFetching: false,
     portfolioFetching: false
 
 }
@@ -40,7 +40,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'PERFORMANCE_FETCHED':
             return { ...state, performanceInfo: action.payload !== []? action.payload : INITIAL_STATE.performanceInfo }
         case 'PERFORMANCE_FETCHING':
-            return { ...state, performanceLoading: action.payload }
+            return { ...state, performanceFetching: action.payload }
         default:
             return state
     }

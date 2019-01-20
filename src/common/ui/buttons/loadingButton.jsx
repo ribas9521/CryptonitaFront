@@ -8,7 +8,7 @@ const LoadingButton=  props=>{
             type={type}
             className={className}
             disabled={isLoading}>
-            {isLoading ? <Loading />:null }
+            {isLoading ? <Loading button/>:null }
            
             {isLoading ? 'LOADING...':text }            
         </button>

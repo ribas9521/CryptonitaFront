@@ -35,7 +35,7 @@
 
 @media (min-width: 768px) {
     .profile-top-buttons {
-        margin-top: 70px;
+        margin-top: 34px;
     }
 }
 
@@ -43,10 +43,29 @@
     white-space: nowrap;
 }
 
-.profile-body{
+.profile-body {
     margin-top: 30px;
 }
 
-.performance-list{
+.performance-list {
     margin: 0px 20px 0px 20px;
+}
+
+.baseCoinSwitch{
+    float: right;
+}
+.baseCoinSwitch .onoffswitch-inner:before {
+    content: "BTC"
+}
+
+.baseCoinSwitch .onoffswitch-inner:after {
+    content: "USDT"
+}
+
+.baseCoinSwitch .onoffswitch-switch {
+    width: 22px;
+    margin: 4px;
+    border-radius: 13px;
+    top: 1px;
+    bottom: 6px;
 }

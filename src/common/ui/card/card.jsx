@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default props => {
+const Card= props => {
     const { children, opt } = props
     return (
         <div className="card">
@@ -39,3 +39,5 @@ export default props => {
 
     )
 }
+
+export default Card

@@ -18,15 +18,18 @@ export class PublicProfile extends Component {
         super(props)
         this.state = {
             activeScreen: 1,
-            period: 'day'
+            period: 'day',
+            baseCoin: 'btc'
         }
+
         this.handleScreen = this.handleScreen.bind(this)
         this.whatToRender = this.whatToRender.bind(this)
         this.isOwner = this.isOwner.bind(this)
         this.mountDashBoard = this.mountDashBoard.bind(this)
         this.mountPerformanceChart = this.mountPerformanceChart.bind(this)
-        this.mountOrderList= this.mountOrderList.bind(this)
+        this.mountOrderList = this.mountOrderList.bind(this)
         this.fetchData = this.fetchData.bind(this)
+        this.onSwitch = this.onSwitch.bind(this)
     }
 
     componentDidUpdate(prevProps) {
@@ -35,9 +38,15 @@ export class PublicProfile extends Component {
         }
     }
 
+    onSwitch() {
+        const { baseCoin } = this.state
+        this.setState(baseCoin === 'btc' ? { baseCoin: 'usd' } : { baseCoin: 'btc' })
+    }
+
     componentWillMount() {
         this.fetchData()
     }
+
     fetchData() {
         const { getPublicProfile, userAuthenticated, login, history } = this.props
         const userId = parseInt(this.props.match.params.id)
@@ -76,8 +85,8 @@ export class PublicProfile extends Component {
         this.mountPortfolioChart(userId)
         this.mountOrderList(userId)
     }
-    mountBalanceIndicators(userId){
-        const {getBalances} = this.props
+    mountBalanceIndicators(userId) {
+        const { getBalances } = this.props
         getBalances(userId)
     }
     mountPerformanceChart(period, userId) {
@@ -89,18 +98,18 @@ export class PublicProfile extends Component {
         const { getPortfolio } = this.props
         getPortfolio(userId)
     }
-    mountOrderList(userId){
-        const {getOrders} = this.props
+    mountOrderList(userId) {
+        const { getOrders } = this.props
         getOrders(userId)
     }
 
     whatToRender() {
-        const { activeScreen, userId, period } = this.state
-        const { performanceInfo, 
-            performanceLoading, 
+        const { activeScreen, userId, period, baseCoin } = this.state
+        const { performanceInfo,
+            performanceFetching,
             portfolio,
-            portfolioFetching, 
-            orderList, 
+            portfolioFetching,
+            orderList,
             ordersFetching,
             balance,
             balanceFetching } = this.props
@@ -108,32 +117,37 @@ export class PublicProfile extends Component {
         if (activeScreen === 0)
             return <PublicFeed />
 
-        else if (activeScreen === 1)
+        else if (activeScreen === 1){          
             return <PublicDashboard
                 userId={userId}
                 performanceInfo={performanceInfo}
-                performanceLoading={performanceLoading}
+                performanceFetching={performanceFetching}
                 getPerformanceByPeriod={this.mountPerformanceChart}
-                period={period} 
+                period={period}
                 portfolio={portfolio}
                 portfolioFetching={portfolioFetching}
                 orderList={orderList}
-                ordersFetching={ordersFetching} 
+                ordersFetching={ordersFetching}
                 balance={balance}
-                balanceFetching={balanceFetching}/>
+                balanceFetching={balanceFetching}
+                baseCoin={baseCoin} />
+            
+        }
 
         else if (activeScreen === 2)
             return <UserProfile
-                />
+            />
     }
     render() {
         const { publicProfile, setFollow, setUnfollow, followingList } = this.props
-        const { userId } = this.state
+        const { userId, baseCoin } = this.state
         const profileBody = this.whatToRender()
         const isOwner = this.isOwner()
         return (
             <div>
                 <ProfileTop
+                    baseCoin={baseCoin}
+                    onSwitch={this.onSwitch}
                     profile={publicProfile}
                     handleScreen={this.handleScreen}
                     userId={userId}
@@ -159,7 +173,7 @@ const mapStateToProps = state => (
         userAuthenticated: state.auth.userAuthenticated,
         followingList: state.traderList.followingList,
         performanceInfo: state.publicDashboard.performanceInfo,
-        performanceLoading: state.publicDashboard.performanceLoading,
+        performanceFetching: state.publicDashboard.performanceFetching,
         portfolio: state.publicDashboard.portfolio,
         portfolioFetching: state.publicDashboard.portfolioFetching,
         orderList: state.publicDashboard.orderList,
