@@ -220,8 +220,8 @@ export default class PublicDashboard extends Component {
         //     })
         // })
         const xAxisData = balanceEvolution.map(period => formatTime(new Date(period.date)))
-        const seriesData = baseCoin==='btc'? balanceEvolution.map(period =>format8Digits(period.amountBTC)) :
-            balanceEvolution.map(period=>format2Digits(period.amountUSDT))
+        const seriesData = baseCoin === 'btc' ? balanceEvolution.map(period => (period.amountBTC.toFixed(8))) :
+            balanceEvolution.map(period => (period.amountUSDT.toFixed(2)))
         return (
             {
                 tooltip: {
@@ -445,7 +445,8 @@ export default class PublicDashboard extends Component {
                                 orderList={orderList.orderList}
                                 isPublic={orderList.isPublic}
                             />
-                        )                      
+                        )
+                      
                 }
                    
                 </div>
