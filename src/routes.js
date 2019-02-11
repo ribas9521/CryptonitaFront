@@ -11,6 +11,8 @@ import Dashboard from './dashboard/dashboard';
 import ChangePassword from './auth/change/changePassword'
 import Profile from './profile/profile'
 import PublicProfile from './publicProfile/publicProfile'
+import InvestorList from './traderList/investorList';
+
 
 export default props=>(
     <Switch>
@@ -25,5 +27,6 @@ export default props=>(
         <Route exact path='/dashboard/' component={Dashboard} />
         <Route exact path='/profile/' component={Profile} />
         <Route exact path='/publicProfile/:id' component={PublicProfile} />
+        <Route exact path='/investorList' component={InvestorList} />
     </Switch>
 ) 

@@ -35,7 +35,7 @@ class Header extends Component {
         !userAuthenticated || userAuthenticated ==='initial' ? login() : null
     }
     handleActive(path){       
-        if (path === createHistory().location.pathname)
+        if ((createHistory().location.pathname).includes(path))
             return 'tab-active'
         return ''
         
@@ -83,16 +83,17 @@ class Header extends Component {
                 <div className="navbar-default sidebar" role="navigation">
                     <div className="sidebar-nav navbar-collapse">
                         <ul className="nav" id="side-menu">
-                            <li onClick={()=>this.forceUpdate()}> 
+                            <li> 
                                 <a onClick={(e)=>this.handleGoToProfile(e)} href="#" className={this.handleActive('/publicProfile')}><i className="fa fa-bullseye"></i>Dashboard</a>
 
                             </li>
-                            {/* <li onClick={()=>this.forceUpdate()}>
-                                <Link to="/profile" className={this.handleActive('/profile')}><i className="fa fa-user"></i>Profile </Link>                               
+                            
+                            <li >
+                                <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-user"></i>Traders List </Link>                               
                                 
-                            </li> */}
-                            <li onClick={() => this.forceUpdate()}>
-                                <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-users"></i>Traders List </Link>                               
+                            </li>
+                            <li>
+                                <Link to="/investorList" className={this.handleActive('/investorList')}><i className="fa fa-user-o"></i>User List </Link>                               
                                 
                             </li>
 

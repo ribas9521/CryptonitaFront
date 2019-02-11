@@ -12,10 +12,12 @@
     border: none !important;
 }
 
-
-
 .card.simple-card ul.social-detail li {
     width: 50%;
+}
+
+.investor-list-li {
+    width: 100%!important;
 }
 
 .footer {
@@ -32,18 +34,20 @@
     padding-bottom: 10px !important;
 }
 
-.front .card , back .card{
-    margin-bottom: 0px!important;
+.front .card,
+back .card {
+    margin-bottom: 0px !important;
 }
 
-.front, .back{
-    height: auto!important;
+.front,
+.back {
+    height: auto !important;
 }
 
-.social-detail li{
-    font-size: 20px!important;
+.social-detail li {
+    font-size: 20px !important;
 }
 
-.pointer-div{
+.pointer-div {
     cursor: pointer;
 }

@@ -81,3 +81,15 @@ export function getFollow(){
         }
     }
 }
+
+export function getInvestors(){
+    return dispatch => {
+        axios.get(`${consts.API_URL}/username/investors-list`)
+            .then(resp => {
+                dispatch([{ type: 'INVESTORS_LIST_FETCHED', payload: resp.data.result }])
+            })
+            .catch(e => {
+                dispatch({ type: 'INVESTORS_LIST_ERROR', payload: e })
+            })
+    }
+}

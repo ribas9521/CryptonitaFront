@@ -380,7 +380,7 @@ export default class PublicDashboard extends Component {
 
     render() {
         const { orderList, balance, balanceFetching, performanceFetching, 
-            portfolioLoading, ordersFetching, performanceInfo, portfolio} = this.props
+            portfolioLoading, ordersFetching, performanceInfo, portfolio, baseCoin} = this.props
         return (
             <div>
                 {
@@ -389,6 +389,7 @@ export default class PublicDashboard extends Component {
                         <div className="col-md-12 col-xs-12">
                             <Indicators
                                 balance={balance}
+                                baseCoin={baseCoin}
                             />
                         </div> :
                         null:
