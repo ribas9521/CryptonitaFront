@@ -10,9 +10,9 @@ export default props=>{
             <ReactEcharts
                 option={mountPerformanceChart() || {}}>
             </ReactEcharts>
-            <SimpleList className="performance-list">
+            {/* <SimpleList className="performance-list">
                 {getPerformanceList()}
-            </SimpleList>
+            </SimpleList> */}
         </Card>
     )
 }

@@ -303,18 +303,18 @@ export default class PublicDashboard extends Component {
                 <h5 className="ct-title">{p.asset}</h5>
                 {
                     !isPublic ?
-                        <h5 className="ct-title">{p.amountConvertedToBTC}
+                        <h5 className="ct-title">{format8Digits(p.amountConvertedToBTC)}
                             <span className="ct-designation">
-                                Amount in BTC
+                                in BTC
                     </span>
                         </h5>
                         :
                         null
                 }
                 {
-                    !isPublic ? <h5 className="ct-title">{`${format2Digits((p.amountConvertedToBTC * 100) / total)}%`}
+                    !isPublic ? <h5 className="ct-title">{`${format8Digits(p.amountFree)}`}
                         <span className="ct-designation">
-                            Of Total
+                            Amount
                     </span>
                     </h5>
                         :

@@ -2,6 +2,7 @@ import React from 'react'
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import Card from '../../../common/ui/card/card';
+import { format2Digits, format8Digits } from '../../../common/helpers/formatValues';
 
 export default props => {
     const {isPublic} = props
@@ -40,8 +41,8 @@ export default props => {
                                     {
                                         !isPublic ? <Td>{order.orderQuantity}</Td> : null
                                     }
-                                    <Td>{order.lastExecutedPrice}</Td>
-                                    <Td>{order.currentOrderStatus}</Td>
+                                    <Td>{ format8Digits(order.lastExecutedPrice)}</Td>
+                                    <Td>{ order.currentOrderStatus}</Td>
                                 </Tr>
                             ))
                         }

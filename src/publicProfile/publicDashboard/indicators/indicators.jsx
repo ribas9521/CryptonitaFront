@@ -3,7 +3,7 @@ import Indicator from '../../../common/ui/indicator/indicator';
 
 const getValueType = (balance, baseCoin, type) => {
     if (baseCoin === 'btc') {
-        if (type === 'availabe') {
+        if (type === 'available') {
             return balance.totalAvailableBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })
         }
         else if (type === 'alocated')
@@ -13,7 +13,7 @@ const getValueType = (balance, baseCoin, type) => {
         }
     }
     else {
-        if (type === 'availabe') {
+        if (type === 'available') {
             return balance.totalAvailableUSDT.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionalDigits: 2

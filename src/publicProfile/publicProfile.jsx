@@ -25,6 +25,7 @@ export class PublicProfile extends Component {
         this.handleScreen = this.handleScreen.bind(this)
         this.whatToRender = this.whatToRender.bind(this)
         this.isOwner = this.isOwner.bind(this)
+        this.isInvestor = this.isInvestor.bind(this)
         this.mountDashBoard = this.mountDashBoard.bind(this)
         this.mountPerformanceChart = this.mountPerformanceChart.bind(this)
         this.mountOrderList = this.mountOrderList.bind(this)
@@ -78,6 +79,13 @@ export class PublicProfile extends Component {
         if (identity)
             return parseInt(userId) === parseInt(identity.username.usernameId)
         return false
+    }
+    isInvestor(){
+        const { userId } = this.state
+        const { investorList } = this.props
+        if(investorList.filter(investor=>investor.usernameId === userId).length > 0)
+            return true
+        return false        
     }
     mountDashBoard(period = 'day', userId = parseInt(this.state.userId)) {
         this.mountBalanceIndicators(userId)
@@ -139,10 +147,11 @@ export class PublicProfile extends Component {
             />
     }
     render() {
-        const { publicProfile, setFollow, setUnfollow, followingList } = this.props
+        const { publicProfile, setFollow, setUnfollow, followingList} = this.props
         const { userId, baseCoin } = this.state
         const profileBody = this.whatToRender()
         const isOwner = this.isOwner()
+        const isInvestor = this.isInvestor()
         return (
             <div>
                 <ProfileTop
@@ -152,6 +161,7 @@ export class PublicProfile extends Component {
                     handleScreen={this.handleScreen}
                     userId={userId}
                     isOwner={isOwner}
+                    isInvestor={isInvestor}
                     setFollow={setFollow}
                     setUnfollow={setUnfollow}
                     following={followingList.filter((following) => following.usernameId === userId)
@@ -179,7 +189,8 @@ const mapStateToProps = state => (
         orderList: state.publicDashboard.orderList,
         ordersFetching: state.publicDashboard.ordersFetching,
         balance: state.publicDashboard.balance,
-        balanceFetching: state.publicDashboard.balanceFetching
+        balanceFetching: state.publicDashboard.balanceFetching,
+        investorList: state.traderList.investorList.investors
     }
 )
 
