@@ -211,83 +211,92 @@ export default class PublicDashboard extends Component {
 
     mountBalanceChart(){
         let { balanceEvolution } = this.props.balance
-        const {baseCoin} = this.props
-        // let newBalance = [{}]
-        // balanceEvolution.forEach(balance => {
-        //     balanceEvolution.forEach(element => {
-        //         if (moment(element.date).isSame(moment(balance.date), 'day'))
-        //             newBalance.push()
-        //     })
-        // })
-        const xAxisData = balanceEvolution.map(period => formatTime(new Date(period.date)))
-        const seriesData = baseCoin === 'btc' ? balanceEvolution.map(period => (period.amountBTC.toFixed(8))) :
-            balanceEvolution.map(period => (period.amountUSDT.toFixed(2)))
-        return (
-            {
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#6a7985'
-                        }
-                    }
-                },
-
-                xAxis: {
-                    type: 'category',
-                    data: xAxisData,
-                    boundaryGap: false,
-                    splitLine: {
-                        show: false
-                    },
-                    axisLabel: {
-                        color: '#6a7985'
-                    }
-                    
-                },
-                yAxis: {
-                    show: true,
-                    type: 'value',
-                    axisLabel: {
-                        color: '#6a7985'
-                    },
-                    axisTick:{
-                        lineStyle:{
-                            color: '#6a7985'
-                        }
-                    } ,                 
-                    axisLine:{
-                        lineStyle:{
-                            color: '#6a7985'
-                        }
-                    },
-                    splitLine:{
-                        lineStyle: {
-                            color: '#6a7985'
-                        }
-                    }                  
-
-                },
-                series: [{
-                    data: seriesData,
-                    type: 'line',
-                    areaStyle: {
-                        color: '#0fb76b'
-                    },
-                    // label: {
-                    //     normal: {
-                    //         show: true,
-                    //         position: 'top',
-                    //         color: '#6a7985'
-                    //     },
-
-                    // },
-                    color: '#0fb76b'
-                }],
-            }
-        )
+        return(balanceEvolution.map(b=>({
+            date: new Date(b.date).toLocaleDateString(),
+            btc: b.amountBTC,
+            usd: b.amountUSDT
+        })))
     }
+
+    // mountBalanceChart(){
+    //     let { balanceEvolution } = this.props.balance
+    //     const {baseCoin} = this.props
+    //     // let newBalance = [{}]
+    //     // balanceEvolution.forEach(balance => {
+    //     //     balanceEvolution.forEach(element => {
+    //     //         if (moment(element.date).isSame(moment(balance.date), 'day'))
+    //     //             newBalance.push()
+    //     //     })
+    //     // })
+    //     const xAxisData = balanceEvolution.map(period => formatTime(new Date(period.date)))
+    //     const seriesData = baseCoin === 'btc' ? balanceEvolution.map(period => (period.amountBTC.toFixed(8))) :
+    //         balanceEvolution.map(period => (period.amountUSDT.toFixed(2)))
+    //     return (
+    //         {
+    //             tooltip: {
+    //                 trigger: 'axis',
+    //                 axisPointer: {
+    //                     type: 'cross',
+    //                     label: {
+    //                         backgroundColor: '#6a7985'
+    //                     }
+    //                 }
+    //             },
+
+    //             xAxis: {
+    //                 type: 'category',
+    //                 data: xAxisData,
+    //                 boundaryGap: false,
+    //                 splitLine: {
+    //                     show: false
+    //                 },
+    //                 axisLabel: {
+    //                     color: '#6a7985'
+    //                 }
+                    
+    //             },
+    //             yAxis: {
+    //                 show: true,
+    //                 type: 'value',
+    //                 axisLabel: {
+    //                     color: '#6a7985'
+    //                 },
+    //                 axisTick:{
+    //                     lineStyle:{
+    //                         color: '#6a7985'
+    //                     }
+    //                 } ,                 
+    //                 axisLine:{
+    //                     lineStyle:{
+    //                         color: '#6a7985'
+    //                     }
+    //                 },
+    //                 splitLine:{
+    //                     lineStyle: {
+    //                         color: '#6a7985'
+    //                     }
+    //                 }                  
+
+    //             },
+    //             series: [{
+    //                 data: seriesData,
+    //                 type: 'line',
+    //                 areaStyle: {
+    //                     color: '#0fb76b'
+    //                 },
+    //                 // label: {
+    //                 //     normal: {
+    //                 //         show: true,
+    //                 //         position: 'top',
+    //                 //         color: '#6a7985'
+    //                 //     },
+
+    //                 // },
+    //                 color: '#0fb76b'
+    //             }],
+    //         }
+    //     )
+    // }
 
     getPortfolioList() {
         const { portfolio } = this.props
@@ -400,7 +409,8 @@ export default class PublicDashboard extends Component {
                     balance !== 'restrict' ?
                         <div className="col-md-12 col-xs-12">
                             <BalanceChart
-                                mountBalanceChart={this.mountBalanceChart}
+                                getData={this.mountBalanceChart}
+                                baseCoin = { this.props.baseCoin }
                             />
                         </div> :
                         null:
