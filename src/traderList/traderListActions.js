@@ -2,6 +2,7 @@ import axios from 'axios'
 import consts from '../common/helpers/consts'
 import { loadState, saveState, removeState } from "../common/helpers/localStorage";
 import { toastr } from "react-redux-toastr";
+import { onlineCheck } from '../offlinePage/onlineCheck';
 
 
 export function getTraders(values) {
@@ -11,12 +12,20 @@ export function getTraders(values) {
                 dispatch([{ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result }, getFollow()])
             })
             .catch(e => {
-                dispatch({ type: 'TRADERS_LIST_ERROR', payload: e })
+                if (!e.response) {
+                    toastr.error('No Internet Connection')
+                    onlineCheck()
+                }
+                else {
+                    toastr.error('')
+                    dispatch({ type: 'TRADERS_LIST_ERROR', payload: 'Error in retriving traders' })
+                }
+
             })
     }
 }
 
-export function setFollow(values){
+export function setFollow(values) {
     return dispatch => {
         const identity = loadState('identity')
         if (identity) {
@@ -62,11 +71,11 @@ export function setUnfollow(values) {
 }
 
 
-export function getFollow(){
+export function getFollow() {
     return dispatch => {
         const identity = loadState('identity')
         if (identity) {
-            axios.get(`${consts.API_URL}/username/following`,{ headers: { session: identity.sessionId } })
+            axios.get(`${consts.API_URL}/username/following`, { headers: { session: identity.sessionId } })
                 .then(resp => {
                     dispatch([
                         { type: 'FOLLOWING_LIST_FETCHED', payload: resp.data.result.following }
@@ -82,14 +91,22 @@ export function getFollow(){
     }
 }
 
-export function getInvestors(){
+export function getInvestors() {
     return dispatch => {
         axios.get(`${consts.API_URL}/username/investors-list`)
             .then(resp => {
                 dispatch([{ type: 'INVESTORS_LIST_FETCHED', payload: resp.data.result }])
             })
             .catch(e => {
-                dispatch({ type: 'INVESTORS_LIST_ERROR', payload: e })
+                if (!e.response) {
+                    toastr.error('No Internet Connection')
+                    onlineCheck()
+                }
+                else {
+                    toastr.error('Error in retriving investors')
+                    dispatch({ type: 'INVESTORS_LIST_ERROR', payload: e })
+                }
+
             })
     }
 }

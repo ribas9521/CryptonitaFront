@@ -17,46 +17,46 @@ h1, h2, h3, h4, h5, h6 {
 
 /*-------Common Style--------*/
 h3.text-themecolor {
-    color:#2ca01c;
+    color:#0fb76b;
 }
 li.breadcrumb-item a {
-    color:#2ca01c;
+    color:#0fb76b;
 }
 .sidebar-nav.navbar-collapse .nav > li > a:hover i.fa, .sidebar-nav.navbar-collapse .nav > li > a:focus i.fa {
-    color:#2ca01c !important;
+    color:#0fb76b !important;
 }
 .table-wrapper .pagination li.active a, .table-wrapper .pagination li.active a.page-link {
     background: #03A9F4;
 }
 button.btn.btn-primary.nextBtn.btn-lg.pull-right {
-    background: #2ca01c;
-    border-color: #2ca01c;
+    background: #0fb76b;
+    border-color: #0fb76b;
 }
 .stepwizard a.btn.circle-button.active-wizard {
-    background: #2ca01c;
-    border-color: #2ca01c;
+    background: #0fb76b;
+    border-color: #0fb76b;
 }
 .stepwizard .circle-button:hover, .stepwizard .circle-button:focus {
-    background: #2ca01c;
-    border-color: #2ca01c;
+    background: #0fb76b;
+    border-color: #0fb76b;
 }
 button.theme-btn, a.theme-btn, button.theme-btn:hover, button.theme-btn:focus, a.theme-btn:hover, a.theme-btn:focus{
-    background: #2ca01c;
-    border-color: #2ca01c;
+    background: #0fb76b;
+    border-color: #0fb76b;
 	color:#ffffff;
 }
 /*-------------Default Color Option--------------*/
 body .theme-bg{
-	background:#2ca01c !important;
+	background:#0fb76b !important;
 }
 body .theme-color{
-	color:#2ca01c !important;
+	color:#0fb76b !important;
 }
 body .hover-theme-bg:hover, body .theme-bg:focus{
-	background:#2ca01c !important;
+	background:#0fb76b !important;
 }
 body .hover-theme-color:hover, body .theme-color:focus{
-	color:#2ca01c !important;
+	color:#0fb76b !important;
 }
 body .navbar-default.sidebar.left-side-bg{
 	background:#ffffff;
@@ -68,13 +68,13 @@ body .card-bg{
 
 body .sidebar-nav.navbar-collapse .nav > li.active > a {
     background:#1b2538;
-    border-left: 3px solid #2ca01c;
-    color: #2ca01c;
+    border-left: 3px solid #0fb76b;
+    color: #0fb76b;
 }
 body .sidebar-nav.navbar-collapse .nav > li > a:hover, body .sidebar-nav.navbar-collapse .nav > li > a:focus {
     background:#1b2538;
-    border-left: 3px solid #2ca01c;
-    color: #2ca01c;
+    border-left: 3px solid #0fb76b;
+    color: #0fb76b;
 }
 
 body .navbar-top-links li ul li.external {
@@ -106,11 +106,11 @@ body .footer-bg{
 	border-top: 1px solid #e8eef1;
 }
 body .footer-cl{
-	color:#2ca01c;
+	color:#0fb76b;
 }
 .navbar-header {
-    background:#2ca01c;
-	border-bottom:1px solid #2ca01c;
+    background:#0fb76b;
+	border-bottom:1px solid #0fb76b;
 }
 .navbar-default .navbar-brand {
     color: #ffffff;
@@ -118,33 +118,33 @@ body .footer-cl{
 
 /*-----services------*/
 .service-box:after{
-    border-bottom: 1px solid #2ca01c;
-    border-top: 1px solid #2ca01c;
+    border-bottom: 1px solid #0fb76b;
+    border-top: 1px solid #0fb76b;
 }
 .service-box:before{
-    border-left: 1px solid #2ca01c;
-    border-right: 1px solid #2ca01c;
+    border-left: 1px solid #0fb76b;
+    border-right: 1px solid #0fb76b;
 }
 .service-box .service-content h3 a:hover{
     color:#636363;
 }
 .service-box .read a:hover,
 .service-box:hover .service-icon i{
-    color:#2ca01c;
+    color:#0fb76b;
     border-color: #181818;
 }
 .service-box:hover .service-icon i, .service-box:hover .service-content h3 a {
-color:#2ca01c;
+color:#0fb76b;
 }
 /*------Team Style-------*/
 .my-team .team-prof a:hover{
-    color:#2ca01c;
+    color:#0fb76b;
 }
 .my-team .team-prof small{
-    color:#2ca01c;
+    color:#0fb76b;
 }
 .my-team .social-link li a{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 .my-team .social-link li a:hover{
     background:#455a64;
@@ -152,65 +152,65 @@ color:#2ca01c;
 /*---------Tab color--------*/
 .tab .nav-tabs li.active a,
 .tab .nav-tabs li.active a:hover{
-    border-top: 3px solid #2ca01c;
+    border-top: 3px solid #0fb76b;
 }
 .bread-tab .nav-tabs li.active a:before{
-    border-left: 17px solid #2ca01c;
+    border-left: 17px solid #0fb76b;
 }
 .bread-tab .nav-tabs li.active > a,
 .bread-tab .nav-tabs > li.active > a:focus,
 .bread-tab .nav-tabs > li.active > a:hover {
-    background:#2ca01c;
+    background:#0fb76b;
 }
 .simple-tab li.active{
-    border-top: 3px solid #2ca01c;
+    border-top: 3px solid #0fb76b;
 }
 .simple-tab li.active a, .simple-tab li.active a:hover, .simple-tab li.active a:focus {
-    background: #2ca01c;
+    background: #0fb76b;
 }
 .simple-tab li a:hover{
-    background:#2ca01c;
-	border-right:1px solid #2ca01c;
+    background:#0fb76b;
+	border-right:1px solid #0fb76b;
 }
 .advance-tab .nav-tabs > li.active > a,
 .advance-tab .nav-tabs > li.active > a:focus,
 .advance-tab .nav-tabs > li.active > a:hover{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 .advance-tab .nav-tabs li.active:after {
-    border-top-color:#2ca01c ;
+    border-top-color:#0fb76b ;
 }
 .advance-tab .tab-content{
     border: 1px solid #e8edef;
-    border-top:3px solid #2ca01c;
+    border-top:3px solid #0fb76b;
 }
 /*-------Accordion-------*/
 #accordion .panel-title a{
-    color:#2ca01c;
-    border-left: 3px solid #2ca01c;
+    color:#0fb76b;
+    border-left: 3px solid #0fb76b;
 }
 #accordion .panel-title a.collapsed{
-    color:#2ca01c;
+    color:#0fb76b;
 }
 #accordion .panel-title a:before,
 #accordion .panel-title a.collapsed:before{
-    color:#2ca01c;
+    color:#0fb76b;
 }
 #accordion .panel-title a:hover,
 #accordion .panel-title a.collapsed:hover,
 #accordion .panel-title a:before,
 #accordion .panel-title a:hover:before{
-    color:#2ca01c;
+    color:#0fb76b;
 }
 #simple-accordion .panel-heading > .panel-title > a{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 #simple-accordion .panel-title > a.collapsed:hover{
-    color:#2ca01c;
+    color:#0fb76b;
 }
 #advance-accordion .panel-title a:before,
 #advance-accordion .panel-title a.collapsed:before{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 #advance-accordion .panel-title a.collapsed:before {
     background: #fff;
@@ -220,24 +220,24 @@ color:#2ca01c;
     color: #3b4556;
 }
 #excellent-accordion .panel-title a{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 
 /*---ecommerce---*/
 .card.hover-product .btn.btn-pro {
-    border: 1px solid #2ca01c;
-    color:#2ca01c;
+    border: 1px solid #0fb76b;
+    color:#0fb76b;
 }
 .card.hover-product .btn.btn-pro:hover, .card.hover-product .btn.btn-pro:focus{
-background:#2ca01c;
+background:#0fb76b;
 }
 
 /*----Price Table------*/
 .first-style.price-table:hover .price-value {
-    background: #2ca01c;
+    background: #0fb76b;
 }
 .first-style.price-table:hover .price-value{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 .first-style.price-table:hover .price-value:before{
     border-color: transparent #229212 #229212 transparent;
@@ -246,35 +246,35 @@ background:#2ca01c;
     border-color: transparent transparent #229212 #229212;
 }
 .first-style.price-table:hover .price-table-signup{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 .advance-pr-table.pricing-table .pricing-table-signup:hover{
-    border:1px solid #2ca01c;
-	background:#2ca01c;
+    border:1px solid #0fb76b;
+	background:#0fb76b;
 }
 .active-pr-table.advance-pr-table.pricing-table .heading:after{
-    border-color:#2ca01c rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-color:#0fb76b rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
 }
 .active-pr-table.advance-pr-table.pricing-table .pricing-table-header{
-    background:#2ca01c;
+    background:#0fb76b;
 }
 .active-pr-table.advance-pr-table.pricing-table .pricing-table-header:before{
-    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #2ca01c;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #0fb76b;
 }
 .active-pr-table.advance-pr-table.pricing-table .pricing-table-header:after{
-    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #2ca01c;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #0fb76b;
 }
 .active-pr.style-two.pricing-table .pricing-table-header > .price-value{
-background:#2ca01c;
-box-shadow: 0 0 0 2px #2ca01c;
+background:#0fb76b;
+box-shadow: 0 0 0 2px #0fb76b;
 }
 .style-two.pricing-table .pricing-table-sign-up > .btn-block:hover{
-    background:#2ca01c;
-	border-color:#2ca01c;
+    background:#0fb76b;
+	border-color:#0fb76b;
 }
 .active-pr.style-two.pricing-table .pricing-table-sign-up > .btn-block{
-    border:1px solid #2ca01c;
-	background:#2ca01c;
+    border:1px solid #0fb76b;
+	background:#0fb76b;
 }
 
 

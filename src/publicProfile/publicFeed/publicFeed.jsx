@@ -8,7 +8,9 @@ export default class PublicFeed extends Component {
         super(props)
         this.state = {
             editDescription: false,
-            descriptionContent: 'Im the best Trader in the world! follow me yo bitches'
+            descriptionContent: '👨‍💼 5years + crypto trading experience. \
+            📈 High Risk, and high Profitability \
+            👣 Follow me! '
 
         }
         this.toggleEdit = this.toggleEdit.bind(this)
@@ -29,17 +31,14 @@ export default class PublicFeed extends Component {
     }
     resetDescription() {
         this.toggleEdit()
-       
+
     }
 
     render() {
         const { editDescription, descriptionContent } = this.state
         return (
             <div>
-                <div className="col-md-4 col-sm-12">
-                    <Card>Comming Soon</Card>
-                </div>
-                {/* <div className="col-md-4 col-sm-12" style={{ float: 'right' }}>
+                <div className="col-md-6 col-sm-12">
                     <PostCard
                         title="Description"
                         isEditable={editDescription}
@@ -50,24 +49,6 @@ export default class PublicFeed extends Component {
                         resetContent={this.resetDescription}
                     />
                 </div>
-                <div className="col-md-8 col-sm-12">
-                    <PostCard
-                      
-                        content={"POST TEST POST TEST POST TEST"}
-                       
-                    />
-                </div>
-                <div className="col-md-8 col-sm-12">
-                    <PostCard
-                        content={"POST TEST POST TEST POST TESTPOST TEST POST TEST POST TESTPOST TEST POST TEST POST TEST"}
-                    />
-                </div>
-                <div className="col-md-8 col-sm-12">
-                    <PostCard
-                        content={"POST TEST POST TEST POST TEST"}
-                    />
-                </div> */}
-               
             </div>
         )
     }

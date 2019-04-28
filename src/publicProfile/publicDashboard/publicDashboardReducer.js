@@ -11,12 +11,13 @@ const INITIAL_STATE = {
     } ,
     ordersFetching:false,
     balanceError: null,
-    performanceInfo:[
+    performanceInfo:
         {   
             title:'',
             pairs:[]
-        }
-    ],
+        },
+       
+    
     performanceFetching: false,
     portfolioFetching: false
 

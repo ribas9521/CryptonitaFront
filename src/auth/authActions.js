@@ -2,26 +2,28 @@ import axios from 'axios'
 import consts from '../common/helpers/consts'
 import { loadState, saveState, removeState, setFirstTime, isFirstTime } from "../common/helpers/localStorage";
 import { toastr } from "react-redux-toastr";
+import history from '../common/helpers/history';
+import { onlineCheck } from '../offlinePage/onlineCheck';
 
-function handleFirstTime(){
-    return dispatch=>{
-        if (isFirstTime()){
+function handleFirstTime() {
+    return dispatch => {
+        if (isFirstTime()) {
             setFirstTime(false)
             dispatch({ type: 'IS_FIRST_TIME', payload: true })
         }
-        else{
-            dispatch({ type: 'IS_FIRST_TIME', payload: false})
+        else {
+            dispatch({ type: 'IS_FIRST_TIME', payload: false })
         }
-            
+
     }
-   
+
 }
 
 export function login(values) {
     return dispatch => {
         const identity = loadState('identity')
         if (identity) {
-            dispatch({type:'USER_AUTHENTICATION_LOADING', payload: true})
+            dispatch({ type: 'USER_AUTHENTICATION_LOADING', payload: true })
             axios.get(`${consts.API_URL}/username/verify`, { headers: { session: identity.sessionId } })
                 .then(resp => {
                     if (resp.data.status === "ok") {
@@ -34,10 +36,14 @@ export function login(values) {
                     }
                 })
                 .catch(e => {
-                    toastr.error("Error", e.response.data.message)
-                    dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
-                { type: 'USER_AUTHENTICATED', payload: false },
-                { type: 'USER_AUTHENTICATION_LOADING', payload: false }])
+                    if (!e.response) {
+                        toastr.error('No Internet Connection')
+                        onlineCheck()
+                    }
+
+                    dispatch([{ type: 'AUTH_ERROR', payload: e.response ? e.response.data.message : 'No Internet Connection' },
+                    { type: 'USER_AUTHENTICATED', payload: false },
+                    { type: 'USER_AUTHENTICATION_LOADING', payload: false }])
                 })
         }
         else if (values) {
@@ -56,15 +62,15 @@ export function login(values) {
                 .catch(e => {
                     toastr.error("Error", e.response.data.message)
                     dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
-                        { type: 'USER_AUTHENTICATED', payload: false },
-                        { type: 'USER_AUTHENTICATION_LOADING', payload: false }])
+                    { type: 'USER_AUTHENTICATED', payload: false },
+                    { type: 'USER_AUTHENTICATION_LOADING', payload: false }])
                 })
         }
-        else{
+        else {
             dispatch([
-            { type: 'USER_AUTHENTICATED', payload: false },
-            { type: 'USER_AUTHENTICATION_LOADING', payload: false },
-           ])
+                { type: 'USER_AUTHENTICATED', payload: false },
+                { type: 'USER_AUTHENTICATION_LOADING', payload: false },
+            ])
         }
     }
 }
@@ -81,7 +87,7 @@ export function signup(values) {
             .catch(e => {
                 toastr.error("Error", e.response.data.message)
                 dispatch([{ type: 'AUTH_ERROR', payload: e.response.data.message || "Error" },
-                    { type: 'USER_REGISTER_LOADING', payload: false }                
+                { type: 'USER_REGISTER_LOADING', payload: false }
                 ])
             })
     }

@@ -3,8 +3,7 @@ import ContentEditable from 'react-contenteditable'
 import Card from '../card/card';
 
 
-export default props=>{
-    const { isEditable, content, handleContent, toggleEdit, saveContent, resetContent, title } = props 
+const PostCard = ({ isEditable, content, handleContent, toggleEdit, saveContent, resetContent, title })=>{
     return(
         <Card title={title} opt={[{ label: 'Edit', func: toggleEdit }]} >
             <ContentEditable
@@ -30,3 +29,5 @@ export default props=>{
         </Card>
     )
 }
+
+export default PostCard

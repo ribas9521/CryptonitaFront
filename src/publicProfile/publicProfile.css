@@ -17,14 +17,14 @@
 }
 
 .social-detail .return {
-    font-size: 36px !important;
-    width: 70% !important;
+    font-size: 32px !important;
+    width: 60% !important;
     text-align: left !important;
 }
 
 .day-return {
-    width: 30% !important;
-    margin-top: 23px;
+    width: 40% !important;
+    margin-top: 18px;
     text-align: left !important;
     font-weight: 100 !important;
 }

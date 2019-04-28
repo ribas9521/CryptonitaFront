@@ -12,7 +12,7 @@ export default props => {
                             data-toggle="tab"
                             aria-expanded="false"
                             onClick={() => handleActive(o.value)}>
-                            <i className={o.icon}></i> {o.text}</a>
+                            <i className={o.icon}></i><span className="hidden-mobile"> {o.text}</span></a>
                     </li>
                 )}
 

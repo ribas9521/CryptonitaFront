@@ -14,16 +14,10 @@ export default class PublicDashboard extends Component {
         super(props)
         this.state = {
             performanceChartIndex: 0,
-            performanceInfo: [
-                {
-                    title: '',
-                    pairs: []
-                }
-            ]
+
         }
         this.mountPerformanceChart = this.mountPerformanceChart.bind(this)
         this.getPerformanceLabels = this.getPerformanceLabels.bind(this)
-        this.getPerformanceList = this.getPerformanceList.bind(this)
         this.handlePerformanceChartIndex = this.handlePerformanceChartIndex.bind(this)
         this.getCardOptions = this.getCardOptions.bind(this)
         this.mountPortfolioChart = this.mountPortfolioChart.bind(this)
@@ -52,61 +46,16 @@ export default class PublicDashboard extends Component {
         this.setState({ performanceChartIndex: 0 })
         getPerformanceByPeriod(period, userId)
     }
-    componentWillMount(){
-        const { getPerformanceByPeriod, period, userId} = this.props
-        //getPerformanceByPeriod(period, userId)
-    }
-    componentWillReceiveProps(nextProps) {
-        let { performanceInfo, performanceFetching } = nextProps
-        const { period } = this.props
-        const periodArraySize = this.getArrayPeriodSize()
-        if (!performanceFetching) {
-            if(performanceInfo.length <=0 ){
-                performanceInfo =  ([
-                    {
-                        title: '',
-                        pairs: []
-                    }
-                ])
-            }
-                
-            performanceInfo = performanceInfo
-            .sort((a, b) => parseInt(b.title) - parseInt(a.title))
-            .map(el => {
-                let newPairs = []
-                for (let i = 0; i <= periodArraySize; i++) {
-                    if (el.pairs[i.toString()]) {
-                        if (i > 0)
-                            newPairs[i - 1] = el.pairs[i.toString()]
-                        else
-                            newPairs[0] = el.pairs[i.toString()]
-                    } else {
-                        if (i > 0) {
-                            newPairs[i - 1] = 0
-                        }
-                        else {
-                            newPairs[0] = 0
-                        }
 
-                    }
-                }
-                return ({
-                    title: period === 'day' ? 'Week ' + el.title : 'Year ' + el.title,
-                    pairs: newPairs
-                })
-            })
-            this.setState({ performanceInfo })
-        }
+    shouldComponentUpdate(nextProps) {
+        const { balanceFetching, ordersFetching, portfolioFetching } = nextProps
+        if (!balanceFetching && !ordersFetching && !portfolioFetching)
+            return true
+        else
+            return false
+    }
 
-    }
-    getArrayPeriodSize() {
-        const { period } = this.props
-        if (period === 'day') {
-            return (7)
-        }
-        else if (period === 'month')
-            return (12)
-    }
+
     getPerformanceLabels() {
         const { period } = this.props
         if (period === "month") {
@@ -123,59 +72,24 @@ export default class PublicDashboard extends Component {
                 { value: 'Sun', desc: 'Sunday' },
                 { value: 'Mon', desc: 'Monday' }, { value: 'Tue', desc: 'Tuesday' }, { value: 'Wed', desc: 'Wednesday' },
                 { value: 'Thu', desc: 'Thursday' }, { value: 'Fry', desc: 'Friday' }, { value: 'Sat', desc: 'Saturday' },
-                
+
             ])
         }
 
     }
 
     mountPerformanceChart() {
-        const { performanceInfo } = this.state
-        const seriesData = [{ value: 0 }]
-        let period = performanceInfo[this.state.performanceChartIndex].pairs
-        for (const key in period) {
-            seriesData[key] = {
-                value: period[key],
-                itemStyle: {
-                    color: period[key] >= 0 ? '#0fb76b' : '#f21136'
-                }
+        let { performanceInfo } = this.props
+        performanceInfo = performanceInfo[performanceInfo.length]
+        const labels = this.getPerformanceLabels()
+        const performance = []
+        if (performanceInfo)
+            for (let i = 0; i < 12; i++) {
+                performance.push({ month: labels[i].value, value: performanceInfo.pairs[i] || 0 })
             }
-        }
+        console.log(performance)
 
-        const label = this.getPerformanceLabels()
-        return (
-            {
-                xAxis: {
-                    type: 'category',
-                    data: label.map(l => l.value),
-                    axisLabel: {
-                        color: '#61869c'
-                    }
-
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLine: { show: false },
-                    axisLabel: { show: true },
-                    axisTick: { show: false },
-                    splitLine: { show: false },
-                    axisLabel: {
-                        color: '#61869c'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    },
-                    formatter: '{b0}<br /> {c0}%'
-                },
-                series: [{
-                    data: seriesData,
-                    type: 'bar'
-                }]
-            }
-        )
+        return performance
     }
     mountPortfolioChart() {
         const { portfolio } = this.props
@@ -209,94 +123,14 @@ export default class PublicDashboard extends Component {
         )
     }
 
-    mountBalanceChart(){
+    mountBalanceChart() {
         let { balanceEvolution } = this.props.balance
-        return(balanceEvolution.map(b=>({
+        return (balanceEvolution.map(b => ({
             date: new Date(b.date).toLocaleDateString(),
             btc: b.amountBTC,
             usd: b.amountUSDT
         })))
     }
-
-    // mountBalanceChart(){
-    //     let { balanceEvolution } = this.props.balance
-    //     const {baseCoin} = this.props
-    //     // let newBalance = [{}]
-    //     // balanceEvolution.forEach(balance => {
-    //     //     balanceEvolution.forEach(element => {
-    //     //         if (moment(element.date).isSame(moment(balance.date), 'day'))
-    //     //             newBalance.push()
-    //     //     })
-    //     // })
-    //     const xAxisData = balanceEvolution.map(period => formatTime(new Date(period.date)))
-    //     const seriesData = baseCoin === 'btc' ? balanceEvolution.map(period => (period.amountBTC.toFixed(8))) :
-    //         balanceEvolution.map(period => (period.amountUSDT.toFixed(2)))
-    //     return (
-    //         {
-    //             tooltip: {
-    //                 trigger: 'axis',
-    //                 axisPointer: {
-    //                     type: 'cross',
-    //                     label: {
-    //                         backgroundColor: '#6a7985'
-    //                     }
-    //                 }
-    //             },
-
-    //             xAxis: {
-    //                 type: 'category',
-    //                 data: xAxisData,
-    //                 boundaryGap: false,
-    //                 splitLine: {
-    //                     show: false
-    //                 },
-    //                 axisLabel: {
-    //                     color: '#6a7985'
-    //                 }
-                    
-    //             },
-    //             yAxis: {
-    //                 show: true,
-    //                 type: 'value',
-    //                 axisLabel: {
-    //                     color: '#6a7985'
-    //                 },
-    //                 axisTick:{
-    //                     lineStyle:{
-    //                         color: '#6a7985'
-    //                     }
-    //                 } ,                 
-    //                 axisLine:{
-    //                     lineStyle:{
-    //                         color: '#6a7985'
-    //                     }
-    //                 },
-    //                 splitLine:{
-    //                     lineStyle: {
-    //                         color: '#6a7985'
-    //                     }
-    //                 }                  
-
-    //             },
-    //             series: [{
-    //                 data: seriesData,
-    //                 type: 'line',
-    //                 areaStyle: {
-    //                     color: '#0fb76b'
-    //                 },
-    //                 // label: {
-    //                 //     normal: {
-    //                 //         show: true,
-    //                 //         position: 'top',
-    //                 //         color: '#6a7985'
-    //                 //     },
-
-    //                 // },
-    //                 color: '#0fb76b'
-    //             }],
-    //         }
-    //     )
-    // }
 
     getPortfolioList() {
         const { portfolio } = this.props
@@ -309,7 +143,9 @@ export default class PublicDashboard extends Component {
                         src={`https://github.com/atomiclabs/cryptocurrency-icons/blob/master/32/color/${(p.asset).toLowerCase()}.png?raw=true`}
                         className="img-responsive img-circle" alt="" />
                 </div>
-                <h5 className="ct-title">{p.asset}</h5>
+                <h5 className="ct-title">{p.asset}
+                    <span className="ct-designation">{`${format8Digits(p.amountFree)}`}</span></h5>
+
                 {
                     !isPublic ?
                         <h5 className="ct-title">{format8Digits(p.amountConvertedToBTC)}
@@ -321,17 +157,13 @@ export default class PublicDashboard extends Component {
                         null
                 }
                 {
-                    !isPublic ? <h5 className="ct-title">{`${format8Digits(p.amountFree)}`}
+                    isPublic &&
+
+                    <h5 className="ct-title">{`${format2Digits(p.percent)}%`}
                         <span className="ct-designation">
-                            Amount
-                    </span>
-                    </h5>
-                        :
-                        <h5 className="ct-title">{`${format2Digits(p.percent)}%`}
-                            <span className="ct-designation">
-                                Of Total
+                            Of Total
                         </span>
-                        </h5>
+                    </h5>
                 }
 
 
@@ -343,81 +175,58 @@ export default class PublicDashboard extends Component {
     handlePerformanceChartIndex(performanceChartIndex) {
         this.setState({ performanceChartIndex })
     }
-    
-
-    getPerformanceList() {
-        let { performanceInfo } = this.state
-
-        return performanceInfo.map((p, i) =>
-            <a key={i} onClick={() => this.handlePerformanceChartIndex(i)} className="todo todo-default" href="javascript:void(0)">
-                <h5 key={`ct-title${i}`} className="ct-title">{p.title}</h5>
-                {
-
-                    p.pairs.map((e, j) =>
-                        (<h5 key={j} className={`hidden-mobile ct-title ${e >= 0 ? 'cl-success' : 'cl-danger'}`}>{`${e.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}
-                        </h5>)
 
 
-                    )
-                }
-                <span className="ct-title"> = </span>
-                <h5 className={`ct-title ${p.pairs.reduce((a, b) => a + b, 0) >= 0 ? ' cl-success' : 'cl-danger'}`}>
-                    {`${p.pairs.reduce((a, b) => a + b, 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}
-                </h5>
 
-            </a>
-        )
-
-    }
 
     getOrderList() {
         return (this.props.orderList)
     }
 
-    handleComponent(cardTitle, obj, fetching, component){
+    handleComponent(cardTitle, obj, fetching, component) {
         const loading = <Card title={cardTitle}>
-                            <Loading />
-                        </Card>
-        const empty = <Card title={cardTitle}><Empty/></Card>
-        if(fetching)
+            <Loading />
+        </Card>
+        const empty = <Card title={cardTitle}><Empty /></Card>
+        if (fetching)
             return loading
-        else if(obj.length <= 0)
+        else if (obj.length <= 0)
             return empty
         else
             return component
     }
 
     render() {
-        const { orderList, balance, balanceFetching, performanceFetching, 
-            portfolioLoading, ordersFetching, performanceInfo, portfolio, baseCoin} = this.props
+        const { orderList, balance, balanceFetching, performanceFetching,
+            portfolioFetching, ordersFetching, performanceInfo, portfolio, baseCoin } = this.props
         return (
             <div>
                 {
-                    !balanceFetching? 
-                    balance !== 'restrict' ?
-                        <div className="col-md-12 col-xs-12">
-                            <Indicators
-                                balance={balance}
-                                baseCoin={baseCoin}
-                            />
-                        </div> :
-                        null:
+                    !balanceFetching ?
+                        balance !== 'restrict' ?
+                            <div className="col-md-12 col-xs-12">
+                                <Indicators
+                                    balance={balance}
+                                    baseCoin={baseCoin}
+                                />
+                            </div> :
+                            null :
                         null
                 }
                 {
-                    !balanceFetching? 
-                    balance !== 'restrict' ?
-                        <div className="col-md-12 col-xs-12">
-                            <BalanceChart
-                                getData={this.mountBalanceChart}
-                                baseCoin = { this.props.baseCoin }
-                            />
-                        </div> :
-                        null:
+                    !balanceFetching ?
+                        balance !== 'restrict' ?
+                            <div className="col-md-12 col-xs-12">
+                                <BalanceChart
+                                    getData={this.mountBalanceChart}
+                                    baseCoin={this.props.baseCoin}
+                                />
+                            </div> :
+                            null :
                         null
                 }
 
-                <div className="col-md-12 col-xs-12" >
+                {/* <div className="col-md-12 col-xs-12" >
                     {
                         this.handleComponent(
                             "Performance",
@@ -425,21 +234,21 @@ export default class PublicDashboard extends Component {
                             performanceFetching,
                             <PerformanceChart
                                 getCardOptions={this.getCardOptions}
-                                mountPerformanceChart={this.mountPerformanceChart}
+                                data={this.mountPerformanceChart()}
                                 getPerformanceList={this.getPerformanceList}
                             />
-                        )                       
+                        )
                     }
 
 
-                </div>
+                </div> */}
                 <div className="col-md-12 col-xs-12">
                     {
-                         this.handleComponent(
+                        this.handleComponent(
                             "Portfolio",
                             portfolio.assets,
-                            portfolioLoading,
-                             <PortfolioChart
+                            portfolioFetching,
+                            <PortfolioChart
                                 mountPortfolioChart={this.mountPortfolioChart}
                                 getPortfolioList={this.getPortfolioList}
                             />
@@ -447,8 +256,8 @@ export default class PublicDashboard extends Component {
                     }
                 </div>
                 <div className="col-md-12 col-xs-12">
-                {
-                     this.handleComponent(
+                    {
+                        this.handleComponent(
                             "Orders",
                             orderList.orderList,
                             ordersFetching,
@@ -457,9 +266,9 @@ export default class PublicDashboard extends Component {
                                 isPublic={orderList.isPublic}
                             />
                         )
-                      
-                }
-                   
+
+                    }
+
                 </div>
             </div>
         )

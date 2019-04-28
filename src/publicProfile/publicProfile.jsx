@@ -18,7 +18,7 @@ export class PublicProfile extends Component {
         super(props)
         this.state = {
             activeScreen: 1,
-            period: 'day',
+            period: 'month',
             baseCoin: 'btc'
         }
 
@@ -65,7 +65,7 @@ export class PublicProfile extends Component {
             this.setState({ userId: parseInt(userId) })
             getPublicProfile(userId)
             getFollow()
-            this.mountDashBoard('day', userId)
+            this.mountDashBoard('month', userId)
         }
 
     }
@@ -87,9 +87,9 @@ export class PublicProfile extends Component {
             return true
         return false        
     }
-    mountDashBoard(period = 'day', userId = parseInt(this.state.userId)) {
+    mountDashBoard(period = 'month', userId = parseInt(this.state.userId)) {
         this.mountBalanceIndicators(userId)
-        this.mountPerformanceChart(period, userId)
+        //this.mountPerformanceChart(period, userId)
         this.mountPortfolioChart(userId)
         this.mountOrderList(userId)
     }

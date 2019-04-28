@@ -1362,7 +1362,7 @@ ul#styleOptions li .cl-box.red{
 }
 
 ul#styleOptions li .cl-box.green{
-	background:#2ca01c;
+	background:#0fb76b;
 }
 
 ul#styleOptions li .cl-box.pink{
@@ -1428,13 +1428,17 @@ ul#styleOptions li .cl-box.orange{
     color: #6d7c96;
 	margin-right: 0;
 }
+.user-box ul.nav.nav-tabs li a:hover{
+   color: #0fb76b;
+   background: #1b2538;
+}
 .user-box ul.nav.nav-tabs li.active a{
-    background:#0084ff;
+    background:#1b2538;
     border: none;
-	border-right:1px solid #0084ff;
+	border-right:1px solid #1b2538;
     border-radius: 0;
     text-align: center;
-    color: #ffffff;
+    color: #0fb76b ;
 }
 
 /*====================================
@@ -2588,7 +2592,7 @@ Messages Settings
     display: table;
     table-layout: fixed;
     width: 100%;
-	border: 1px solid #293750;
+	/* border: 1px solid #293750; */
 }
 .mail-box aside {
     display: table-cell;
@@ -2599,7 +2603,7 @@ Messages Settings
 }
 .mail-box .sm-side {
     background: none repeat scroll 0 0 #1e293d;
-    border-radius: 4px 0 0 4px;
+    border-radius: 4px;
     width: 25%;
 }
 .mail-box .lg-side {

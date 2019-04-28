@@ -1,34 +1,27 @@
 import React from 'react'
 import Indicator from '../../../common/ui/indicator/indicator';
+import { format2Digits, format8Digits } from '../../../common/helpers/formatValues';
 
 const getValueType = (balance, baseCoin, type) => {
     if (baseCoin === 'btc') {
         if (type === 'available') {
-            return balance.totalAvailableBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })
+            return format8Digits(balance.totalAvailableBTC)
         }
         else if (type === 'alocated')
-            return balance.totalAlocatedBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })
+            return format8Digits(balance.totalAlocatedBTC)
         else {
-            return balance.totalAmountBTC.toLocaleString(undefined, { minimumFractionDigits: 8 })
+            return format8Digits(balance.totalAmountBTC)
         }
     }
     else {
         if (type === 'available') {
-            return balance.totalAvailableUSDT.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionalDigits: 2
-            })
+            return format2Digits(balance.totalAvailableUSDT)
         }
         else if (type === 'alocated')
-            return balance.totalAlocatedUSDT.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionalDigits: 2
-            })
+            return format2Digits(balance.totalAlocatedUSDT)
+  
         else {
-            return balance.totalAmountUSDT.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionalDigits: 2
-            })
+            return format2Digits( balance.totalAmountUSDT)
         }
     }
 }
