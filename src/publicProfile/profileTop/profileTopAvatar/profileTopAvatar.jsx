@@ -3,7 +3,7 @@ import DefaultProfileImage from '../../../vendor/assets/img/generic-profile.png'
 import '../../publicProfile.css'
 
 export default props => {
-    const { name, totalProfit, lastDayProfit } = props
+    const { name, totalProfitBTCPercent } = props
     return (
         <div className="user-head public-profile">
             <a className="inbox-avatar avatar-image">
@@ -14,8 +14,8 @@ export default props => {
                 <div className="user-card">
                     <div className="bottom">
                         <ul className="social-detail">
-                            <li className="return">{totalProfit.toLocaleString(undefined, { minimumFractionDigits: 2,maximumFractionDigits: 2 }) + "%"}<span>Return</span></li>
-                            <li className="day-return">{lastDayProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"}<span>Last Day</span></li>
+                            <li className="return">{totalProfitBTCPercent.toLocaleString(undefined, { minimumFractionDigits: 2,maximumFractionDigits: 2 }) + "%"}<span>Total Return</span></li>
+                            {/* <li className="day-return">{lastDayProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"}<span>This Cycle</span></li> */}
                         </ul>
                     </div>
                 </div>

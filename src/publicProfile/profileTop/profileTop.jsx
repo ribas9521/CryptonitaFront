@@ -6,8 +6,8 @@ import SwitchButton from '../../common/ui/buttons/switchButton';
 
 
 export default props => {
-    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin, isInvestor } = props
-    const { name, totalProfit, lastDayProfit } = profile
+    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin } = props
+    const { name, totalProfitBTCPercent } = profile
     return (
         <div className="mail-box">
             <aside className="sm-side">
@@ -17,8 +17,8 @@ export default props => {
                             <div className="col-md-6 col-xs-12">
                                 <ProfileTopAvatart
                                     name={name}
-                                    totalProfit={totalProfit}
-                                    lastDayProfit={lastDayProfit}
+                                    totalProfitBTCPercent={totalProfitBTCPercent}
+                                    //lastDayProfit={lastDayProfit}
                                 />
                             </div>
                             <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
@@ -27,12 +27,12 @@ export default props => {
 
                             <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
                                 {
-                                    isOwner ?
-                                        <SwitchButton
-                                            baseCoin={baseCoin}
-                                            onSwitch={onSwitch}
-                                            className="baseCoinSwitch" /> :
-                                        !isInvestor?
+                                    // isOwner ?
+                                    //     <SwitchButton
+                                    //         baseCoin={baseCoin}
+                                    //         onSwitch={onSwitch}
+                                    //         className="baseCoinSwitch" /> :
+                                     !isOwner?
 
                                         <ProfileTopButtons
                                             isOwner={isOwner}

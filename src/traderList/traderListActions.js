@@ -7,9 +7,10 @@ import { onlineCheck } from '../offlinePage/onlineCheck';
 
 export function getTraders(values) {
     return dispatch => {
-        axios.get(`${consts.API_URL}/username/trader-list`)
+        const identity = loadState('identity')
+        axios.get(`${consts.API_URL}/username/trader-list`, identity && { headers: { session: identity.sessionId } })
             .then(resp => {
-                dispatch([{ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result }, getFollow()])
+                dispatch([{ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result }])
             })
             .catch(e => {
                 if (!e.response) {
@@ -34,7 +35,7 @@ export function setFollow(values) {
                     toastr.success('Done', 'Following the master!')
                     dispatch([
                         { type: 'USER_FOLLOWING', payload: true }
-                        , getFollow()])
+                       ])
                 })
                 .catch(e => {
                     toastr.error('Error', e.response.data.message)
@@ -56,8 +57,8 @@ export function setUnfollow(values) {
                 .then(resp => {
                     toastr.success('Done', 'Unfollowed')
                     dispatch([
-                        { type: 'USER_UNFOLLOWING', payload: true }
-                        , getFollow()])
+                        { type: 'USER_FOLLOWING', payload: false }
+                        ])
                 })
                 .catch(e => {
                     toastr.error('Done', e.response.data.message)
@@ -70,26 +71,6 @@ export function setUnfollow(values) {
     }
 }
 
-
-export function getFollow() {
-    return dispatch => {
-        const identity = loadState('identity')
-        if (identity) {
-            axios.get(`${consts.API_URL}/username/following`, { headers: { session: identity.sessionId } })
-                .then(resp => {
-                    dispatch([
-                        { type: 'FOLLOWING_LIST_FETCHED', payload: resp.data.result.following }
-                    ])
-                })
-                .catch(e => {
-                    dispatch({ type: 'FOLLOWING_LIST_ERROR', payload: e })
-                })
-        }
-        else {
-            dispatch({ type: 'FOLLOWING_LIST_ERROR', payload: 'invalid identity' })
-        }
-    }
-}
 
 export function getInvestors() {
     return dispatch => {
@@ -108,5 +89,11 @@ export function getInvestors() {
                 }
 
             })
+    }
+}
+
+export function resetUserFollowing(){
+    return dispatch => {
+        dispatch({ type: 'USER_FOLLOWING', payload: 'initial' })
     }
 }

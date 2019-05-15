@@ -28,7 +28,7 @@ export default class UserCard extends Component {
 
     render() {
         const { trader, setFollow, setUnfollow, following } = this.props
-        const { usernameId, followers, totalReturnPercent } = trader        
+        const { usernameId, followers, totalReturnBTCPercent } = trader        
         trader.picture = genericProfile
         const nameArray = trader.name.split(' ')
         trader.description = "teste"
@@ -75,7 +75,7 @@ export default class UserCard extends Component {
                                 <div className="bottom">
                                     <ul className="social-detail">
                                         <li>{followers}<span>Followers</span></li>
-                                        <li>{`${totalReturnPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}<span>Total Return</span></li>
+                                        <li>{`${totalReturnBTCPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}<span>Total Return</span></li>
                                         {/* <li>{`${0}`}<span>Total in BTC</span></li> */}
                                     </ul>
                                 </div>

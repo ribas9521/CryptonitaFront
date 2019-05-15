@@ -28,7 +28,7 @@ export default class InvestorCard extends Component {
 
     render() {
         const { investor } = this.props
-        const { usernameId, totalReturnPercent } = investor
+        const { usernameId, totalReturnBTCPercent } = investor
         investor.picture = genericProfile
         const nameArray = investor.name.split(' ')
         investor.description = "teste"
@@ -75,7 +75,7 @@ export default class InvestorCard extends Component {
                                 <div className="bottom">
                                     <ul className="social-detail">
                                         {/* <li>{followers}<span>Followers</span></li> */}
-                                        <li className='investor-list-li'>{`${totalReturnPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}<span>Total Return</span></li>
+                                        <li className='investor-list-li'>{`${totalReturnBTCPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}<span>Total Return</span></li>
                                         {/* <li>{`${0}`}<span>Total in BTC</span></li> */}
                                     </ul>
                                 </div>

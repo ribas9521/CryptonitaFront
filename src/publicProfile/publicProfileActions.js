@@ -22,3 +22,23 @@ export function getPublicProfile(userId) {
             })
     }
 }
+
+export function getInvestorResume(){
+    return dispatch => {
+        dispatch({ type: 'INVESTOR_RESUME_FETCHING', payload: true })
+        const identity = loadState('identity')
+        axios.get(`${consts.API_URL}/username/investor-resume/`,
+            { headers: { session: identity ? identity.sessionId : null } })
+            .then(resp => {
+                dispatch([{ type: 'INVESTOR_RESUME_FETCHED', payload: resp.data.result },
+                    { type: 'INVESTOR_RESUME_FETCHING', payload: false }
+                ])
+            })
+            .catch(e => {
+                toastr.error("Error", "Error in fetching profile")
+                dispatch([{ type: 'INVESTOR_RESUME_ERROR', payload: "Error in fetching profile " },
+                    { type: 'INVESTOR_RESUME_FETCHING', payload: false }
+                ])
+            })
+    }
+}

@@ -56,13 +56,13 @@ $(function () {
 	  yaxis : {
                 
 		font : {
-			color : '#8597b9'
+			color : '#b5c0d5'
 		}
 	  },
 	  xaxis : {
 			
 			font : {
-				color : '#8597b9'
+				color : '#b5c0d5'
 			}
 		}
 	})
@@ -148,13 +148,13 @@ hAxis: {
 	  yaxis : {
                 
 		font : {
-			color : '#8597b9'
+			color : '#b5c0d5'
 		}
 	  },
 	  xaxis : {
 			
 			font : {
-				color : '#8597b9'
+				color : '#b5c0d5'
 			}
 		}
 	})
@@ -237,7 +237,7 @@ hAxis: {
 	  yaxis : {
                 
 		font : {
-			color : '#8597b9'
+			color : '#b5c0d5'
 		}
 	  }
 	})

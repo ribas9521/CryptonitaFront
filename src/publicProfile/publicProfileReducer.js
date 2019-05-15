@@ -2,10 +2,12 @@ const INITIAL_STATE = {
     profile:{
         usernameId: null,
         name:'',
-        totalProfit: 0,
+        totalProfitBTCPercent: 0,
         lastDayProfit:0
     },
-    profileLoading: false
+    profileLoading: false,
+    investorResumeFetching: false,
+    investorResume:[]
 
 }
 export default (state = INITIAL_STATE, action) => {
@@ -14,6 +16,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, profile: action.payload }
         case 'PUBLIC_PROFILE_FETCHING':
             return { ...state, profileLoading: action.payload }
+        case 'INVESTOR_RESUME_FETCHING':
+            return { ...state, investorResumeFetching: action.payload }
+        case 'INVESTOR_RESUME_FETCHED':
+            return { ...state, investorResume: action.payload }
         default:
             return state
     }

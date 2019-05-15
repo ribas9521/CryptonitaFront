@@ -21,7 +21,7 @@
     border-radius: 5px;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
     -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
-    background-color: #8597b9;
+    background-color: #b5c0d5;
     width: 5px;
 }
 
@@ -34,4 +34,12 @@
     .hidden-mobile {
         display: none;
     }
+}
+
+.portfolioList{
+    max-height: 250px;
+    overflow: auto;
+}
+.invoiceContainer{
+    text-align: center;
 }

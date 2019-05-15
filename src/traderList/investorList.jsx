@@ -14,7 +14,7 @@ export class InvestorList extends Component {
     }
     render() {
         const { investorList, history } = this.props
-        const investorCards = investorList.investors.sort((a, b) => b.totalReturnPercent - a.totalReturnPercent)
+        const investorCards = investorList.investors.sort((a, b) => b.totalReturnBTCPercent - a.totalReturnBTCPercent)
             .map((investor, i) => {
                 return (<InvestorCard
                     history={history}                   

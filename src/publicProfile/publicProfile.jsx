@@ -7,10 +7,10 @@ import PublicFeed from './publicFeed/publicFeed'
 import './publicProfile.css'
 import { login } from '../auth/authActions'
 import UserProfile from './userProfile/userProfile';
-import { getPublicProfile } from './publicProfileActions'
+import { getPublicProfile, getInvestorResume } from './publicProfileActions'
 import { loadState } from '../common/helpers/localStorage'
-import { setFollow, setUnfollow, getFollow } from '../traderList/traderListActions'
-import { getPerformanceByPeriod, getPortfolio, getOrders, getBalances } from './publicDashboard/publicDashboardActions'
+import { setFollow, setUnfollow } from '../traderList/traderListActions'
+import { getPortfolio, getBalances } from './publicDashboard/publicDashboardActions'
 
 
 export class PublicProfile extends Component {
@@ -27,8 +27,6 @@ export class PublicProfile extends Component {
         this.isOwner = this.isOwner.bind(this)
         this.isInvestor = this.isInvestor.bind(this)
         this.mountDashBoard = this.mountDashBoard.bind(this)
-        this.mountPerformanceChart = this.mountPerformanceChart.bind(this)
-        this.mountOrderList = this.mountOrderList.bind(this)
         this.fetchData = this.fetchData.bind(this)
         this.onSwitch = this.onSwitch.bind(this)
     }
@@ -49,8 +47,9 @@ export class PublicProfile extends Component {
     }
 
     fetchData() {
-        const { getPublicProfile, userAuthenticated, login, history } = this.props
+        const { getPublicProfile, userAuthenticated, login, history, getInvestorResume } = this.props
         const userId = parseInt(this.props.match.params.id)
+
         if (userAuthenticated === 'initial') {
             login()
         }
@@ -63,9 +62,11 @@ export class PublicProfile extends Component {
 
         if ((userId)) {
             this.setState({ userId: parseInt(userId) })
+            const isOwner = this.isOwner()
             getPublicProfile(userId)
-            getFollow()
-            this.mountDashBoard('month', userId)
+            if (isOwner)
+                getInvestorResume()
+            this.mountDashBoard(userId)
         }
 
     }
@@ -80,66 +81,54 @@ export class PublicProfile extends Component {
             return parseInt(userId) === parseInt(identity.username.usernameId)
         return false
     }
-    isInvestor(){
+    isInvestor() {
         const { userId } = this.state
         const { investorList } = this.props
-        if(investorList.filter(investor=>investor.usernameId === userId).length > 0)
+        if (investorList.filter(investor => investor.usernameId === userId).length > 0)
             return true
-        return false        
+        return false
     }
-    mountDashBoard(period = 'month', userId = parseInt(this.state.userId)) {
+    mountDashBoard(userId = parseInt(this.state.userId)) {
         this.mountBalanceIndicators(userId)
-        //this.mountPerformanceChart(period, userId)
         this.mountPortfolioChart(userId)
-        this.mountOrderList(userId)
     }
     mountBalanceIndicators(userId) {
         const { getBalances } = this.props
         getBalances(userId)
     }
-    mountPerformanceChart(period, userId) {
-        const { getPerformanceByPeriod } = this.props
-        this.setState({ period })
-        getPerformanceByPeriod(period, userId)
-    }
+
     mountPortfolioChart(userId) {
         const { getPortfolio } = this.props
         getPortfolio(userId)
     }
-    mountOrderList(userId) {
-        const { getOrders } = this.props
-        getOrders(userId)
-    }
+
 
     whatToRender() {
         const { activeScreen, userId, period, baseCoin } = this.state
-        const { performanceInfo,
-            performanceFetching,
+        const isOwner = this.isOwner()
+        const {
             portfolio,
             portfolioFetching,
-            orderList,
-            ordersFetching,
             balance,
-            balanceFetching } = this.props
+            balanceFetching, investorResume, investorResumeFetching } = this.props
 
         if (activeScreen === 0)
             return <PublicFeed />
 
-        else if (activeScreen === 1){          
+        else if (activeScreen === 1) {
             return <PublicDashboard
                 userId={userId}
-                performanceInfo={performanceInfo}
-                performanceFetching={performanceFetching}
-                getPerformanceByPeriod={this.mountPerformanceChart}
                 period={period}
                 portfolio={portfolio}
                 portfolioFetching={portfolioFetching}
-                orderList={orderList}
-                ordersFetching={ordersFetching}
                 balance={balance}
                 balanceFetching={balanceFetching}
-                baseCoin={baseCoin} />
-            
+                baseCoin={baseCoin}
+                isOwner={isOwner}
+                investorResume={investorResume}
+                investorResumeFetching={investorResumeFetching}
+            />
+
         }
 
         else if (activeScreen === 2)
@@ -147,11 +136,11 @@ export class PublicProfile extends Component {
             />
     }
     render() {
-        const { publicProfile, setFollow, setUnfollow, followingList} = this.props
+        const { publicProfile, setFollow, setUnfollow, userFollowing } = this.props
+        const { isFollowing } = publicProfile
         const { userId, baseCoin } = this.state
         const profileBody = this.whatToRender()
         const isOwner = this.isOwner()
-        const isInvestor = this.isInvestor()
         return (
             <div>
                 <ProfileTop
@@ -161,11 +150,9 @@ export class PublicProfile extends Component {
                     handleScreen={this.handleScreen}
                     userId={userId}
                     isOwner={isOwner}
-                    isInvestor={isInvestor}
                     setFollow={setFollow}
                     setUnfollow={setUnfollow}
-                    following={followingList.filter((following) => following.usernameId === userId)
-                        .length > 0 ? true : false} />
+                    following={userFollowing !== 'initial' ? userFollowing : isFollowing} />
 
                 <div className="profile-body">
                     {
@@ -181,30 +168,26 @@ const mapStateToProps = state => (
     {
         publicProfile: state.publicProfile.profile,
         userAuthenticated: state.auth.userAuthenticated,
-        followingList: state.traderList.followingList,
-        performanceInfo: state.publicDashboard.performanceInfo,
-        performanceFetching: state.publicDashboard.performanceFetching,
         portfolio: state.publicDashboard.portfolio,
         portfolioFetching: state.publicDashboard.portfolioFetching,
-        orderList: state.publicDashboard.orderList,
-        ordersFetching: state.publicDashboard.ordersFetching,
         balance: state.publicDashboard.balance,
         balanceFetching: state.publicDashboard.balanceFetching,
-        investorList: state.traderList.investorList.investors
+        investorList: state.traderList.investorList.investors,
+        userFollowing: state.traderList.userFollowing,
+        investorResume: state.publicProfile.investorResume,
+        investorResumeFetching: state.publicProfile.investorResumeFetching
+
     }
 )
-
 const mapDispatchToProps = dispatch => (
     (bindActionCreators({
         login,
         getPublicProfile,
         setFollow,
         setUnfollow,
-        getFollow,
-        getPerformanceByPeriod,
         getPortfolio,
-        getOrders,
-        getBalances
+        getBalances,
+        getInvestorResume
     }, dispatch))
 )
 

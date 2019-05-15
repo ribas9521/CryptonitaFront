@@ -92,10 +92,10 @@ class Header extends Component {
                                 <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-user"></i>Traders List </Link>                               
                                 
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link to="/investorList" className={this.handleActive('/investorList')}><i className="fa fa-user-o"></i>User List </Link>                               
                                 
-                            </li>
+                            </li> */}
 
                         </ul>
                     </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Usercard from './userCard/userCard'
-import { getTraders, setFollow, setUnfollow } from "./traderListActions";
+import { getTraders, setFollow, setUnfollow , resetUserFollowing } from "./traderListActions";
 
 export class TraderList extends Component {
     constructor(props) {
@@ -12,19 +12,23 @@ export class TraderList extends Component {
         const { getTraders } = this.props
         getTraders()
     }
+    componentWillUnmount() {
+        const { resetUserFollowing } = this.props
+        resetUserFollowing()
+
+    }
     render() {
-        const { traderList, setFollow, setUnfollow, followingList, history } = this.props
-        const userCards = traderList.traders.sort((a, b) => b.totalReturnPercent - a.totalReturnPercent)
-        .map((trader, i) => {
-            return (<Usercard
-                history={history}
-                setFollow={setFollow}
-                setUnfollow={setUnfollow}
-                key={i}
-                trader={trader}
-                following={followingList.filter((following) => following.usernameId === trader.usernameId)
-                    .length > 0 ? true : false} />)
-        })
+        const { traderList, setFollow, setUnfollow, history, userFollowing } = this.props
+        const userCards = traderList.traders.sort((a, b) => b.totalReturnBTCPercent - a.totalReturnBTCPercent)
+            .map((trader, i) => {
+                return (<Usercard
+                    history={history}
+                    setFollow={setFollow}
+                    setUnfollow={setUnfollow}
+                    key={i}
+                    trader={trader}
+                    following={userFollowing !== 'initial' ? userFollowing : trader.isFollowing} />)
+            })
         return (
             <div>
                 {userCards}
@@ -41,12 +45,11 @@ const mapStateToProps = state => (
     {
         traderList: state.traderList.traderList,
         userFollowing: state.traderList.userFollowing,
-        followingList: state.traderList.followingList
     }
 )
 
 const mapDispatchToProps = dispatch => (
-    (bindActionCreators({ getTraders, setFollow, setUnfollow }, dispatch))
+    (bindActionCreators({ getTraders, setFollow, setUnfollow, resetUserFollowing }, dispatch))
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(TraderList)

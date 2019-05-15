@@ -6,11 +6,11 @@ export default props => {
     let options
     if(isOwner) {
     options = [
-        {
-            value: 0,
-            icon: 'fa fa-comments-o',
-            text: 'Feed'
-        },
+        // {
+        //     value: 0,
+        //     icon: 'fa fa-comments-o',
+        //     text: 'Feed'
+        // },
         {
             value: 1,
             active: true,
@@ -25,11 +25,11 @@ export default props => {
     ]} else 
     {
         options = [
-            {
-                value: 0,
-                icon: 'fa fa-comments-o',
-                text: 'Feed'
-            },
+            // {
+            //     value: 0,
+            //     icon: 'fa fa-comments-o',
+            //     text: 'Feed'
+            // },
             {
                 value: 1,
                 active: true,
