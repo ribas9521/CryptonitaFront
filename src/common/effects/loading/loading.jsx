@@ -4,7 +4,7 @@ import logo from '../../../vendor/assets/img/logo.png'
 
 const Loading = props =>{
     let component = <div className="col-xs-12 animated infinite flash slow" style={{ textAlign: 'center' }}><br />
-        <h3>Looking for your data...</h3>
+        <h4>Looking for your data...</h4>
         <img src={search}
             width="200px"
         />

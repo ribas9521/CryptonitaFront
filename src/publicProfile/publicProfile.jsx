@@ -19,7 +19,7 @@ export class PublicProfile extends Component {
         this.state = {
             activeScreen: 1,
             period: 'month',
-            baseCoin: 'btc'
+            baseCoin: 'btc',
         }
 
         this.handleScreen = this.handleScreen.bind(this)
@@ -42,8 +42,9 @@ export class PublicProfile extends Component {
         this.setState(baseCoin === 'btc' ? { baseCoin: 'usd' } : { baseCoin: 'btc' })
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.fetchData()
+
     }
 
     fetchData() {
@@ -61,12 +62,13 @@ export class PublicProfile extends Component {
         }
 
         if ((userId)) {
-            this.setState({ userId: parseInt(userId) })
-            const isOwner = this.isOwner()
-            getPublicProfile(userId)
-            if (isOwner)
-                getInvestorResume()
-            this.mountDashBoard(userId)
+            this.setState({ userId: parseInt(userId) }, () => {
+                if (this.isOwner(userId))
+                    getInvestorResume()
+                getPublicProfile(userId)
+                this.mountDashBoard(userId)
+            })
+
         }
 
     }
@@ -74,11 +76,11 @@ export class PublicProfile extends Component {
         this.setState({ activeScreen })
     }
 
-    isOwner() {
-        const { userId } = this.state
+    isOwner(userId) {
         const identity = loadState("identity")
-        if (identity)
+        if (identity) {
             return parseInt(userId) === parseInt(identity.username.usernameId)
+        }
         return false
     }
     isInvestor() {
@@ -104,14 +106,14 @@ export class PublicProfile extends Component {
 
 
     whatToRender() {
-        const { activeScreen, userId, period, baseCoin } = this.state
-        const isOwner = this.isOwner()
+        const { activeScreen, userId, period, baseCoin, } = this.state
         const {
             portfolio,
             portfolioFetching,
             balance,
-            balanceFetching, investorResume, investorResumeFetching } = this.props
-
+            balanceFetching, investorResume, investorResumeFetching, followedTrader, followedTraderFetching, publicProfile } = this.props
+        const isOwner = this.isOwner(userId)
+        const { isTrader } = publicProfile
         if (activeScreen === 0)
             return <PublicFeed />
 
@@ -127,6 +129,9 @@ export class PublicProfile extends Component {
                 isOwner={isOwner}
                 investorResume={investorResume}
                 investorResumeFetching={investorResumeFetching}
+                followedTrader={followedTrader}
+                followedTraderFetching={followedTraderFetching}
+                isTrader={isTrader}
             />
 
         }
@@ -139,8 +144,9 @@ export class PublicProfile extends Component {
         const { publicProfile, setFollow, setUnfollow, userFollowing } = this.props
         const { isFollowing } = publicProfile
         const { userId, baseCoin } = this.state
+        const isOwner = this.isOwner(userId)
         const profileBody = this.whatToRender()
-        const isOwner = this.isOwner()
+
         return (
             <div>
                 <ProfileTop
@@ -175,7 +181,9 @@ const mapStateToProps = state => (
         investorList: state.traderList.investorList.investors,
         userFollowing: state.traderList.userFollowing,
         investorResume: state.publicProfile.investorResume,
-        investorResumeFetching: state.publicProfile.investorResumeFetching
+        investorResumeFetching: state.publicProfile.investorResumeFetching,
+        followedTrader: state.publicProfile.followedTrader,
+        followedTraderFetching: state.publicProfile.followedTraderFetching,
 
     }
 )

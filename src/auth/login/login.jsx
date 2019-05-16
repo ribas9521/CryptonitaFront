@@ -7,7 +7,7 @@ import ErrorHandler from "../errorHandler";
 import { Link } from "react-router-dom";
 import './loginStyle.css'
 import LoadingButton from '../../common/ui/buttons/loadingButton';
-import {loadState} from '../../common/helpers/localStorage'
+import { loadState } from '../../common/helpers/localStorage'
 
 class Login extends Component {
     constructor(props) {

@@ -84,7 +84,7 @@ class Register extends Component {
                                             <label>
                                                 <input id={'isTrader'} name="isTrader" type="radio" value={true}
                                                     onChange={(e) => this.setState({ isTrader: e.target.value })} />
-                                                Trader (I want to trade)
+                                                Trader (I want to be copied)
                                                 </label>
                                         </div>
                                     </div>

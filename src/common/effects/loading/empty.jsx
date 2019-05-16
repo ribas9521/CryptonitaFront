@@ -11,7 +11,7 @@ const Empty = props =>{
 
     return(
         <div className="col-xs-12" style={{textAlign:'center'}}><br/>
-            <h3>{msg}</h3>
+            <h4>{msg}</h4>
             <img src={emptyScreen} 
              width="200px"
             />

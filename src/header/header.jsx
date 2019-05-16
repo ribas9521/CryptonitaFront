@@ -21,6 +21,7 @@ class Header extends Component {
     handleLogout() {
         const { logout } = this.props
         logout();
+        this.props.history.push('/')
       
     }
     handleGoToProfile(e){

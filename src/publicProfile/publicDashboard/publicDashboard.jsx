@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PortfolioChart from './portfolioChart/portfolioChart';
 import Indicators from './indicators/indicators';
 import BalanceChart from './balanceChart/balanceChart';
-import { format2Digits, formatTime, format8Digits } from "../../common/helpers/formatValues";
+import { format2Digits, formatTime, format8Digits, isEmpty } from "../../common/helpers/formatValues";
 import Loading from '../../common/effects/loading/loading';
 import Card from '../../common/ui/card/card';
 import Empty from '../../common/effects/loading/empty';
@@ -20,13 +20,13 @@ export default class PublicDashboard extends Component {
 
 
 
-    shouldComponentUpdate(nextProps) {
-        const { balanceFetching, portfolioFetching } = nextProps
-        if (!balanceFetching && !portfolioFetching)
-            return true
-        else
-            return false
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     // const { balanceFetching, portfolioFetching, investorResumeFetching } = nextProps
+    //     // if (!balanceFetching && !portfolioFetching && !investorResumeFetching)
+    //     //     return true
+    //     // else
+    //     //     return false
+    // }
 
 
     mountPortfolioChart() {
@@ -121,15 +121,17 @@ export default class PublicDashboard extends Component {
         const empty = <Card title={cardTitle}><Empty /></Card>
         if (fetching)
             return loading
-        else if (obj.length <= 0)
+        else if (obj.length <= 0 || isEmpty(obj))
             return empty
         else
             return component
     }
 
     render() {
+
         const { balance, balanceFetching,
-            portfolioFetching, portfolio, baseCoin, investorResume, investorResumeFetching } = this.props
+            portfolioFetching, portfolio, baseCoin, 
+            investorResume, investorResumeFetching, followedTrader, followedTraderFetching, isTrader } = this.props
         return (
             <div>
                 {
@@ -171,12 +173,19 @@ export default class PublicDashboard extends Component {
                         )
                     }
                 </div>
+
                 {
-                    !investorResumeFetching &&
-                    <div className="col-md-6 col-xs-12">
-                        <Invoice />
-                    </div>
-                }
+                    !isTrader && 
+                    this.handleComponent(
+                        "Current Copy",
+                        investorResume,
+                        investorResumeFetching && followedTraderFetching,
+                        <Invoice
+                            investorResume={investorResume}
+                            trader={followedTrader}
+                        />
+                    )
+                }            
 
 
             </div>
