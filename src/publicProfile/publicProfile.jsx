@@ -63,9 +63,7 @@ export class PublicProfile extends Component {
 
         if ((userId)) {
             this.setState({ userId: parseInt(userId) }, () => {
-                if (this.isOwner(userId))
-                    getInvestorResume()
-                getPublicProfile(userId)
+                getPublicProfile(userId)              
                 this.mountDashBoard(userId)
             })
 

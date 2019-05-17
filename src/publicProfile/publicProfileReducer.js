@@ -5,7 +5,8 @@ const INITIAL_STATE = {
         usernameId: null,
         name:'',
         totalProfitBTCPercent: 0,
-        lastDayProfit:0
+        lastDayProfit:0,
+        isTrader: 'initial'
     },
     profileLoading: false,
     followedTrader:{

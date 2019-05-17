@@ -13,9 +13,12 @@ export function getPublicProfile(userId) {
                 dispatch([{ type: 'PUBLIC_PROFILE_FETCHED', payload: resp.data.result },
                 { type: 'PUBLIC_PROFILE_FETCHING', payload: false }
                 ])
+                if(!resp.data.result.isTrader){
+                    dispatch(getInvestorResume())
+                }
             })
             .catch(e => {
-                toastr.error("Error","Error in fetching profile")
+                toastr.error("Error", "Error in fetching profile")
                 dispatch([{ type: 'PUBLIC_PROFILE_ERROR', payload: "Error in fetching profile " },
                 { type: 'PUBLIC_PROFILE_FETCHING', payload: false }
                 ])
@@ -23,43 +26,43 @@ export function getPublicProfile(userId) {
     }
 }
 
-export function getFollowedTrader(){
-    return (dispatch,getState) => {
+export function getFollowedTrader() {
+    return (dispatch, getState) => {
         const investorResume = getState().publicProfile.investorResume
-        if(investorResume.length <= 0)
+        if (investorResume.length <= 0)
             return
         const userId = investorResume[investorResume.length - 1].traderUsernameId
         dispatch({ type: 'FOLLOWED_TRADER_FETCHING', payload: true })
         axios.get(`${consts.API_URL}/username/profile/${userId}`)
             .then(resp => {
                 dispatch([{ type: 'FOLLOWED_TRADER_FETCHED', payload: resp.data.result },
-                    { type: 'FOLLOWED_TRADER_FETCHING', payload: false }
+                { type: 'FOLLOWED_TRADER_FETCHING', payload: false }
                 ])
             })
             .catch(e => {
                 toastr.error("Error", "Error in fetching profile")
                 dispatch([{ type: 'FOLLOWED_TRADER_ERROR', payload: "Error in fetching trader profile " },
-                    { type: 'FOLLOWED_TRADER_FETCHING', payload: false }
+                { type: 'FOLLOWED_TRADER_FETCHING', payload: false }
                 ])
             })
     }
 }
-export function getInvestorResume(){
-    return dispatch => {
+export function getInvestorResume() {
+    return (dispatch, getState) => {        
         dispatch({ type: 'INVESTOR_RESUME_FETCHING', payload: true })
         const identity = loadState('identity')
         axios.get(`${consts.API_URL}/username/investor-resume/`,
             { headers: { session: identity ? identity.sessionId : null } })
             .then(resp => {
                 dispatch([{ type: 'INVESTOR_RESUME_FETCHED', payload: resp.data.result.data },
-                    getFollowedTrader(),
-                    { type: 'INVESTOR_RESUME_FETCHING', payload: false }
+                getFollowedTrader(),
+                { type: 'INVESTOR_RESUME_FETCHING', payload: false }
                 ])
             })
             .catch(e => {
                 toastr.error("Error", "Error in fetching profile")
                 dispatch([{ type: 'INVESTOR_RESUME_ERROR', payload: "Error in fetching profile " },
-                    { type: 'INVESTOR_RESUME_FETCHING', payload: false }
+                { type: 'INVESTOR_RESUME_FETCHING', payload: false }
                 ])
             })
     }
