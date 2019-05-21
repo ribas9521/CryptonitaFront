@@ -19,9 +19,9 @@ const getValueType = (balance, baseCoin, type) => {
         }
         else if (type === 'alocated')
             return format2Digits(balance.totalAlocatedUSDT)
-  
+
         else {
-            return format2Digits( balance.totalAmountUSDT)
+            return format2Digits(balance.totalAmountUSDT)
         }
     }
 }
@@ -30,33 +30,39 @@ export default props => {
     const { balance, baseCoin } = props
     return (
         <div>
-            <Indicator
-                text="Available"
-                icon='fa fa-check'
-                value={getValueType(balance, baseCoin, 'available')
-                }
-                type="info"
-                percentage={0}
-                currency={baseCoin}
-            />
-            <Indicator
-                text="Alocated"
-                icon='fa fa-plus'
-                value={
-                    getValueType(balance, baseCoin, 'alocated')}
-                type="warning"
-                percentage={0}
-                currency={baseCoin}
-            />
-            <Indicator
-                text="Total"
-                icon='fa fa-usd'
-                value={
-                    getValueType(balance, baseCoin, 'amount')}
-                type={"success"}
-                percentage={0}
-                currency={baseCoin}
-            />
+            <div className="col-md-4 col-sm-6 col-xs-12">
+                <Indicator
+                    text="Available"
+                    icon='fa fa-check'
+                    value={getValueType(balance, baseCoin, 'available')
+                    }
+                    type="info"
+                    percentage={0}
+                    currency={baseCoin}
+                />
+            </div>
+            <div className="col-md-4 col-sm-6 col-xs-1</div>2">
+                <Indicator
+                    text="Alocated"
+                    icon='fa fa-plus'
+                    value={
+                        getValueType(balance, baseCoin, 'alocated')}
+                    type="warning"
+                    percentage={0}
+                    currency={baseCoin}
+                />
+            </div>
+            <div className="col-md-4 col-sm-6 col-xs-12">
+                <Indicator
+                    text="Total"
+                    icon='fa fa-usd'
+                    value={
+                        getValueType(balance, baseCoin, 'amount')}
+                    type={"success"}
+                    percentage={0}
+                    currency={baseCoin}
+                />
+            </div>
 
         </div>
     )

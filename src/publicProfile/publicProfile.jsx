@@ -63,7 +63,7 @@ export class PublicProfile extends Component {
 
         if ((userId)) {
             this.setState({ userId: parseInt(userId) }, () => {
-                getPublicProfile(userId)              
+                getPublicProfile(userId)
                 this.mountDashBoard(userId)
             })
 
@@ -109,7 +109,10 @@ export class PublicProfile extends Component {
             portfolio,
             portfolioFetching,
             balance,
-            balanceFetching, investorResume, investorResumeFetching, followedTrader, followedTraderFetching, publicProfile } = this.props
+            balanceFetching, investorResume,
+            investorResumeFetching, followedTrader,
+            followedTraderFetching, publicProfile, traderResume,
+            traderResumeFetching } = this.props
         const isOwner = this.isOwner(userId)
         const { isTrader } = publicProfile
         if (activeScreen === 0)
@@ -130,6 +133,8 @@ export class PublicProfile extends Component {
                 followedTrader={followedTrader}
                 followedTraderFetching={followedTraderFetching}
                 isTrader={isTrader}
+                traderResume={traderResume}
+                traderResumeFetching={traderResumeFetching}
             />
 
         }
@@ -182,6 +187,9 @@ const mapStateToProps = state => (
         investorResumeFetching: state.publicProfile.investorResumeFetching,
         followedTrader: state.publicProfile.followedTrader,
         followedTraderFetching: state.publicProfile.followedTraderFetching,
+        traderResume: state.publicProfile.traderResume,
+        traderResumeFetching: state.publicProfile.traderResumeFetching,
+
 
     }
 )

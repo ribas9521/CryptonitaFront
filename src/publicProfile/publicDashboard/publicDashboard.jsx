@@ -7,6 +7,7 @@ import Loading from '../../common/effects/loading/loading';
 import Card from '../../common/ui/card/card';
 import Empty from '../../common/effects/loading/empty';
 import Invoice from '../invoice/invoice';
+import TraderResume from '../invoice/traderResume';
 
 export default class PublicDashboard extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class PublicDashboard extends Component {
         }
         this.mountPortfolioChart = this.mountPortfolioChart.bind(this)
         this.getPortfolioList = this.getPortfolioList.bind(this)
+        this.handleResume = this.handleResume.bind(this)
     }
 
 
@@ -126,12 +128,41 @@ export default class PublicDashboard extends Component {
         else
             return component
     }
+    handleResume() {
+        const { isOwner, isTrader, traderResume, traderResumeFetching,
+            investorResume, investorResumeFetching, followedTrader, followedTraderFetching } = this.props
+        if (isOwner) {
+            if (isTrader) {
+                return (this.handleComponent(
+                    "Trader Resume",
+                    traderResume,
+                    traderResumeFetching,
+                    <TraderResume
+                        traderResume={traderResume}
+                    />
+                ))
+            }
+            else {
+                return (this.handleComponent(
+                    "Current Copy",
+                    investorResume,
+                    investorResumeFetching && followedTraderFetching,
+                    <Invoice
+                        investorResume={investorResume}
+                        trader={followedTrader}
+                    />
+                ))
+            }
+        }
+    }
 
     render() {
-
         const { balance, balanceFetching,
-            portfolioFetching, portfolio, baseCoin, 
-            investorResume, investorResumeFetching, followedTrader, followedTraderFetching, isTrader } = this.props
+            portfolioFetching, portfolio, baseCoin,
+            investorResume, investorResumeFetching,
+            followedTrader, followedTraderFetching, isTrader,
+            traderResume, isOwner,
+            traderResumeFetching } = this.props
         return (
             <div>
                 {
@@ -175,17 +206,8 @@ export default class PublicDashboard extends Component {
                 </div>
 
                 {
-                    !isTrader && 
-                    this.handleComponent(
-                        "Current Copy",
-                        investorResume,
-                        investorResumeFetching && followedTraderFetching,
-                        <Invoice
-                            investorResume={investorResume}
-                            trader={followedTrader}
-                        />
-                    )
-                }            
+                    this.handleResume()
+                }
 
 
             </div>

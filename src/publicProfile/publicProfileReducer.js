@@ -18,14 +18,9 @@ const INITIAL_STATE = {
     followedTraderFetching:false,
     profileLoading: false,
     investorResumeFetching: false,
-    investorResume:[]
-    // investorResume:[{
-    //     createdAt: new Date(),
-    //     copyResultAmountBTC: 0,
-    //     copyResultPercentBTC: 0,
-    //     copyResultAmountUSDT: 0,
-    //     copyResultPercentUSDT: 0
-    // }]
+    investorResume:[],
+    traderResume:{},
+    traderResumeFetching:false
 
 }
 export default (state = INITIAL_STATE, action) => {
@@ -42,6 +37,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, investorResumeFetching: action.payload }
         case 'INVESTOR_RESUME_FETCHED':
             return { ...state, investorResume: action.payload  }
+        case 'TRADER_RESUME_FETCHED':
+            return { ...state, traderResume: action.payload  }
+        case 'TRADER_RESUME_FETCHING':
+            return { ...state, traderResumeFetching: action.payload  }
         default:
             return state
     }
