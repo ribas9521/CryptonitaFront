@@ -12,38 +12,43 @@ const Invoice = ({ investorResume, trader }) => {
         copyResultAmountUSDT,
         copyResultPercentUSDT } = investorResume[investorResume.length - 1]
     const { name } = trader
-    return (
+    return (        
         <Card title="Current Copy">
-            <div className="col-xs-12">
-                <div className="col-md-6">
-                    <GradientWidget icon="fa fa-btc" type="success">
-                        <h3>{format2Digits(copyResultPercentBTC)}%</h3>
-                        <h4>{format8Digits(copyResultAmountBTC)}</h4>
-                        <span>Bitcoin Return</span>
-                    </GradientWidget>
-                </div>
-                <div className="col-md-6">
-                    <GradientWidget icon="fa fa-usd" type="info">
-                        <h3>{format2Digits(copyResultPercentUSDT)}%</h3>
-                        <h4>${format2Digits(copyResultAmountUSDT)}</h4>
-                        <span>Dolar Return</span>
-                    </GradientWidget>
-                </div>
+            {
+                investorResume[investorResume.length - 1].isActive ? 
+                    <div className="col-xs-12">
+                        <div className="col-md-6">
+                            <GradientWidget icon="fa fa-btc" type="success">
+                                <h3>{format2Digits(copyResultPercentBTC)}%</h3>
+                                <h4>{format8Digits(copyResultAmountBTC)}</h4>
+                                <span>Bitcoin Return</span>
+                            </GradientWidget>
+                        </div>
+                        <div className="col-md-6">
+                            <GradientWidget icon="fa fa-usd" type="info">
+                                <h3>{format2Digits(copyResultPercentUSDT)}%</h3>
+                                <h4>${format2Digits(copyResultAmountUSDT)}</h4>
+                                <span>Dolar Return</span>
+                            </GradientWidget>
+                        </div>
 
-                <div className="col-xs-12">
-                    <MiniCard
-                        label={name}
-                        subLabel={`Following since: ${formatTime(new Date(createdAt))}`}
-                    />
-                </div>
-                <div className="col-xs-12">
-                    <SocialItem
-                        value={format8Digits(copyResultAmountBTC * 0.4)}
-                        label="To Pay (40 % of profit)"
-                    />
-                </div>
+                        <div className="col-xs-12">
+                            <MiniCard
+                                label={name}
+                                subLabel={`Following since: ${formatTime(new Date(createdAt))}`}
+                            />
+                        </div>
+                        <div className="col-xs-12">
+                            <SocialItem
+                                value={format8Digits(copyResultAmountBTC * 0.4)}
+                                label="To Pay (40 % of profit)"
+                            />
+                        </div>
 
-            </div>
+                    </div>:
+                    <h3>No active copies</h3>
+            }
+           
         </Card>
     )
 }

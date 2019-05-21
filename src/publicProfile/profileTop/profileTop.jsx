@@ -6,7 +6,7 @@ import SwitchButton from '../../common/ui/buttons/switchButton';
 
 
 export default props => {
-    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin } = props
+    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin, isTrader } = props
     const { name, totalProfitBTCPercent } = profile
     return (
         <div className="mail-box">
@@ -18,7 +18,7 @@ export default props => {
                                 <ProfileTopAvatart
                                     name={name}
                                     totalProfitBTCPercent={totalProfitBTCPercent}
-                                    //lastDayProfit={lastDayProfit}
+                                //lastDayProfit={lastDayProfit}
                                 />
                             </div>
                             <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
@@ -32,15 +32,15 @@ export default props => {
                                     //         baseCoin={baseCoin}
                                     //         onSwitch={onSwitch}
                                     //         className="baseCoinSwitch" /> :
-                                     !isOwner?
+                                    !isOwner && isTrader ?
 
                                         <ProfileTopButtons
                                             isOwner={isOwner}
                                             setFollow={setFollow}
                                             setUnfollow={setUnfollow}
                                             userId={userId}
-                                            following={following} />:
-                                            null
+                                            following={following} /> :
+                                        null
 
 
                                 }

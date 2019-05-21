@@ -159,10 +159,7 @@ export default class PublicDashboard extends Component {
     render() {
         const { balance, balanceFetching,
             portfolioFetching, portfolio, baseCoin,
-            investorResume, investorResumeFetching,
-            followedTrader, followedTraderFetching, isTrader,
-            traderResume, isOwner,
-            traderResumeFetching } = this.props
+        } = this.props
         return (
             <div>
                 {

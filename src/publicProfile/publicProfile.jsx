@@ -149,7 +149,7 @@ export class PublicProfile extends Component {
         const { userId, baseCoin } = this.state
         const isOwner = this.isOwner(userId)
         const profileBody = this.whatToRender()
-
+        const isTrader = publicProfile && publicProfile.isTrader
         return (
             <div>
                 <ProfileTop
@@ -161,7 +161,8 @@ export class PublicProfile extends Component {
                     isOwner={isOwner}
                     setFollow={setFollow}
                     setUnfollow={setUnfollow}
-                    following={userFollowing !== 'initial' ? userFollowing : isFollowing} />
+                    following={userFollowing !== 'initial' ? userFollowing : isFollowing}
+                    isTrader={isTrader} />
 
                 <div className="profile-body">
                     {
