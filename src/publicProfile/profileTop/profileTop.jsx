@@ -3,10 +3,11 @@ import ProfileTopAvatart from './profileTopAvatar/profileTopAvatar'
 import ProfileTopButtons from './profileTopButtons/profileTopButtons'
 import ProfileTopTabs from './profileTopTabs/profileTopTabs'
 import SwitchButton from '../../common/ui/buttons/switchButton';
+import ProfileTopLoader from '../../common/ui/loaders/profileTopLoader';
 
 
 export default props => {
-    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin, isTrader } = props
+    const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin, isTrader, profileFetching } = props
     const { name, totalProfitBTCPercent } = profile
     return (
         <div className="mail-box">
@@ -15,11 +16,15 @@ export default props => {
                     <div className="inbox inbox-widget">
                         <div className="row">
                             <div className="col-md-6 col-xs-12">
-                                <ProfileTopAvatart
-                                    name={name}
-                                    totalProfitBTCPercent={totalProfitBTCPercent}
-                                //lastDayProfit={lastDayProfit}
-                                />
+                                {
+                                    profileFetching ? <ProfileTopLoader /> :
+                                        <ProfileTopAvatart
+                                            name={name}
+                                            totalProfitBTCPercent={totalProfitBTCPercent}
+                                            isOwner={isOwner}
+                                        //lastDayProfit={lastDayProfit}
+                                        />
+                                }
                             </div>
                             <div className="col-md-4 col-md-offset-2 col-xs-12 profile-top-buttons">
 

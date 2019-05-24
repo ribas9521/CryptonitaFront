@@ -8,7 +8,7 @@ const INITIAL_STATE = {
         lastDayProfit:0,
         isTrader: 'initial'
     },
-    profileLoading: false,
+    profileFetching: false,
     followedTrader:{
         usernameId: null,
         name:'',
@@ -16,7 +16,7 @@ const INITIAL_STATE = {
         lastDayProfit:0
     },
     followedTraderFetching:false,
-    profileLoading: false,
+    profileFetching: false,
     investorResumeFetching: false,
     investorResume:[],
     traderResume:{},
@@ -28,7 +28,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'PUBLIC_PROFILE_FETCHED':
             return { ...state, profile: action.payload }
         case 'PUBLIC_PROFILE_FETCHING':
-            return { ...state, profileLoading: action.payload }
+            return { ...state, profileFetching: action.payload }
         case 'FOLLOWED_TRADER_FETCHED':
             return { ...state, followedTrader: action.payload }
         case 'FOLLOWED_TRADER_FETCHING':

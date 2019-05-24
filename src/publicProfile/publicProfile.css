@@ -12,8 +12,13 @@
 
 .avatar-image {
     width: 110px !important;
-    margin-top: 20px;
     border-radius: 0% !important;
+    margin-top: 10px;
+}
+.dropZone{
+    border-radius: 0%!important;
+    width: 160px !important;
+
 }
 
 .social-detail .return {

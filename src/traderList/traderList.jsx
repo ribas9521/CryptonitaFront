@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Usercard from './userCard/userCard'
 import { getTraders, setFollow, setUnfollow , resetUserFollowing } from "./traderListActions";
+import Loading from '../common/effects/loading/loading';
 
 export class TraderList extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export class TraderList extends Component {
 
     }
     render() {
-        const { traderList, setFollow, setUnfollow, history, userFollowing } = this.props
+        const { traderList, setFollow, setUnfollow, history, userFollowing, traderListFetching } = this.props
         const userCards = traderList.traders.sort((a, b) => b.totalReturnBTCPercent - a.totalReturnBTCPercent)
             .map((trader, i) => {
                 return (<Usercard
@@ -31,7 +32,7 @@ export class TraderList extends Component {
             })
         return (
             <div>
-                {userCards}
+                {traderListFetching ? <Loading/> : userCards}
             </div>
         )
 
@@ -44,6 +45,7 @@ export class TraderList extends Component {
 const mapStateToProps = state => (
     {
         traderList: state.traderList.traderList,
+        traderListFetching: state.traderList.traderListFetching,
         userFollowing: state.traderList.userFollowing,
     }
 )

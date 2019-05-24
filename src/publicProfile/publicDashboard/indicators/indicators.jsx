@@ -41,7 +41,7 @@ export default props => {
                     currency={baseCoin}
                 />
             </div>
-            <div className="col-md-4 col-sm-6 col-xs-1</div>2">
+            <div className="col-md-4 col-sm-6 col-xs-12">
                 <Indicator
                     text="Alocated"
                     icon='fa fa-plus'

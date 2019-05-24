@@ -8,18 +8,22 @@ import { onlineCheck } from '../offlinePage/onlineCheck';
 export function getTraders(values) {
     return dispatch => {
         const identity = loadState('identity')
+        dispatch({ type: 'TRADERS_LIST_FETCHING', payload: true })
         axios.get(`${consts.API_URL}/username/trader-list`, identity && { headers: { session: identity.sessionId } })
             .then(resp => {
                 dispatch([{ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result }])
+                dispatch({ type: 'TRADERS_LIST_FETCHING', payload: false })
             })
             .catch(e => {
                 if (!e.response) {
                     toastr.error('No Internet Connection')
+                    dispatch({ type: 'TRADERS_LIST_FETCHING', payload: false })
                     onlineCheck()
                 }
                 else {
                     toastr.error('')
                     dispatch({ type: 'TRADERS_LIST_ERROR', payload: 'Error in retriving traders' })
+                    dispatch({ type: 'TRADERS_LIST_FETCHING', payload: false })
                 }
 
             })

@@ -9,6 +9,7 @@ import Empty from '../../common/effects/loading/empty';
 import Invoice from '../invoice/invoice';
 import TraderResume from '../invoice/traderResume';
 
+
 export default class PublicDashboard extends Component {
     constructor(props) {
         super(props)
@@ -43,6 +44,14 @@ export default class PublicDashboard extends Component {
                 trigger: 'item',
                 formatter: "{b} : {c} ({d}%)"
             },
+         
+            color: [
+                "#FC3028", "#5423D9", "#32F0EB", "#26BFBF", 
+                "#FCB128", "#26BFBF", "#32F0EB",  "#FC3028", "#5423D9", 
+                // "#8123FC", "#1EC2D9", "#6BF02D", "#DBA82E", "#FC2C23",
+             
+            ],
+            
 
             series: [
                 {

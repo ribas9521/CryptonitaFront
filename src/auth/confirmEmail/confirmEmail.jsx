@@ -6,6 +6,7 @@ import { confirmEmail } from '../authActions'
 import SweetAlert from 'sweetalert2-react';
 
 
+
 export class ConfirmEmail extends Component {
     constructor(props) {
         super(props)
@@ -13,21 +14,28 @@ export class ConfirmEmail extends Component {
     }
     componentDidMount() {
         const { search } = this.props.location
-        const parsed = qs.parse(search.substr(1, search.length -1))
+        const parsed = qs.parse(search.substr(1, search.length - 1))
         this.props.confirmEmail(parsed)
+      
     }
-    
+
 
     render() {
-        const { emailVerified, history } = this.props       
+        const { emailVerified, history } = this.props
         return (
             <div>
                 <SweetAlert
                     show={this.state.show}
-                    title={emailVerified ? "Email validated!": "Something wrong happened"}
-                    html={emailVerified ?`Next stop, Moon! <br/> <a href='https://t.me/cryptonitast' target="_blank">Acesse a comunidade no Telegram </a>`: "Please, try again, or contact the mothership: contact@cryptonita.org"}
-                    onConfirm={() => { this.setState({ show: false }); history.push("/login") }}
-                    type={emailVerified? "success": "error"}
+                    title={emailVerified ? "Email validated!" : "Something wrong happened"}
+                    html={emailVerified ? `Next stop, Moon! <br/> <a href='https://t.me/cryptonitast' target="_blank">Acesse a comunidade no Telegram </a>` : "Please, try again, or contact the mothership: contact@cryptonita.org"}
+                    onConfirm={() => {
+                        fbq('track', 'CompleteRegistration');
+                        this.setState({ show: false });
+                        history.push("/login");
+                        
+                        
+                    }}
+                    type={emailVerified ? "success" : "error"}
                 />
             </div>
 

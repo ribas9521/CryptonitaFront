@@ -40,7 +40,7 @@ const Invoice = ({ investorResume, trader }) => {
                         </div>
                         <div className="col-xs-12">
                             <SocialItem
-                                value={format8Digits(copyResultAmountBTC * 0.4)}
+                                value={copyResultAmountBTC >0 ? format8Digits(copyResultAmountBTC * 0.4) : format8Digits(0)}
                                 label="To Pay (40 % of profit)"
                             />
                         </div>

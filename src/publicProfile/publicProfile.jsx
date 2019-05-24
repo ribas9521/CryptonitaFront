@@ -144,7 +144,7 @@ export class PublicProfile extends Component {
             />
     }
     render() {
-        const { publicProfile, setFollow, setUnfollow, userFollowing } = this.props
+        const { publicProfile, setFollow, setUnfollow, userFollowing, profileFetching } = this.props
         const { isFollowing } = publicProfile
         const { userId, baseCoin } = this.state
         const isOwner = this.isOwner(userId)
@@ -162,7 +162,8 @@ export class PublicProfile extends Component {
                     setFollow={setFollow}
                     setUnfollow={setUnfollow}
                     following={userFollowing !== 'initial' ? userFollowing : isFollowing}
-                    isTrader={isTrader} />
+                    isTrader={isTrader}
+                    profileFetching={profileFetching} />
 
                 <div className="profile-body">
                     {
@@ -190,6 +191,7 @@ const mapStateToProps = state => (
         followedTraderFetching: state.publicProfile.followedTraderFetching,
         traderResume: state.publicProfile.traderResume,
         traderResumeFetching: state.publicProfile.traderResumeFetching,
+        profileFetching: state.publicProfile.profileFetching,
 
 
     }

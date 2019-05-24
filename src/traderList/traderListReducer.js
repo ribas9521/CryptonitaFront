@@ -7,12 +7,15 @@ const INITIAL_STATE = {
     },
     userFollowing: 'initial',
     followingListError:'',
+    traderListFetching:false
  
 }
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'TRADERS_LIST_FETCHED':
             return { ...state, traderList: action.payload }
+        case 'TRADERS_LIST_FETCHING':
+            return { ...state, traderListFetching: action.payload }
         case 'INVESTORS_LIST_FETCHED':
             return { ...state, investorList: action.payload }
         case 'USER_FOLLOWING':

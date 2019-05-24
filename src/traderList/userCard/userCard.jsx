@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import './userCardStyle.css'
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import genericProfile from  '../../vendor/assets/img/generic-profile.png'
+import bgDanger from '../../vendor/assets/img/bg-danger.jpg'
+import bgInfo from '../../vendor/assets/img/bg-info.jpg'
+import bgPurple from '../../vendor/assets/img/bg-purple.jpg'
 
 
 export default class UserCard extends Component {
@@ -10,8 +13,15 @@ export default class UserCard extends Component {
         this.rotate = this.rotate.bind(this)
         this.gotoProfile = this.gotoProfile.bind(this)
     }
-    componentDidMount() {
-
+    getFollowers(followers){
+        if(followers === 0 ){
+            return '0'
+        } else if( followers  === 1){
+            return '$'
+        }else if(followers === 2){
+            return '$$'
+        }
+        else return '$$$'
     }
     rotate(btn) {
         var $card = $(btn).closest('.card-container');
@@ -25,6 +35,14 @@ export default class UserCard extends Component {
         const {history} = this.props
         history.push(`/publicProfile/${userId}`)
     }
+    getCover(){
+        const random = Math.random()
+        if(random <= 0.2)
+            return bgDanger
+        else if(random <= 0.7)
+            return bgInfo
+        else return bgPurple
+    }
 
     render() {
         const { trader, setFollow, setUnfollow, following } = this.props
@@ -33,7 +51,7 @@ export default class UserCard extends Component {
         const nameArray = trader.name.split(' ')
         trader.description = "teste"
         trader.data24h = [10, 29, 13, 35, 65]
-        trader.cover = 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350'
+        trader.cover = this.getCover()
         
         return (
             <div className="col-md-4 col-sm-12">
@@ -74,7 +92,7 @@ export default class UserCard extends Component {
                                 </div>
                                 <div className="bottom">
                                     <ul className="social-detail">
-                                        <li>{followers}<span>Followers</span></li>
+                                        <li>{this.getFollowers(followers)}<span>Followers</span></li>
                                         <li>{`${totalReturnBTCPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`}<span>Total Return</span></li>
                                         {/* <li>{`${0}`}<span>Total in BTC</span></li> */}
                                     </ul>

@@ -23,13 +23,13 @@ export default props => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group" >
-                                <Field data-tut="reactour_addAlias" id="alias" type="text" name="name" component="input" className="form-control" placeholder="Ex: Connection-1" />
+                                <Field autocomplete="testesasdasd" data-tut="reactour_addAlias" id="alias" type="text" name="name" component="input" className="form-control" placeholder="Ex: Connection-1" />
                             </div>
                             <div className="form-group">
-                                <Field data-tut="reactour_addApiKey" type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
+                                <Field autocomplete="new-password" data-tut="reactour_addApiKey" type="password" name="apiKey" component="input" className="form-control" placeholder="API KEY" />
                             </div>
                             <div className="form-group">
-                                <Field data-tut="reactour_addApiSecret" type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
+                                <Field autocomplete="new-password" data-tut="reactour_addApiSecret" type="password" name="secretKey" component="input" className="form-control" placeholder="API KEY SECRET" />
                             </div>
                         </div>
                         <div className="clearfix"></div>
