@@ -38,7 +38,7 @@ export function setFollow(values) {
                 .then(resp => {
                     toastr.success('Done', 'Following the master!')
                     dispatch([
-                        { type: 'USER_FOLLOWING', payload: true }
+                        { type: 'USER_FOLLOWING', payload: values.usernameId }
                        ])
                 })
                 .catch(e => {

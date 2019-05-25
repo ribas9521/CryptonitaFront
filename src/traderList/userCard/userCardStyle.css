@@ -54,3 +54,27 @@ back .card {
 .pointer-div {
     cursor: pointer;
 }
+/* .specialAvatar{
+    position: absolute!important;
+    top: 50px!important;
+    left: 75px!important;
+}
+.specialAvatar img{
+    width: 180px!important;
+} */
+
+.specialAvatar{
+    background-image: url('../../vendor/assets/img/empty.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 180px;
+    top: -143px!important;
+    /* bottom: 6px; */
+    margin-bottom: -148px !important;
+    margin-top: 40px !important;
+    height: 180px;
+    padding-bottom: -11px;
+}
+.king{
+    background-image: url('../../vendor/assets/img/king.png')!important;
+}

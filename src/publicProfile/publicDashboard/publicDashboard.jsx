@@ -44,14 +44,14 @@ export default class PublicDashboard extends Component {
                 trigger: 'item',
                 formatter: "{b} : {c} ({d}%)"
             },
-         
+
             color: [
-                "#FC3028", "#5423D9", "#32F0EB", "#26BFBF", 
-                "#FCB128", "#26BFBF", "#32F0EB",  "#FC3028", "#5423D9", 
+                "#FC3028", "#5423D9", "#32F0EB", "#26BFBF",
+                "#FCB128", "#26BFBF", "#32F0EB", "#FC3028", "#5423D9",
                 // "#8123FC", "#1EC2D9", "#6BF02D", "#DBA82E", "#FC2C23",
-             
+
             ],
-            
+
 
             series: [
                 {
@@ -172,15 +172,14 @@ export default class PublicDashboard extends Component {
         return (
             <div>
                 {
-                    !balanceFetching ?
-                        balance !== 'restrict' ?
-                            <div className="col-md-12 col-xs-12">
-                                <Indicators
-                                    balance={balance}
-                                    baseCoin={baseCoin}
-                                />
-                            </div> :
-                            null :
+                    balance !== 'restrict' ?
+                        <div className="col-md-12 col-xs-12">
+                            <Indicators
+                                balance={balance}
+                                baseCoin={baseCoin}
+                                fetching={balanceFetching}
+                            />
+                        </div> :
                         null
                 }
                 {/* {

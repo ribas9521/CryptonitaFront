@@ -46,7 +46,7 @@ const Invoice = ({ investorResume, trader }) => {
                         </div>
 
                     </div>:
-                    <h3>No active copies</h3>
+                    <h4>No active copies</h4>
             }
            
         </Card>

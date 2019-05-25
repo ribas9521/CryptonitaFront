@@ -1,23 +1,34 @@
 const INITIAL_STATE = {
-    balance: 'restrict',
+    balance: {
+       
+            totalAvailableBTC:0,
+            totalAlocatedBTC:0,
+            totalAmountBTC:0,
+            totalAvailableUSDT:0,
+            totalAlocatedUSDT:0,
+            totalAmountUSDT:0,
+        
+    
+
+    },
     balanceFetching: false,
     portfolio: {
         isPublic: false,
-        assets:[]
+        assets: []
     },
-    orderList:{
+    orderList: {
         isPublic: false,
         orderList: []
-    } ,
-    ordersFetching:false,
+    },
+    ordersFetching: false,
     balanceError: null,
     performanceInfo:
-        {   
-            title:'',
-            pairs:[]
-        },
-       
-    
+    {
+        title: '',
+        pairs: []
+    },
+
+
     performanceFetching: false,
     portfolioFetching: false
 
@@ -39,7 +50,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'BALANCE_ERROR':
             return { ...state, balanceError: action.payload }
         case 'PERFORMANCE_FETCHED':
-            return { ...state, performanceInfo: action.payload !== []? action.payload : INITIAL_STATE.performanceInfo }
+            return { ...state, performanceInfo: action.payload !== [] ? action.payload : INITIAL_STATE.performanceInfo }
         case 'PERFORMANCE_FETCHING':
             return { ...state, performanceFetching: action.payload }
         default:

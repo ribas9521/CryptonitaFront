@@ -8,11 +8,11 @@ export function getBalances(userId) {
     return dispatch => {
         const identity = loadState('identity')
         if (identity && parseInt(identity.username.usernameId) === userId) {
-            dispatch({ type: 'BALANCE_FETCHNG', payload: true })
+            dispatch({ type: 'BALANCE_FETCHING', payload: true })
             axios.get(`${consts.API_URL}/username/balances`, { headers: { session: identity.sessionId } })
                 .then(resp => {
                     dispatch([{ type: 'BALANCE_FETCHED', payload: resp.data.result },
-                    { type: 'BALANCE_FETCHNG', payload: false }
+                    { type: 'BALANCE_FETCHING', payload: false }
                     ])
                 })
                 .catch(e => {
@@ -26,7 +26,7 @@ export function getBalances(userId) {
                         ])
                     }
                 })
-                .finally(() => dispatch({ type: 'BALANCE_FETCHNG', payload: false }))
+                .finally(() => dispatch({ type: 'BALANCE_FETCHING', payload: false }))
         }
         else {
             dispatch([{ type: 'BALANCE_FETCHED', payload: "restrict" }])

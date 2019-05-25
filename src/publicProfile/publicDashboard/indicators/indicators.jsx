@@ -27,10 +27,11 @@ const getValueType = (balance, baseCoin, type) => {
 }
 
 export default props => {
-    const { balance, baseCoin } = props
+    const { balance, baseCoin, fetching } = props
     return (
         <div>
             <div className="col-md-4 col-sm-6 col-xs-12">
+
                 <Indicator
                     text="Available"
                     icon='fa fa-check'
@@ -39,6 +40,7 @@ export default props => {
                     type="info"
                     percentage={0}
                     currency={baseCoin}
+                    fetching={fetching}
                 />
             </div>
             <div className="col-md-4 col-sm-6 col-xs-12">
@@ -50,6 +52,7 @@ export default props => {
                     type="warning"
                     percentage={0}
                     currency={baseCoin}
+                    fetching={fetching}
                 />
             </div>
             <div className="col-md-4 col-sm-6 col-xs-12">
@@ -61,6 +64,7 @@ export default props => {
                     type={"success"}
                     percentage={0}
                     currency={baseCoin}
+                    fetching={fetching}
                 />
             </div>
 
