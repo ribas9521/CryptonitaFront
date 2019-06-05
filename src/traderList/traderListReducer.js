@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     },
     userFollowing: 'initial',
     followingListError:'',
-    traderListFetching:false
+    traderListFetching:false,
+    userFollowingError:false
  
 }
 export default (state = INITIAL_STATE, action) => {
@@ -20,6 +21,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, investorList: action.payload }
         case 'USER_FOLLOWING':
             return { ...state, userFollowing: action.payload }
+        case 'USER_FOLLOWING_ERROR':
+            return { ...state, userFollowingError: action.payload }
         default:
             return state
     }

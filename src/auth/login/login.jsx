@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import './loginStyle.css'
 import LoadingButton from '../../common/ui/buttons/loadingButton';
 import { loadState } from '../../common/helpers/localStorage'
+import Particles from '../../common/effects/particles';
 
 class Login extends Component {
     constructor(props) {
@@ -41,9 +42,11 @@ class Login extends Component {
         const { authError } = this.state
         return (
             <div>
+                <Particles />
 
 
                 <div className="col-md-6 col-md-offset-3">
+
                     <div className="login-panel panel panel-default">
                         <div className="panel-heading">
                             <h3 className="panel-title">Please Sign In</h3>

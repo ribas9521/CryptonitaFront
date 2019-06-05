@@ -8,6 +8,7 @@ import Loading from '../common/effects/loading/loading';
 export class TraderList extends Component {
     constructor(props) {
         super(props)
+        this.state = { followConfirmation: false }
     }
     componentDidMount() {
         const { getTraders } = this.props
@@ -16,13 +17,13 @@ export class TraderList extends Component {
     componentWillUnmount() {
         const { resetUserFollowing } = this.props
         resetUserFollowing()
-
     }
+  
     getSpecial(usernameId) {
         const { traderList } = this.props
         const { traders } = traderList
         let greater = 0
-        let resultTrader = 0 
+        let resultTrader = 0
         for (let trader of traders) {
             if (trader.totalReturnBTCPercent > greater) {
                 greater = trader.totalReturnBTCPercent
@@ -30,10 +31,11 @@ export class TraderList extends Component {
             }
 
         }
-        return(resultTrader === usernameId)
+        return (resultTrader === usernameId)
     }
     render() {
         const { traderList, setFollow, setUnfollow, history, userFollowing, traderListFetching } = this.props
+        const { toFollowId } = this.state
         const userCards = traderList.traders.sort((a, b) => b.totalReturnBTCPercent - a.totalReturnBTCPercent)
             .map((trader, i) => {
                 return (<Usercard
@@ -47,6 +49,7 @@ export class TraderList extends Component {
             })
         return (
             <div>
+               
                 {traderListFetching ? <Loading /> : userCards}
             </div>
         )

@@ -5,24 +5,23 @@ import genericProfile from '../../vendor/assets/img/generic-profile.png'
 import bgDanger from '../../vendor/assets/img/bg-danger.jpg'
 import bgInfo from '../../vendor/assets/img/bg-info.jpg'
 import bgPurple from '../../vendor/assets/img/bg-purple.jpg'
-import king from '../../vendor/assets/img/king.png'
-
 
 export default class UserCard extends Component {
     constructor(props) {
         super(props)
         this.rotate = this.rotate.bind(this)
         this.gotoProfile = this.gotoProfile.bind(this)
+        this.state = { followConfirmation: false }
     }
     getFollowers(followers) {
         if (followers === 0) {
-            return '0'
+            return '#'
         } else if (followers === 1) {
-            return '$'
+            return '#'
         } else if (followers === 2) {
-            return '$$'
+            return '##'
         }
-        else return '$$$'
+        else return '###'
     }
     rotate(btn) {
         var $card = $(btn).closest('.card-container');
@@ -45,6 +44,7 @@ export default class UserCard extends Component {
         else return bgPurple
     }
 
+
     render() {
         const { trader, setFollow, setUnfollow, following, special } = this.props
         const { usernameId, followers, totalReturnBTCPercent } = trader
@@ -55,15 +55,15 @@ export default class UserCard extends Component {
         trader.cover = this.getCover()
 
         return (
-            <div className="col-md-4 col-sm-12">
+            <div className="col-md-4 col-sm-12">                
                 <div className="card-container manual-flip">
                     <div className="card user-card">
                         <div className="front">
                             <div className="card simple-card user-simple-card">
-                                <div onClick={() => this.gotoProfile(usernameId)} className="cardheader pointer-div" style={{ "background": `url(${trader.cover})` }}>
+                                <div onClick={() => this.gotoProfile(usernameId)} className="cardheader pointer-div" style={{ "background": `url(${this.getCover()})` }}>
                                 </div>
-                                <div onClick={() => this.gotoProfile(usernameId)} className={`avatar pointer-div specialAvatar ${special? 'king':''}`}>                                   
-                                    <img className="specialAvatar" alt="" src={trader.picture} />                                   
+                                <div onClick={() => this.gotoProfile(usernameId)} className={`avatar pointer-div specialAvatar ${special ? 'king' : ''}`}>
+                                    <img className="specialAvatar" alt="" src={trader.picture} />
                                 </div>
 
                                 {/*                               
@@ -82,7 +82,7 @@ export default class UserCard extends Component {
                                             ${following ? 'btn-danger' : 'btn-success '}`}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            following ? setUnfollow() : setFollow({ usernameId })
+                                            following ? setUnfollow() : setFollow({usernameId})
                                         }}>
 
                                         {following ? 'Unfollow' : 'Follow'}

@@ -3,6 +3,7 @@ import consts from '../common/helpers/consts'
 import { loadState, saveState, removeState } from "../common/helpers/localStorage";
 import { toastr } from "react-redux-toastr";
 import { onlineCheck } from '../offlinePage/onlineCheck';
+import Swal from 'sweetalert2'
 
 
 export function getTraders(values) {
@@ -31,20 +32,52 @@ export function getTraders(values) {
 }
 
 export function setFollow(values) {
-    return dispatch => {
+    return (dispatch, getState) => {
         const identity = loadState('identity')
         if (identity) {
-            axios.post(`${consts.API_URL}/username/follow`, values, { headers: { session: identity.sessionId } })
-                .then(resp => {
-                    toastr.success('Done', 'Following the master!')
-                    dispatch([
-                        { type: 'USER_FOLLOWING', payload: values.usernameId }
-                       ])
+            Swal.fire({
+                type: 'warning',
+                title: 'Your are about to follow a trader',
+                text: 'All his new operations will be copied to you',
+                showCancelButton: true,
+                confirmButtonText: 'Follow',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+                        axios.post(`${consts.API_URL}/username/follow`, values, { headers: { session: identity.sessionId } })
+                            .then(resp => {
+                                dispatch([
+                                    { type: 'USER_FOLLOWING', payload: values.usernameId }
+                                ])
+                                resolve()
+                            })
+                            .catch(e => {
+                                toastr.error('Error', e.response.data.message)
+                                dispatch([{ type: 'USER_FOLLOWING_ERROR', payload: e.response.data.message },
+                                ])
+                                reject(e.response.data.message)
+                            })
+
+                    })
+                }
+
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        type: 'success',
+                        title: `Following the master`
+                    })
+
+                }
+            }).catch((e) => {
+                Swal.fire({
+                    type: 'danger',
+                    title: `Error`,
+                    text: e
                 })
-                .catch(e => {
-                    toastr.error('Error', e.response.data.message)
-                    dispatch({ type: 'USER_FOLLOWING_ERROR', payload: e.response.data.message })
-                })
+            })
+
         }
         else {
             toastr.warning("Please Register", "You must be authenticated")
@@ -54,25 +87,77 @@ export function setFollow(values) {
 }
 
 export function setUnfollow(values) {
-    return dispatch => {
+    return (dispatch, getState) => {
         const identity = loadState('identity')
         if (identity) {
-            axios.delete(`${consts.API_URL}/username/follow`, { headers: { session: identity.sessionId } })
-                .then(resp => {
-                    toastr.success('Done', 'Unfollowed')
-                    dispatch([
-                        { type: 'USER_FOLLOWING', payload: false }
-                        ])
+            Swal.fire({
+                type: 'warning',
+                title: 'Your are about to stop following the trader',
+                text: "You will not replicate his operations anymore, and your portfolio will keep the same",
+                showCancelButton: true,
+                confirmButtonText: 'Stop Following',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+                        axios.delete(`${consts.API_URL}/username/follow`, { headers: { session: identity.sessionId } })
+                            .then(resp => {
+                                toastr.success('Done', 'Unfollowed')
+                                dispatch([
+                                    { type: 'USER_FOLLOWING', payload: false }
+                                ])
+                                resolve()
+                            })
+                            .catch(e => {
+                                toastr.error('Done', e.response.data.message)
+                                dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: e.response.data.message })
+                                reject(e.response.data.message)
+                            })
+                    })
+                }
+
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        type: 'success',
+                        title: `Unfollowed`,
+                        text: "Take care it's dangerous to go alone"
+                    })
+
+                }
+            }).catch((e) => {
+                Swal.fire({
+                    type: 'danger',
+                    title: `Error`,
+                    text: e
                 })
-                .catch(e => {
-                    toastr.error('Done', e.response.data.message)
-                    dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: e.response.data.message })
-                })
+            })
+
         }
         else {
-            dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: 'invalid identity' })
+            toastr.warning("Please Register", "You must be authenticated")
+            dispatch({ type: 'USER_FOLLOWING_ERROR', payload: 'invalid identity' })
         }
     }
+    // return dispatch => {
+    //     const identity = loadState('identity')
+    //     if (identity) {
+    //         axios.delete(`${consts.API_URL}/username/follow`, { headers: { session: identity.sessionId } })
+    //             .then(resp => {
+    //                 toastr.success('Done', 'Unfollowed')
+    //                 dispatch([
+    //                     { type: 'USER_FOLLOWING', payload: false }
+    //                 ])
+    //             })
+    //             .catch(e => {
+    //                 toastr.error('Done', e.response.data.message)
+    //                 dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: e.response.data.message })
+    //             })
+    //     }
+    //     else {
+    //         dispatch({ type: 'USER_UNFOLLOWING_ERROR', payload: 'invalid identity' })
+    //     }
+    // }
 }
 
 
@@ -96,7 +181,7 @@ export function getInvestors() {
     }
 }
 
-export function resetUserFollowing(){
+export function resetUserFollowing() {
     return dispatch => {
         dispatch({ type: 'USER_FOLLOWING', payload: 'initial' })
     }

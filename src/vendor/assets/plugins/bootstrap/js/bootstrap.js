@@ -616,7 +616,7 @@ if (typeof jQuery === 'undefined') {
     var complete = function () {
       this.$element
         .removeClass('collapsing')
-        .addClass('collapse in')[dimension]('')
+        //.addClass('collapse in')[dimension]('')
       this.transitioning = 0
       this.$element
         .trigger('shown.bs.collapse')
@@ -644,7 +644,7 @@ if (typeof jQuery === 'undefined') {
 
     this.$element
       .addClass('collapsing')
-      .removeClass('collapse in')
+      //.removeClass('collapse in')
       .attr('aria-expanded', false)
 
     this.$trigger

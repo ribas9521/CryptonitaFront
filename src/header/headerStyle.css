@@ -8,3 +8,7 @@
     border-left: 3px solid #0fb76b !important;
     color: #0fb76b !important;
 }
+
+.notLoaded{
+    display: none;
+}

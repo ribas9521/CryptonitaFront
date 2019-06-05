@@ -7,11 +7,17 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import PerfilHeader from './perfilHeader/perfilHeader'
-import {loadState} from '../common/helpers/localStorage'
+import { loadState } from '../common/helpers/localStorage'
 import { withRouter } from "react-router-dom";
 
 
 class Header extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            notLoaded: true
+        }
+    }
     componentDidMount() {
         //$('#side-menu').metisMenu();
         this.handleLogout = this.handleLogout.bind(this)
@@ -22,9 +28,9 @@ class Header extends Component {
         const { logout } = this.props
         logout();
         this.props.history.push('/')
-      
+
     }
-    handleGoToProfile(e){
+    handleGoToProfile(e) {
         e.preventDefault()
         const history = createHistory()
         const route = this.getUserId() !== 0 ? `/publicProfile/${this.getUserId()}` : "/login"
@@ -33,17 +39,17 @@ class Header extends Component {
     }
     componentWillMount() {
         const { userAuthenticated, login } = this.props
-        !userAuthenticated || userAuthenticated ==='initial' ? login() : null
+        !userAuthenticated || userAuthenticated === 'initial' ? login() : null
     }
-    handleActive(path){       
+    handleActive(path) {
         if ((createHistory().location.pathname).includes(path))
             return 'tab-active'
         return ''
-        
+
     }
-    getUserId(){
+    getUserId() {
         const id = loadState("identity")
-        if(id)
+        if (id)
             return loadState("identity").username.usernameId
         else
             return 0
@@ -51,15 +57,16 @@ class Header extends Component {
     render() {
         const userId = this.getUserId();
         const { userAuthenticated, logout, identity } = this.props
-        const initialIdentity= {
-            username:{
+        const { notLoaded } = this.state
+        const initialIdentity = {
+            username: {
                 name: ''
             }
         }
         return (
             <nav className="navbar navbar-default navbar-static-top" style={{ "marginBottom": "0" }}>
                 <div className="navbar-header">
-                    <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button"  onClick={()=> notLoaded  && this.setState({notLoaded:false})} className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span className="sr-only">Toggle navigation</span>
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
@@ -82,16 +89,16 @@ class Header extends Component {
 
                 </ul>
                 <div className="navbar-default sidebar" role="navigation">
-                    <div className="sidebar-nav navbar-collapse">
+                    <div className={`sidebar-nav navbar-collapse ${notLoaded ? 'notLoaded' : ''}`} >
                         <ul className="nav" id="side-menu">
-                            <li> 
-                                <a onClick={(e)=>this.handleGoToProfile(e)} href="#" className={this.handleActive('/publicProfile')}><i className="fa fa-bullseye"></i>Dashboard</a>
+                            <li>
+                                <a onClick={(e) => this.handleGoToProfile(e)} href="#" className={this.handleActive('/publicProfile')}><i className="fa fa-bullseye"></i>Dashboard</a>
 
                             </li>
-                            
+
                             <li >
-                                <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-user"></i>Traders List </Link>                               
-                                
+                                <Link to="/traderList" className={this.handleActive('/traderList')}><i className="fa fa-user"></i>Traders List </Link>
+
                             </li>
                             {/* <li>
                                 <Link to="/investorList" className={this.handleActive('/investorList')}><i className="fa fa-user-o"></i>User List </Link>                               
