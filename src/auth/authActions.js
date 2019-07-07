@@ -20,6 +20,7 @@ function handleFirstTime() {
 }
 
 export function login(values) {
+    console.log(`${consts.API_URL}/username/auth`)
     return dispatch => {
         const identity = loadState('identity')
         if (identity) {

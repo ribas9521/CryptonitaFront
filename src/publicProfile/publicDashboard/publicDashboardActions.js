@@ -9,7 +9,7 @@ export function getBalances(userId) {
         const identity = loadState('identity')
         if (identity && parseInt(identity.username.usernameId) === userId) {
             dispatch({ type: 'BALANCE_FETCHING', payload: true })
-            axios.get(`${consts.API_URL}/username/balances`, { headers: { session: identity.sessionId } })
+            axios.get(`${consts.API_URL}/dashboard/balances`, { headers: { session: identity.sessionId } })
                 .then(resp => {
                     dispatch([{ type: 'BALANCE_FETCHED', payload: resp.data.result },
                     { type: 'BALANCE_FETCHING', payload: false }
@@ -38,7 +38,7 @@ export function getPortfolio(userId) {
     return dispatch => {
         const identity = loadState('identity')
         dispatch({ type: 'PORTFOLIO_FETCHING', payload: true })
-        axios.get(`${consts.API_URL}/username/portfolio/${userId}`,
+        axios.get(`${consts.API_URL}/dashboard/portfolio/${userId}`,
             { headers: { session: identity ? identity.sessionId : null } })
 
             .then(resp => {

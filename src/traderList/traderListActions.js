@@ -10,7 +10,7 @@ export function getTraders(values) {
     return dispatch => {
         const identity = loadState('identity')
         dispatch({ type: 'TRADERS_LIST_FETCHING', payload: true })
-        axios.get(`${consts.API_URL}/username/trader-list`, identity && { headers: { session: identity.sessionId } })
+        axios.get(`${consts.API_URL}/social/trader-list`, identity && { headers: { session: identity.sessionId } })
             .then(resp => {
                 dispatch([{ type: 'TRADERS_LIST_FETCHED', payload: resp.data.result }])
                 dispatch({ type: 'TRADERS_LIST_FETCHING', payload: false })
@@ -45,7 +45,7 @@ export function setFollow(values) {
                 allowOutsideClick: () => !Swal.isLoading(),
                 preConfirm: () => {
                     return new Promise((resolve, reject) => {
-                        axios.post(`${consts.API_URL}/username/follow`, values, { headers: { session: identity.sessionId } })
+                        axios.post(`${consts.API_URL}/social/follow`, values, { headers: { session: identity.sessionId } })
                             .then(resp => {
                                 dispatch([
                                     { type: 'USER_FOLLOWING', payload: values.usernameId }
@@ -100,7 +100,7 @@ export function setUnfollow(values) {
                 allowOutsideClick: () => !Swal.isLoading(),
                 preConfirm: () => {
                     return new Promise((resolve, reject) => {
-                        axios.delete(`${consts.API_URL}/username/follow`, { headers: { session: identity.sessionId } })
+                        axios.delete(`${consts.API_URL}/social/follow`, { headers: { session: identity.sessionId } })
                             .then(resp => {
                                 toastr.success('Done', 'Unfollowed')
                                 dispatch([
