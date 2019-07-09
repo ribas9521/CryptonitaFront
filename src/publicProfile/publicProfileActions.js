@@ -17,9 +17,9 @@ export function getPublicProfile(userId) {
           { type: "PUBLIC_PROFILE_FETCHED", payload: resp.data.result },
           { type: "PUBLIC_PROFILE_FETCHING", payload: false }
         ]);
-        if (identity && identity.usernameId === userId) {
+        if (identity && identity.username.usernameId === userId) {
           if (!resp.data.result.isTrader) {
-            dispatch(getInvestorResume());
+            //dispatch(getInvestorResume());
           } else {
             dispatch(getTraderResume());
           }
@@ -99,7 +99,7 @@ export function getTraderResume() {
     dispatch({ type: "TRADER_RESUME_FETCHING", payload: true });
     const identity = loadState("identity");
     axios
-      .get(`${consts.API_URL}/username/trader-resume/`, {
+      .get(`${consts.API_URL}/social/trader-resume/`, {
         headers: { session: identity ? identity.sessionId : null }
       })
       .then(resp => {

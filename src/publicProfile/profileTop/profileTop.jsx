@@ -8,7 +8,7 @@ import ProfileTopLoader from '../../common/ui/loaders/profileTopLoader';
 
 export default props => {
     const { handleScreen, profile, isOwner, setFollow, setUnfollow, following, userId, onSwitch, baseCoin, isTrader, profileFetching } = props
-    const { name, totalProfitBTCPercent } = profile
+    const { name, totalProfitBTCPercent, profitBTC7D } = profile
     return (
         <div className="mail-box">
             <aside className="sm-side">
@@ -21,6 +21,7 @@ export default props => {
                                         <ProfileTopAvatart
                                             name={name}
                                             totalProfitBTCPercent={totalProfitBTCPercent}
+                                            profitBTC7D={profitBTC7D}
                                             isOwner={isOwner}
                                         //lastDayProfit={lastDayProfit}
                                         />

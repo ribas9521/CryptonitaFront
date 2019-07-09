@@ -67,7 +67,7 @@ export default class ProfileTopAvatar extends Component {
     }
 
     render() {
-        const { name, totalProfitBTCPercent, isOwner } = this.props
+        const { name, totalProfitBTCPercent, isOwner, profitBTC7D } = this.props
         const { editMode, image, scale } = this.state
         return (
             <div className="user-head public-profile">
@@ -120,7 +120,7 @@ export default class ProfileTopAvatar extends Component {
                         <div className="bottom">
                             <ul className="social-detail">
                                 <li className="return">{totalProfitBTCPercent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"}<span>Total Return</span></li>
-                                {/* <li className="day-return">{lastDayProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"}<span>This Cycle</span></li> */}
+                                <li className="day-return">{profitBTC7D.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"}<span>7 Days</span></li>
                             </ul>
                         </div>
                     </div>
