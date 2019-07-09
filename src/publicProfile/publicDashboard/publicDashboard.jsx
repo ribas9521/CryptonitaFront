@@ -36,7 +36,7 @@ export default class PublicDashboard extends Component {
         const { portfolio } = this.props
         const { assets, isPublic } = portfolio
         const data = assets.map(coin => ({
-            value: isPublic ? coin.percent : coin.balanceInBTC,
+            value: isPublic ? coin.percent : coin.balanceInBtc,
             name: coin.asset
         }))
         return ({
@@ -84,7 +84,7 @@ export default class PublicDashboard extends Component {
     getPortfolioList() {
         const { portfolio } = this.props
         const { assets, isPublic } = portfolio
-        const total = assets.reduce((a, b) => a + b.balanceInBTC, 0)
+        const total = assets.reduce((a, b) => a + b.balanceInBtc, 0)
         return (<div className="portfolioList"> {portfolio.assets.map((p, i) =>
             <a key={i} className="todo todo-default" href="javascript:void(0)">
                 <div key={`coin-${i}`} className="sm-avater list-avater">
@@ -97,7 +97,7 @@ export default class PublicDashboard extends Component {
 
                 {
                     !isPublic ?
-                        <h5 className="ct-title">{format8Digits(p.balanceInBTC)}
+                        <h5 className="ct-title">{format8Digits(p.balanceInBtc)}
                             <span className="ct-designation">
                                 in BTC
                     </span>

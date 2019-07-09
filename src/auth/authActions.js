@@ -2,7 +2,6 @@ import axios from 'axios'
 import consts from '../common/helpers/consts'
 import { loadState, saveState, removeState, setFirstTime, isFirstTime } from "../common/helpers/localStorage";
 import { toastr } from "react-redux-toastr";
-import history from '../common/helpers/history';
 import { onlineCheck } from '../offlinePage/onlineCheck';
 
 function handleFirstTime() {
@@ -20,7 +19,6 @@ function handleFirstTime() {
 }
 
 export function login(values) {
-    console.log(`${consts.API_URL}/username/auth`)
     return dispatch => {
         const identity = loadState('identity')
         if (identity) {
